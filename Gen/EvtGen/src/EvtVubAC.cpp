@@ -413,7 +413,7 @@ int k = 0;
 int JMAX = 20;
 int KMAX = 6282;
 
- if (x1 < 0.04 | x1 > 1.0 | x2 > 0.9981306360766614) {
+ if ((x1 < 0.04) | (x1 > 1.0) | (x2 > 0.9981306360766614)) {
 
         cout<<"Input variables are not in range"<<endl;
         return 0;
