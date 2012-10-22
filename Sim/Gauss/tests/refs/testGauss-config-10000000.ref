@@ -1340,7 +1340,8 @@ Geo                       DEBUG Property ['Name': Value] =  'AuditAlgorithms':Tr
 Geo                       DEBUG Property ['Name': Value] =  'ErrorCount':0
 Geo                       DEBUG Property ['Name': Value] =  'ErrorMax':1
 Geo                       DEBUG Property ['Name': Value] =  'Enable':True
-Geo                       DEBUG Property ['Name': Value] =  'OutputLevel':2MainEventSeq              DEBUG Property update for OutputLevel : new value = 2
+Geo                       DEBUG Property ['Name': Value] =  'OutputLevel':2
+MainEventSeq              DEBUG Property update for OutputLevel : new value = 2
 MainEventSeq              DEBUG Property update for OutputLevel : new value = 2
 MainEventSeq              DEBUG Initialize base class GaudiCommon<Algorithm>
 MainEventSeq              DEBUG could not locate CounterSummarySvc, no counter summary will be made
