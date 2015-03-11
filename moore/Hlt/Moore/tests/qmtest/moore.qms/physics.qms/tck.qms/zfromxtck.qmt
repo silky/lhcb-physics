@@ -1,0 +1,52 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: Test if running Moore from a TCK gives the same result as running from that threshold setting.
+# Prerequisites: 
+# Common failure modes, severities and cures: 
+#               . SEVERE: Segfault or raised exception, stderr, nonzero return code
+#               . MAJOR: additional FATAL/ERROR messages always a major problem. no ERROR messages should ever be printed when running this test.
+#               . MINOR: additional WARNING messages, it is unclear how severe these may be, you will need to hunt down the cause and either fix the problem or suppress the warning.
+#               . MAJOR: Timing table differences in running from TCK compared with from the threshold setting.
+#               . EXPECTED: right now there *are* small differences running form a TCK versus form the same threshold setting! That's bad, of course!
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout">
+    <integer>1200</integer>
+  </argument>
+  <argument name="args"><set>
+    <text>../options/Moore_Hlt1And2.py</text>
+    <text>../options/Input_Default.py</text>
+    <text>../options/default-threshold.py</text>
+    <text>../options/Moore-LocalTCKData.py</text>
+    <text>--option</text>
+    <text>from Configurables import Moore; Moore().RemoveInputHltRawBanks = True; Moore().UseTCK=True; Moore().InitialTCK='0x00ef0046';  Moore().CheckOdin=False; Moore().EnableTimer="tck.hlt1and2.csv"; from Configurables import EventSelector; EventSelector().PrintFreq=100;</text>
+  </set></argument>
+  <argument name="validator"><text>
+myname='moore.physics.tck.zfromxtck'
+
+
+if len(stdout.split('\n'))&gt;59:
+    causes.append('stdout is too long, aiming for less than 60 lines')
+    result['moore.physics.tck.zfromxtck.lines']=result.Quote('Expected less than 40 lines, got '+ str(len(stdout.split('\n'))))
+
+if len(stdout)&gt;7000:
+    causes.append('stdout is too long, aiming for less than 7k characters')
+    result['moore.physics.tck.zfromxtck.chars']=result.Quote('Expected less than 16k characters, got '+ str(len(stdout)))
+
+from Moore.QMTest.MooreTests import compareTimingTableFiles
+
+compareTimingTableFiles(myname,result,causes,"tck.hlt1and2.csv","physics.2012.csv","Hlt",extranewref=".tck")
+
+
+#count error lines, shouldn't be any warnings or errors, ideally
+countErrorLines({"FATAL":0,"ERROR":0,"WARNING":0})
+
+</text></argument>
+</extension>
+

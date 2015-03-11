@@ -1,0 +1,44 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: Run a TCK with the split=Hlt2 flag enabled
+# Prerequisites: The TCK from 100 events needs to have been generated, a local file with Hlt1 output needs to have been stored, bothh by earlier tests.
+# Common failure modes, severities and cures: 
+#               . SEVERE: Segfault or raised exception, stderr, nonzero return code
+#               . MAJOR: additional FATAL/ERROR messages always a major problem. no ERROR messages should ever be printed when running this test.
+#               . MINOR: additional WARNING messages, it is unclear how severe these may be, you will need to hunt down the cause and either fix the problem or suppress the warning.
+#               . MINOR: this test also checks against the timing table when running from a threshold setting to verify the same Hlt2 selections fire, if this is not the case, it is a problem.
+#               . EXPECTED: Right now there *are* differences running Hlt2 on Hlt1 output, as opposed to running it in the same job. These should be hunted down....
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout">
+    <integer>1200</integer>
+  </argument>
+  <argument name="args"><set>
+    <text>../options/Moore_Hlt1And2.py</text>
+    <text>../options/Moore_Hlt2Only.py</text>
+    <text>../options/Moore-LocalTCKData.py</text>
+    <text>--option</text>
+    <text>from Configurables import Moore; Moore().UseTCK=True; Moore().InitialTCK='0x00e20046';  Moore().CheckOdin=False; from GaudiConf import IOHelper; IOHelper().inputFiles([],clear=True); Moore().inputFiles = [ 'hlt1_reqhlt1_tck.raw' ]; Moore().outputFile = "hlt2_splitTCK.raw"; Moore().EnableTimer="tck.deferral.hlt2after1.csv"; </text>
+  </set></argument>
+  <argument name="unsupported_platforms"><set><text>win.*</text></set></argument>
+  <argument name="validator"><text>
+#print "YES"
+#reftable
+myname='moore.physics.tck.tdeferral.runsplithlt2'
+
+from Moore.QMTest.MooreTests import compareTimingTableFiles
+
+compareTimingTableFiles(myname,result,causes,"tck.deferral.hlt2after1.csv","physics.2012.csv","Hlt2",extranewref=".tck")
+
+#count error lines, shouldn't be any warnings or errors, ideally
+countErrorLines({"FATAL":0,"ERROR":0,"WARNING":0})
+
+</text></argument>
+</extension>
+

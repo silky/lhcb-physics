@@ -1,0 +1,26 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout">
+    <integer>1200</integer>
+  </argument>
+  <argument name="args"><set>
+    <text>--option</text>
+    <text>from Gaudi.Configuration import *; from Configurables import ApplicationMgr, HltTrackReportsDecoder, DumpTracks; ApplicationMgr().TopAlg=[HltTrackReportsDecoder('TrackreportsDecoder',OutputLevel=4)];from GaudiConf import IOExtension; IOExtension().inputFiles(['hlt1_reqhlt1_track.raw']); from Configurables import LHCbApp; LHCbApp();</text>
+  </set></argument>
+  <argument name="unsupported_platforms"><set><text>win.*</text></set></argument>
+  <argument name="prerequisites"><set>
+    <tuple><text>moore.physics.tracking.hlt1trackingonly</text><enumeral>PASS</enumeral></tuple>
+  </set></argument>-->
+  <argument name="validator"><text>
+block="""
+TrackreportsDec...SUCCESS Number of counters : 3
+ |    Counter                                      |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |
+ | "Hlt/Track/ForwardHPT"                          |       208 |       4060 |     19.519 |     10.891 |      3.0000 |      124.00 |
+ | "Hlt/Track/Velo"                                |       208 |      26660 |     128.17 |     64.102 |      27.000 |      641.00 |
+ | "Hlt/Track/VeloTTHPT"                           |       208 |      12477 |     59.986 |     32.148 |      10.000 |      350.00 |
+"""
+findReferenceBlock(block, signature_offset = 0)
+</text></argument>
+</extension>
+

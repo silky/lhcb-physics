@@ -1,0 +1,44 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: Check I can run HLT1 split from a TCK
+# Prerequisites: the physics.2012 test needs to have completed first.
+# Common failure modes, severities and cures: 
+#               . SEVERE: Segfault or raised exception, stderr, nonzero return code
+#               . MAJOR: additional FATAL/ERROR messages always a major problem. no ERROR messages should ever be printed when running this test.
+#               . MAJOR: also compares the result against a timing table of running both Hlt1 and 2, and the results for Hlt1 independent better be identical!
+#               . MINOR: additional WARNING messages, it is unclear how severe these may be, you will need to hunt down the cause and either fix the problem or suppress the warning.
+#               . TRIVIAL: sometimes the timing table can show a failure due to the odd event which exceeds a timing cutoff in the nightlies running on an overloaded machine.
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout">
+    <integer>1200</integer>
+  </argument>
+  <argument name="args"><set>
+    <text>../options/Moore_Hlt1And2.py</text>
+    <text>../options/default-threshold.py</text>
+    <text>../options/Moore-LocalTCKData.py</text>
+    <text>../options/Input_Default.py</text>
+    <text>../options/Moore_Hlt1Only.py</text>
+    <text>--option</text>
+    <text>from Configurables import Moore; Moore().RemoveInputHltRawBanks = True; Moore().UseTCK=True; Moore().InitialTCK='0x00e10046';  Moore().CheckOdin=False; Moore().outputFile = 'hlt1_reqhlt1_tck.raw'; Moore().EnableTimer="tck.deferral.hlt1only.csv";</text>
+  </set></argument>
+  <argument name="validator"><text>
+myname='moore.physics.tck.tdeferral.runsplithlt1'
+
+from Moore.QMTest.MooreTests import compareTimingTableFiles
+
+compareTimingTableFiles(myname,result,causes,"tck.deferral.hlt1only.csv","physics.2012.csv","Hlt1",extranewref=".tck")
+
+
+#count error lines, shouldn't be any warnings or errors, ideally
+countErrorLines({"FATAL":0,"ERROR":0,"WARNING":0})
+
+</text></argument>
+</extension>
+

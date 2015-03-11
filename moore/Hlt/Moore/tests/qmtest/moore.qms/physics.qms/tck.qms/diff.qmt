@@ -1,0 +1,32 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: Diff TCKs generated with zero, one and 100 events.
+# Prerequisites: Those TCKs are generated earlier in this suite.
+# Common failure modes, severities and cures: 
+#               . EXPECTED: Right now there *are* differences in TCKs generated from one versus 100 events, and so the test fails, but we need to find these and remove them, with tasks like: https://savannah.cern.ch/task/?50383
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>python</text></argument>
+  <argument name="args"><set>
+    <text>../options/tckcheck.py</text>
+  </set></argument>
+  <argument name="unsupported_platforms"><set><text>win.*</text></set></argument>
+  <argument name="prerequisites"><set>
+    <tuple><text>moore.physics.tck.zeroevents</text><enumeral>PASS</enumeral></tuple>
+    <tuple><text>moore.physics.tck.oneevent</text><enumeral>PASS</enumeral></tuple>
+    <tuple><text>moore.physics.tck.hundredevents</text><enumeral>PASS</enumeral></tuple>
+  </set></argument>
+  <argument name="validator"><text>
+
+if len(stdout.split())>8:
+    causes.append('differences found')
+    result['moore.physics.tck.diffs']=result.Quote('check stdout for differences')
+
+</text></argument>
+</extension>
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: Run HLT2 stand alone and independentlyusing Gerhard's sledehammer and compare it to a reference timing table
+# Prerequisites: 
+# Common failure modes, severities and cures: 
+#               . SEVERE: Segfault or raised exception, stderr, nonzero return code
+#               . MAJOR: additional FATAL/ERROR messages always a major problem. no ERROR messages should ever be printed when running this test.
+#               . MINOR: additional WARNING messages, it is unclear how severe these may be, you will need to hunt down the cause and either fix the problem or suppress the warning.
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout">
+    <integer>1200</integer>
+  </argument>
+  <argument name="args"><set>
+    <text>../options/Moore_Hlt1And2.py</text>
+    <text>../options/Input_Default.py</text>
+    <text>../options/Moore_NoTosDeferral.py</text>
+    <text>../options/default-hlt2-threshold.py</text>
+    <text>../options/Moore_Hlt2Only.py</text>
+    <text>--option</text>
+    <text>from Configurables import Moore; Moore().EnableTimer="deferral.hlt2only.csv"; from Configurables import HltConf ; HltConf().PruneHltANNSvc = False</text>
+  </set></argument>
+  <argument name="unsupported_platforms"><set><text>win.*</text></set></argument>
+  <argument name="validator"><text>
+myname='moore.physics.deferral.hlt2only'
+
+from Moore.QMTest.MooreTests import compareTimingTableFiles
+
+compareTimingTableFiles(myname,result,causes,"deferral.hlt2only.csv","../refs/deferral.hlt2only.csv","Hlt2")
+
+#count error lines, shouldn't be any warnings or errors, ideally
+countErrorLines({"FATAL":0,"ERROR":0,"WARNING":21})
+findReferenceBlock("""
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter::  RoutingBits RawBanks: requested to update bank, but non-zero third entry
+Hlt2RoutingBitsWriter                   WARNING HltRoutingBitsWriter:: The WARNING message is suppressed : ' RoutingBits RawBanks: requested to update bank, but non-zero third entry'
+""", id = "OverwriteRoutingBits" )
+
+</text></argument>
+</extension>
+
