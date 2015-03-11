@@ -1,0 +1,91 @@
+#!/bin/csh
+###########################################################
+#   Initialize LSF queue parameters
+#
+# "-q" gives the queue (1nh by default)
+# "-c" gives the CPU time in minutes
+#
+# -q 8nm  = about 30 min HP735     express
+# -q 1nh           3 hours         short
+# -q 8nh           1 day           medium
+# -q 1nd           3 days          long
+# -q 1nw          10 days HP K260  verylong
+#
+#
+#  define the job name
+#BSUB -J brunel
+#  define the queue
+#BSUB -q 8nh
+#
+###########################################################
+#
+# in BATCH, output files are written in the BATCH machine
+# and copied at the end to your $MYWORKDIR output directory
+# in INTERACTIVE output files are written to the current directory
+#
+
+if ($#argv == 0 ) then
+  echo "\nUsage: valgrind.job <options>"
+  echo " where:"
+  echo "  <options> (mandatory) is path of options file(s)"
+  exit 0
+endif
+
+set nar = $#argv
+set options = ""
+set i = 0
+while ($i < $nar)
+  @ i = ${i} + 1
+  set options = ( $options  " "  $argv[${i}] )
+  echo ${options}  
+end
+
+set Bversion = "v47r5"
+echo "Executing valgrind for Brunel $Bversion using options $options"
+
+# If not set (interactive and CAF), set WORKDIR to submission directory
+if !($?WORKDIR) then
+  set WORKDIR = $PWD
+endif
+
+if ($?LS_SUBCWD) then 
+# in BATCH, location of options has to be given explicitly
+  setenv MYJOBROOT ~/cmtuser/Brunel_$Bversion/Rec/Brunel
+else
+# in interactive, executable is under same root directory as this command file
+  cd `dirname $0` 
+  cd ..
+  set MYJOBROOT = $PWD
+endif
+
+# == set the program environment
+SetupProject Brunel $Bversion valgrind
+
+# Go to working directory
+cd $WORKDIR
+
+# Copy options locally if not already there (usually needed for batch)
+if !(-d ../options) then
+  mkdir job
+  mkdir options
+  cp $MYJOBROOT/options/*.* options
+  cd job
+endif
+
+set SuppFile = "$MYJOBROOT/job/Brunel.supp"
+
+# Create top level options and force 5 events
+echo "from Brunel.Configuration import *" >&! valgrind-opts.py
+echo "Brunel().EvtMax=5" >> valgrind-opts.py
+
+# == run the excutable ================================
+gaudirun.py --profilerName=valgrindmemcheck --profilerExtraOptions="-v __leak-check=yes __num-callers=40 __suppressions=$ROOTSYS/etc/valgrind-root.supp __suppressions=$STDOPTS/valgrind-python.supp __suppressions=$STDOPTS/Gaudi.supp __suppressions=$SuppFile" valgrind-opts.py $options >&! memcheck.log
+
+# == job is finished: remove temporary files ==========
+rm valgrind-opts.py
+if ($?LS_SUBCWD) then
+# if in batch copy output files to user directories
+  ls *.* >! RETURN
+endif
+
+exit 0

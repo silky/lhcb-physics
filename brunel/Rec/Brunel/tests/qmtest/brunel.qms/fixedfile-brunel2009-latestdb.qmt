@@ -1,0 +1,35 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: Standard test in many applications, check for continued backwards-compatibility of processing a given file
+# Prerequisites: None
+# Common failure modes, severities and cures: 
+#               . SEVERE: Segfault or raised exception
+#               . MAJOR: additional FATAL/ERROR messages always a major problem. no ERROR messages should ever be printed when running this test. This would indicate a loss of backward-compatibility.
+#               . MINOR: additional WARNING messages, sometimes extra warning messages when performing out-of-date/obsoleted tasks can be tolerated.
+#               . EXPECTED: Small changes in output are expected and tolerated. Backwards compatibile does not imply the *same exact thing* is done with the exact smae result, just that something sensible is done. Sometimes the database tags can become problematic for these tests, when not-strictly-backward-compatible updates in the code require similar updates in the database. Ideally these should be protected by DataType, but they are not always.
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout"><integer>1200</integer></argument>
+  <argument name="args"><set>
+    <text>$BRUNELROOT/tests/options/testBrunel-defaults.py</text>
+    <text>$BRUNELOPTS/2009-Collisions.py</text>
+    <text>$BRUNELROOT/tests/options/db-latest-2009.py</text>
+    <text>--option</text>
+    <text>from Configurables import (OutputStream, Brunel); Brunel().EvtMax=100; OutputStream("DstWriter").Output = "DATAFILE='PFN:Brunel-2009-fixed.dst' TYP='POOL_ROOTTREE' OPT='REC'";</text>
+  </set></argument>
+  <argument name="timeout"><integer>3000</integer></argument>
+  <argument name="use_temp_dir"><enumeral>true</enumeral></argument>
+  <argument name="validator"><text>
+from Brunel.QMTest.BrunelExclusions import preprocessor
+#validateWithReference(preproc = preprocessor)
+countErrorLines({"FATAL":0, "WARNING":0, "ERROR":2})
+#"IODataManager       ERROR You may not be able to navigate back to the input file -- processing continues"
+#"IODataManager       ERROR Referring to existing dataset root:/castor/cern.ch/grid/lhcb/data/2009/RAW/FULL/LHCb/COLLISION09/63497/063497_0000000001.raw by its physical name"
+</text></argument>
+</extension>

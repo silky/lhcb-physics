@@ -1,0 +1,37 @@
+##----------------------------------------------------------------------##
+
+# Error suppression file Brunel v25r2, gcc 3.2.3, valgrind 2.0.0
+
+# Format of this file is:
+# {
+#     name_of_suppression
+#     kind: one of Param Value1 Value2 Value4 Value8
+#                   Free Addr1 Addr2 Addr4 Addr8
+#                   Cond (previously known as Value0)
+#     (if Param: name of system call param, if Free: name of free-ing fn)
+#     caller0 name, or /name/of/so/file.so
+#     caller1 name, or ditto
+#     (optionally: caller2 name)
+#     (optionally: caller3 name) - according to doc. But valgrind dies...
+# }
+
+# All Gaudi and external package errors have been moved to $STDOPTS/Gaudi.supp
+
+# POOL_1_7_0
+{
+  POOL bug 3171
+  Memcheck:Leak
+  fun:__builtin_vec_new
+  fun:_Znwj
+  fun:_ZN11xercesc_2_317MemoryManagerImpl8allocateEj
+  fun:_ZN11xercesc_2_322UnixHTTPURLInputStreamC1ERKNS_6XMLURLE
+}
+
+{
+  POOL RootStorageSvc MF20041217
+  Memcheck:Leak
+  fun:__builtin_vec_new
+  fun:_Znaj
+  fun:_ZN13TStreamerInfo7CompileEv
+  fun:_ZN4CINT4Type14patchStreamersEv
+}

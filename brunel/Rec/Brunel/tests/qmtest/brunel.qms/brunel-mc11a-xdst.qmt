@@ -1,0 +1,34 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout"><integer>2400</integer></argument>
+  <argument name="options"><text>
+from Gaudi.Configuration import *
+
+from Configurables import LHCbApp
+from PRConfig import TestFileDB
+TestFileDB.test_file_db["mc11a-xdst"].run(configurable=LHCbApp())
+
+from Brunel.Configuration import *
+Brunel().EvtMax   = 10
+Brunel().Monitors = ["SC","FPE"]
+Brunel().InputType="XDST"
+Brunel().OutputType="XDST"
+Brunel().WithMC=True
+Brunel().DataType="2011"
+Brunel().SplitRawEventInput=0.0
+Brunel().SplitRawEventOutput=2.0
+Brunel().DatasetName="mc11a-test"
+</text></argument>
+  <argument name="reference"><text>../refs/brunel-mc11a-xdst.ref</text></argument>
+  <argument name="validator"><text>
+#check if the output exists, and check the split locations are on it
+from RawEventCompat.QMTest.FormatTests import checkIsSplit, checkIsGone
+checkIsSplit("mc11a-test-10ev.xdst",2.0,causes,result,"brunel.brunel-mc11a-xdst")
+checkIsGone("mc11a-test-10ev.xdst",["Event/DAQ"],causes,result,"brunel.brunel-mc11a-xdst")
+
+#check against reference
+from Brunel.QMTest.BrunelExclusions import preprocessor
+validateWithReference(preproc = preprocessor)
+</text></argument>
+</extension>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By POOL -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+  <File ID="EE4DC80E-8967-E111-88ED-003048C9CD62">
+    <physical>
+      <pfn filetype="MDF" name="Brunel-200ev.mdf"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="4EF658AA-6768-E111-8F8A-001E4F3E5979">
+    <physical>
+      <pfn filetype="ROOT" name="Brunel.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="A2A11BDE-6768-E111-9E9E-001E4F3E5979">
+    <physical>
+      <pfn filetype="ROOT" name="SeptTEDData-10ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="5E1F524A-6868-E111-A26B-001E4F3E5979">
+    <physical>
+      <pfn filetype="ROOT" name="035537_0000088110-10ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="B6CC08FC-6868-E111-8AF0-001E4F3E5979">
+    <physical>
+      <pfn filetype="ROOT" name="30000000-100ev-20090407-MC09-Minimal-5ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="F8036035-6968-E111-B8BB-001E4F3E5979">
+    <physical>
+      <pfn filetype="ROOT" name="30000000-100ev-20090407-MC09-L0Yes-15ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="4652EFF1-6C68-E111-9647-001E4F3E5979">
+    <physical>
+      <pfn filetype="MDF" name="Brunel-1000ev.mdf"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="2A44DC33-6D68-E111-8D0B-001E4F3E5979">
+    <physical>
+      <pfn filetype="ROOT" name="Brunel-200ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="088263F2-7468-E111-8B37-001E4F3E5979">
+    <physical>
+      <pfn filetype="ROOT" name="Brunel-1000ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="BA88A690-74B5-E111-BF37-003048C9CD62">
+    <physical>
+      <pfn filetype="ROOT" name="brunel2012magdown-200ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="40E670EF-4E12-E411-A4CE-02163E00A6B5">
+    <physical>
+      <pfn filetype="ROOT" name="2015magdown-10ev.dst"/>
+    </physical>
+    <logical/>
+  </File>
+
+</POOLFILECATALOG>

@@ -1,0 +1,22 @@
+package           BrunelSys
+version           v47r5
+
+branches cmt doc tests
+ 
+#=======================================================
+# packages included in the BRUNEL project
+#=======================================================
+
+# Brunel application
+use Brunel v47r5 Rec
+
+# Allow the generation of the SAM QMTest
+apply_pattern QMTest
+
+# Declare this as a container package
+apply_pattern container_package
+
+# Allow the generation of QMTest summary
+apply_pattern QMTestSummarize
+
+# Packages from other projects updated temporarily in this release
