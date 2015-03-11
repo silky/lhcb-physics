@@ -1,0 +1,35 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: Verify database compatibility
+# Prerequisites: Nine
+# Common failure modes, severities and cures: 
+#               . SEVERE: Segfault or raised exception, stderr, nonzero return code
+#               . MAJOR: additional FATAL/ERROR messages always a major problem. no ERROR messages should ever be printed when running this test. Error messages woudl indicate a major backwards incompatibility in the database.
+#               . MINOR: additional WARNING messages, it is unclear how severe these may be, you will need to hunt down the cause and either fix the problem or suppress the warning.
+#               . EXPECTED: There are always small differences in output from one stack to the next, if there are such small differences the reference files need to be updated.
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="args"><set>
+    <text>$BOOLEROOT/tests/options/testBoole-defaults.py</text>
+    <text>$BOOLEROOT/tests/options/db-latest-2012.py</text>
+    <text>$APPCONFIGOPTS/Boole/DataType-2012.py</text>
+    <text>$BOOLEOPTS/MC11-Files.py</text>
+    <text>--option</text>
+    <text>from Boole.Configuration import *; Boole().Histograms="Expert";</text>
+   </set></argument>
+  <argument name="reference"><text>../refs/boole-2012-latestdb.ref</text></argument>
+  <argument name="validator"><text>
+from Boole.QMTest.BooleExclusions import preprocessor as BoolePreprocessor
+preprocessor = BoolePreprocessor
+validateWithReference(preproc=preprocessor)
+</text></argument>
+  <argument name="prerequisites"><set>
+    <tuple><text>boole.boole-mc11</text><enumeral>PASS</enumeral></tuple>
+  </set></argument>
+</extension>

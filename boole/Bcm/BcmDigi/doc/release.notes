@@ -1,0 +1,28 @@
+!-----------------------------------------------------------------------------
+! Package     : Bcm/BcmDigi
+! Responsible : Magnus Lieng
+! Purpose     : Create BcmDigits and MCBcmDigits from hits on the BCM
+!-----------------------------------------------------------------------------
+
+!========================= BcmDigi v1r2p1 2013-10-02 =========================
+! 2013-09-26 - Marco Cattaneo
+ - Remove extra ';' to fix CMake warnings
+
+!========================= BcmDigi v1r2 2013-07-18 =========================
+! 2013-06-24 - Marco Cattaneo
+ - Big code cleanup:
+   . Remove unused variables and properties (and fix an UNINIT_CTOR)
+   . Fix a memory leak in case MakeMCBcmDigits=false
+   . Protect unprotected debugs
+
+!========================= BcmDigi v1r1 2012-12-12 =========================
+! 2012-12-11 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= BcmDigi v1r0 2011-06-17 =========================
+! 2011-05-31 - Magnus Lieng
+ - First version. Algorithm BcmDigitization reads Bcm hits and creates one
+   BcmDigit per sensor. BcmDigit contains the sum of energy deposition. The
+   associated MCBcmDigit uses the same key and contains a list of indices to
+   the MCHits on the sensor.
+ 

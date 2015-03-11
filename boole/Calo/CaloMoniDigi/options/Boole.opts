@@ -1,0 +1,29 @@
+// $Id: Boole.opts,v 1.2 2007-10-30 20:24:38 odescham Exp $ 
+// ============================================================================
+// CVS tag $Name: not supported by cvs2svn $
+// ============================================================================
+// $Log: not supported by cvs2svn $
+// Revision 1.1.1.1  2004/10/25 08:57:08  ibelyaev
+// // The new package: code is inported from Calo/CaloMonitor
+// 
+// ============================================================================
+
+/** @file 
+ *  the configuration file ro tun Digi Motoring for Calo 
+ *  @author Vanya BELYAEV belyaev@lapp.in2p3.fr
+ *  @date 2004-10-25 
+ */
+
+ApplicationMgr.DLLs += { "CaloMoniDigi" } ;
+
+MoniCALOSeq.Members += 
+  {
+    "CaloDigitChecker/SpdCheck"  ,
+    "CaloDigitChecker/PrsCheck"  ,
+    "CaloDigitChecker/EcalCheck" ,
+    "CaloDigitChecker/HcalCheck" ,
+  };
+
+#include "$CALOMONIDIGIOPTS/CaloDigitChecker.opts"
+
+

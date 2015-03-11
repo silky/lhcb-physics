@@ -1,0 +1,6 @@
+// Include these job options in a production job to suppress all known
+// "harmless" Warnings.
+
+//BooleInit.BooleMemory.OutputLevel = 4; // Because BooleInit.OutputLevel = 3;
+MCTTDepositCreator.OutputLevel = 5;    // Failed to find sensor
+MCITDepositCreator.OutputLevel = 5;    // Failed to find sensor

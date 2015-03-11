@@ -1,0 +1,31 @@
+#============================================================================
+# Created    : 2005-10-04
+# Maintainer : Chris Jones
+#============================================================================
+package           RichMCAssociators
+version           v2r9
+
+#============================================================================
+# Structure, i.e. directories to process. 
+#============================================================================
+branches          cmt doc src
+include_path      none
+
+#============================================================================
+# Used packages
+#============================================================================
+use  RichKernel   v*    Rich
+use  DigiEvent    v*    Event
+use  MCEvent      v*    Event
+use  LinkerEvent  v*    Event
+use  MCInterfaces v*    Kernel
+
+#============================================================================
+# Component library building rule
+#============================================================================
+library          RichMCAssociators    ../src/*.cpp 
+
+#============================================================================
+# define component library link options
+#============================================================================
+apply_pattern    component_library library=RichMCAssociators

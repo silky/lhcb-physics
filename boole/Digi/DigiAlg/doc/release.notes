@@ -1,0 +1,274 @@
+!-----------------------------------------------------------------------------
+! Package     : Digi/DigiAlg
+! Responsible : Marco CATTANEO
+! Purpose     : Holds generic digitization algorithms
+!-----------------------------------------------------------------------------
+
+!========================= DigiAlg v5r2 2014-05-15 =========================
+! 2014-04-08 - Heinrich Schindler
+ - Remove functor and sorting of VP digits from BuildMCTrackInfo 
+   (digits are already sorted in VPDigitCreator).
+
+! 2014-04-03 - Heinrich Schindler
+ - Follow changes in VPDigit linker table format (r171120) 
+
+! 2014-03-24 - Heinrich Schindler
+ - Follow changes in VPDigit format and location names (r170468) 
+
+!========================= DigiAlg v5r1 2014-03-18 =========================
+! 2014-03-13 - Heinrich Schindler
+ - Use VPDigits instead of VPClusters in BuildMCTrackInfo
+
+!========================= DigiAlg v5r0 2014-02-19 =========================
+! 2014-01-13 - Marco Cattaneo
+ - Remove VL support
+
+! 2014-01-07 - Marco Cattaneo
+ - Replaced BuildMCTrackInfo with version that also supports upgrade detectors,
+   previously in Digi/BooleUMC as BuildMCTrackInfoUpgrade
+
+!========================= DigiAlg v4r23 2012-12-12 =========================
+! 2012-12-11 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= DigiAlg v4r22 2012-10-03 =========================
+! 2012-09-25 - Jianchun Wang
+ - Add UT in BuildMCTrackInfo, it is controlled by boolean UTForTT
+
+!========================= DigiAlg v4r21 2012-05-03 =========================
+! 2012-03-22 - Marco Cattaneo
+ - Adapt BooleInit to removal of random seeds from ProcessHeader
+ - Fix unprotected debugs
+ - Fix trivial icc remarks
+ - Fix UNINIT_CTOR defects
+
+!========================== DigiAlg v4r20 2010-05-07 =========================
+! 2010-05-05 - Johannes Albrecht
+ - Set simple odin configuration as default: 
+   TriggerType = LHCb::ODIN::LumiTrigger,
+   BXType = LHCb::ODIN::BeamCrossing and BunchCurrent = 8 + (8<<4)
+
+!========================== DigiAlg v4r19 2010-04-26 =========================
+! 2010-04-26 - Marco Cattaneo
+ - BooleInit now always sets TriggerType = LHCb::ODIN::LumiTrigger in ODIN,
+   to follow what happens in real hardware. Treatment of BXType to be reviewed
+ - Fix Winwows warnings in LumiTool.cpp
+
+!========================== DigiAlg v4r18 2009-11-18 =========================
+! 2009-11-07 - Marco Clemencic
+ - Modifiled BooleInit to use the new names of the ODIN trigger types.
+
+!========================== DigiAlg v4r17 2009-07-14 =========================
+! 2009-07-10 - Marco Cattaneo
+ - Adapt BooleInit to change of names in ODIN::BXTypes enum
+ - Remove DigiAlg_dll.cpp file
+
+!========================== DigiAlg v4r16 2009-04-09 =========================
+! 2009-04-06 - Marco Cattaneo
+ - Add FilterMCPrimaryVtx algorithm: removes all but primary vertices from
+   MCVertices container and updates MCHeader accordingly. Daughters are 
+   cleared. 
+ - Use endmsg instead of endreq
+
+! 2009-03-05 - Marco Cattaneo
+ - Add to BooleInit capability to print event time
+
+!========================== DigiAlg v4r15 2009-02-24 =========================
+! 2009-02-23 - Marco Cattaneo
+ - BooleInit now uses ODINEncodeTool to fill ODIN object and encode the bank
+   Fixes wrong size of ODIN RawBank. Version encoded is latest version
+
+!========================== DigiAlg v4r14 2009-01-12 =========================
+! 2008-12-16 - Marco Cattaneo
+ - In Spillover.opts, do not set PathList, now done as option to Boole()
+
+!========================== DigiAlg v4r13 2008-12-11 =========================
+! 2008-12-06 - Marco Cattaneo
+ - Fix an array overflow in BuildMCTrackInfo
+ - Protect verbose() streams with msgLevel(MSG::VERBOSE)
+
+!========================== DigiAlg v4r12 2008-11-24 =========================
+! 2008-10-17 - Marco Cattaneo
+ - Fix BooleInit::modifyODIN to work in TAE mode
+
+!========================== DigiAlg v4r11 2008-10-09 =========================
+! 2008-10-09 - Marco Cattaneo for Antonio Maria Pérez-Calero Yzquierdo
+ - BooleInit now adds to ODIN a beam current, beam crossing type and 
+   trigger type, switch off by ModifyOdin = False, default True.
+   o TriggerType is controlled by ThresTriggerType option. By default, 5% of
+     events with hard collision are set to trigger type random, 95% physics.
+     For elastic or diffractive events, trigger type is set to random
+   o "ThresInteraction", "ThresDiffractive" and "ThresElastic" are thresholds
+     to distribute bunch crossing types for each kind of event, elastic, 
+     diffractive of hard collision (no beam, single beam left/right, two beams)
+   o Bunch current is hardwired to a constant number for now.
+
+!========================== DigiAlg v4r10 2008-07-29 =========================
+! 2008-07-22 - Marco Cattaneo
+ - Adapt to new location of IEventTimeDecode and IGenericTool interfaces
+   (Gaudi v20r2)
+
+!========================== DigiAlg v4r9 2008-04-04 ==========================
+! 2008-03-31 - Jan Amoraal
+ - Some changes in BuildMCTrackInfo.cpp to reflect changes in OT linkers
+
+!========================== DigiAlg v4r8 2007-06-05 ==========================
+! 2007-06-05 - Marco Cattaneo
+ - Adapt to Gaudi v19r4 convention for rootInTES
+
+!========================== DigiAlg v4r7 2007-05-18 ==========================
+! 2007-05-18 - Marco Cattaneo
+ - In BooleInit.cpp, fill CondDBTags in Boole ProcessHeader
+
+! 2007-05-02 - Marco Cattaneo
+ - Remove obsolete file DigiAlg_load.cpp
+
+! 2007-04-30 - M Needham
+ - Follow changes in MCTrackInfo 
+
+!========================== DigiAlg v4r6p1 2007-03-01 ========================
+! 2007-03-01 - Marco Cattaneo
+ - Remove use LHCbDefinitions
+
+!========================== DigiAlg v4r6 2007-02-05 ==========================
+! 2007-02-05 - Marco Cattaneo
+ - BooleInit now puts an ODIN object on the TES after creating the ODIN bank
+ - Fix an unchecked StatusCode in MergeEventAlg
+
+!========================== DigiAlg v4r5 2006-11-16 ==========================
+! 2006-11-14 - Marco Cattaneo
+ - In BooleInit, plot memory and initialize random number seeds only if
+   rootOnTES() is not set - i.e. don't do it for time alignment events
+
+!========================== DigiAlg v4r4p2 2006-06-28 ========================
+! 2006-09-28 - Marco Cattaneo
+ - Adapt to new location of ODIN bank definition
+
+!========================== DigiAlg v4r4p1 2006-06-27 ========================
+! 2006-06-26 - Marco Cattaneo
+ - Backwards compatible fix for slc4_amd64_gcc345
+ - Change printout of spillover event number
+
+!========================== DigiAlg v4r4 2006-05-09 =========================
+! 2006-05-09 - Marco Cattaneo
+ - Migrate to Gaudi::Units
+
+!========================== DigiAlg v4r3 2006-05-02 =========================
+! 2006-05-02 - Marco Cattaneo
+ - Remove creation of DAQ error bank from BooleInit. This bank will only be 
+   injected by the online in case of DAQ errors such as missing sources 
+
+!========================== DigiAlg v4r2 2006-03-30 =========================
+! 2006-03-31 - Marco Cattaneo
+ - Minor cleanups to MergeEventAlg
+
+! 2006-03-30 - Jan Amoraal
+ - Minor changes due to new OTDet
+
+!========================== DigiAlg v4r1 2006-03-23 =========================
+! 2006-03-23 - Marco Cattaneo
+ - In BooleInit, use ODINDefinitions.h to get ODIN bank structure
+ - In BuildMCTrackInfo, update to use VeloCluster Linker and add protection
+   against missing Linker table
+
+! 2006-03-17 - Mark Tobin and Kurt Rinnert
+ - Adapt BuildMCTrackInfo to use new DeVelo interface
+
+!========================== DigiAlg v4r0 2006-03-13 =========================
+! 2006-03-13 - Chris Jones
+ - Changes to options to fix up links for extended RICH data objects in
+   spillover and LHCb background events
+ - Some additions to debug printout (added whilst chasing above fix)
+
+! 2006-03-08 - Olivier Callot
+ - Add the second template of LinkedTo objects in BuildMCTrackInfo, for the new
+   LinkerEvent
+
+! 2006-03-08 - Olivier Callot
+ - Adapt BuildMCTrackInfo to use VeloDigit linkers to MCParticles.
+
+! 2006-02-21 - Olivier Callot
+ - Import BuildMCTrackInfo, was in Phys/MCTools. Adapt to STDetectorElement,
+   wait for Velo Associators to get the complete picture.
+
+! 2006-02-16 - Marco Cattaneo
+ - Adapt to BooleInit to LbAppInit changes and add DAQ and ODIN bank creation
+
+! 2006-02-10 - Marco Cattaneo
+ - Add ProcessHeader creation to BooleInit
+
+! 2006-02-02 - Marco Cattaneo
+ - Add RawEvent creation to BooleInit
+
+! 2005-12-15 - Marco Cattaneo
+ - Adapt to LHCb:: namespace and new event model
+ - Add BooleInit algorithm for Boole initialization
+
+!========================== DigiAlg v3r0 2004-06-28 =========================
+! 2004-06-28 - Marco Cattaneo
+ - Remove BooleInit algorithm (superseded by LbAppInit in Kernel/LHCbAlgs)
+ - Remove CreateL1Event algorithm (moved to Event/DAQEvent)
+ - Adapt MergeEventAlg to new version of IEventSelector interface
+
+! 2004-06-22 - Marco Cattaneo
+ - Adopt GaudiAlgorithm and GaudiTool base classes
+
+!========================== DigiAlg v2r3 2004-01-06 =========================
+! 2004-01-06 - Marco Cattaneo
+ - Move to Gaudi v14 (use DAQEvent v4r* in requirements)
+
+!========================== DigiAlg v2r2 2003-11-25 =========================
+! 2003-11-25 - Marco Cattaneo
+ - BooleInit: adapt to new name of RawBuffer
+
+!========================= DigiAlg v2r1p1 2003-11-10 ========================
+! 2003-11-10 - Marco Cattaneo
+ - Patch to force recompilation with DAQEvent v2r1
+
+!========================== DigiAlg v2r1 2003-11-04 =========================
+! 2003-11-04 - Marco Cattaneo
+ - BooleInit:    adapt to new naming in DAQEvent v2r0
+                 use new TimingTool to print timing normalization
+ - LumiTool:     get "BunchCrossRate" and "TotalCrossSection" from job options 
+                 instead of beam.cdf
+ - requirements: Use DAQEvent v2r*, LHCbTools v1r*, remove ParamFiles dependency
+
+!========================= DigiAlg v2r0p1 2003-10-15 ========================
+! 2003-10-15 - Marco Cattaneo
+ - Fix Spillover.opts to produce PrevPrev rather than NextNext event
+
+!========================== DigiAlg v2r0 2003-10-06 =========================
+! 2003-10-06 - Marco Cattaneo
+ - New algorithm CreateL1Event to create the L1Event from the L1Buffer at the
+   start of the L1 trigger sequence. This algorithm should be included in any
+   L1 trigger timing measurement, as long as  L1Buffer is already in memory
+ - MergeEventAlg
+   . Implement "SpillOver" event type. Any number of spillover events can be
+     read in, in locations defined by SpillOverAlg.PathList job option
+ - New algorithm BooleInit (c.f. BrunelInit) to initialise the event:
+   . Prints run and event number
+   . Initialises random number
+   . Histograms memory usage before event is read in
+   . Creates empty L1Buffer and HLTBuffer
+ - options/SpillOver.opts
+   . Options for configuring SpillOver instance of MergeEventAlg
+
+!========================== DigiAlg v1r1 2003-07-16 =========================
+! 2003-07-16 - Marco Cattaneo
+ - Fix options to work with new MCRichHit (RichEvent v5r0)
+
+!========================= DigiAlg v1r0p1 2003-06-30 ========================
+! 2003-06-30 - Marco Cattaneo
+ - Release service at finalize
+
+!========================== DigiAlg v1r0 2003-06-24 =========================
+! 2003-06-23 - Gloria CORTI
+ - First import of package
+ - src/MergeEventAlg.h,cpp
+   . new algorithm for merging OO events. An additional event selector is
+     used. For the moment it allows to merge flat events (1 event per main
+     event) for LHC background and puts them in path "/Event/LHCBackground"
+ - options/LHCBackground.opts
+   . options for configuring instance LHCBackground of MergeEventAlg to
+     load necessary items from persistency and put them in TES in location
+     listed above  

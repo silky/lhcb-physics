@@ -1,0 +1,27 @@
+#=====================================================================
+# Created    : 2003-06-23
+# Maintainer : Marco CATTANEO
+#=====================================================================
+package         DigiAlg
+version           v5r2
+
+branches        cmt doc src options
+include_path    none
+
+use GenEvent        v* Event
+use MCEvent         v* Event
+use DAQEvent        v* Event
+use EventBase       v* Event
+use GaudiAlg        v*
+
+use STDet           v* Det
+use OTDet           v* Det
+use VeloDet         v* Det
+use VPDet           v* Det
+use FTDet           v* Det
+use DigiEvent       v* Event
+use LinkerEvent     v* Event
+
+library         DigiAlg    ../src/*.cpp
+
+apply_pattern component_library library=DigiAlg

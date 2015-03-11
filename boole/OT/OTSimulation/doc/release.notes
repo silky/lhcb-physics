@@ -1,0 +1,233 @@
+!--------------------------------------------------------------------------
+! Package         : OTSimulation
+! Package manager : Lucia Grillo
+!--------------------------------------------------------------------------
+
+!========================= OTSimulation v5r5p1 2013-10-02 =========================
+! 2013-09-26 - Marco Cattaneo
+ - Remove extra ';' to fix CMake warnings
+
+!========================= OTSimulation v5r5 2013-06-06 =========================
+! 2013-05-27 - Marco Cattaneo
+ - Fix clang32 warning
+ - Fix UNINIT_CTOR and FORWARD_NULL warnings
+ - Use geIfExists
+ - Fix untested StatusCode
+
+!========================= OTSimulation v5r4 2013-02-15 =========================
+! 2013-01-26 - Marco Clemencic
+ - Added dependency on AIDA.
+
+!========================= OTSimulation v5r3 2012-12-12 =========================
+! 2012-12-11 - Marco Clemencic
+ - Added CMake configuration file.
+ - Fixes to compile with C++11.
+
+!========================= OTSimulation v5r2 2012-05-03 =========================
+! 2011-12-19 - Jeroen Van Tilburg
+ - Double pulses are now added by a tool
+ - Two implementation: OTSimpleDoublePulseTool (old) and OTLUTDoublePulseTool.
+
+!========================= OTSimulation v5r1 2011-09-21 =========================
+! 2011-09-13 - Jeroen Van Tilburg
+ - Changed MCOTDepositCreator to use NextNext spill instead of reusing PrevPrev.
+
+!========================= OTSimulation v5r0p1 2011-04-11 =========================
+! 2011-04-08 - Marco Cattaneo
+ - Add some VERBOSE debug in MCOTDepositCreator
+ - Remove obsolete file OTSimulation_dll.cpp
+
+!====================== OTSimulation v5r0 2010-03-01 ======================
+! 2010-02-26 - Nicola Serra
+ - Changed 3D path length in the cell efficiency
+ - Fix the effective ionization density for matching the data in the cell
+   efficiency 
+ - Fix the level of cross talk to match data 2.5% --> 0.5%
+
+!====================== OTSimulation v4r2 2009-05-12 ======================
+! 2009-04-27 - Jan Amoraal
+ - Bug fix. Correctly sort deposits according to time and geometry. 
+   Correctly apply analog dead timne window.
+
+!====================== OTSimulation v4r1 2009-02-24 ======================
+! 2009-02-13 - Jan Amoraal
+ - Create double pulse deposits for particles only.
+ - Needs MCEvent >  v2r11
+
+! 2009-01-27 - Jan Amoraal
+ - Follow changes in MCOTDeposit
+
+!====================== OTSimulation v4r0 2008-06-04 ======================
+! 2008-06-04 Jan Amoraal
+ - Check status codes in MCOTDepositCreator, OTFillRawBuffer and 
+   OTRandomDepositCreator
+
+! 2008-05-29 - Marco Cattaneo
+ - Adapt to LHCbMath -> LHCb::Math namespace change
+
+! 2008-05-27 Jan Amoraal
+ - Added algorithm OTFillRawBuffer
+  o Uses OTRawBankEncoder tool in OTDAQ to encode MCOTTimes
+  o Replaces OTFillRawEvent (removed)
+ - Modified algorithm MCOTDepositCreator
+  o Use DeOTModule interface to get t0 and R-T relation
+  o Smear time
+  o Following tools are thus obselete and have been removed
+    - OTrtRelation, OTSmearer
+ - Minor bug fix in MCOTTimeCreator
+  o Fix rounding of tdc time
+ - Cleaned-up OTRandomDepositCreator
+
+!====================== OTSimulation v3r15 2007-12-11 =====================
+! 2007-12-10 M Needham
+ - Smear time not distance 
+
+!====================== OTSimulation v3r14 2007-10-03 =====================
+! 2007-10-03 - Marco Cattaneo
+ - Adapt to SmartIF change in Gaudi v19r5
+
+!====================== OTSimulation v3r13 2007-09-19 =====================
+! 2007-09-01 - Jan Amoraal
+ - Minor clean-ups and optimisations in MCOTDepositCreator and 
+   MCOTTimeCreator
+
+!====================== OTSimulation v3r12 2007-06-29 =====================
+! 2007-06-27 - Jan Amoraal
+ - Fix unchecked status code in OTSmearer
+ - Minor clean-ups
+
+!====================== OTSimulation v3r11 2007-06-11 =====================
+! 2007-06-11 - Marco Cattaneo
+ - Remove obsolete file OTSimulation_load.cpp
+
+! 2007-05-29 M. Needham
+ - Add possibility to smear in time instead of distance to IOTSmearer
+ - Tidy up IOTSmearer class (const, const, const)
+ - Add option to smear in time to MCOTDepositCreator (false by default)
+  --> Dont set the option to true unless you know what you are doing !
+
+!====================== OTSimulation v3r10 2007-04-10 =====================
+! 2007-04-08 - Jan Amoraal
+ - Fix unchecked status codes
+
+!====================== OTSimulation v3r9 2007-02-05 ======================
+! 2007-02-05 - Marco Cattaneo
+ - Remove LHCbDefinitions includes
+ - Remove unneccessary OTSmearer::finalize method
+
+! 2007-02-02 - Jan Amoraal
+ - minor updates due to minor changes in OTDet
+ - replaced StatusCode return with void
+
+!====================== OTSimulation v3r8 2006-11-06 ======================
+! 2006-10-25 - Jan Amoraal
+ - Dangling pointers! Fix memory leak in MCOTDepositCreator::singleCellEff() 
+
+!====================== OTSimulation v3r7 2006-07-24 ======================
+! 2006-07-21 - Jan Amoraal
+ - Use boost::lexical cast for MCOTDepositCreator::toolName(...)
+ - Replace simple loops with for_each/insert
+ - Fix potentially dangerous loop over a container
+ - Remove unimplemented method MCOTDepositCreator::applyPropagationTime(...).
+   Propagation time is applied in the tool OTrtRelation.
+ - Remove MCOTTimeCreator::m_tempTimeConatainer. Since it's not used. 
+ - Minor cleanups   
+
+!====================== OTSimulation v3r6 2006-06-21 ======================
+! 2006-06-21 - Jan Amoraal
+ - Minor clean-ups
+ - bug fix
+
+!====================== OTSimulation v3r5 2006-05-09 ======================
+! 2006-05-09 - Marco Cattaneo
+ - Migrate to Gaudi::Units and minor cleanups
+
+!====================== OTSimulation v3r4 2006-05-01 ======================
+! 2006-05-01 - Jan Amoraal 
+ - Fix debug in OTFillRawEvent.cpp
+ - Gone from 24 to 48 Tell1 boards. One per quarter.  
+
+!====================== OTSimulation v3r3 2006-04-19 ======================
+! 2006-04-18 - Jan Amoraal
+ - Minor clean-ups in OTRandomDepositCreator.cpp
+
+!====================== OTSimulation v3r2 2006-03-31 ======================
+! 2006-03-31 - Marco Cattaneo
+ - Minor cleanups in OTrtRelation.cpp
+
+! 2006-03-30 Jan Amoraal
+ - Minor changes due to new OTDet
+
+!====================== OTSimulation v3r1 2006-03-23 ======================
+! 2006-03-22 Jan Amoraal
+ - OTDataFunctor has moved to LHCbKernel. Fixed includes.
+ 
+!====================== OTSimulation v3r0 2006-02-02 ======================
+! 2006-02-02 Jan Amoraal
+ - Bug fix and typo, moved some headers and a bit of spring cleaning 
+
+! 2006-02-02 Jan Amoraal
+ - Bug fix, get RawEvent from default location, don't create one
+ - Added NextNext spill. NextNext location == PrevPrev location
+
+! 2006-01-20 - Marco Cattaneo
+ - Remove unneccesary OTSimulation directory, all includes now in src
+ - Update for Gaudi v18r1
+
+! 2006-01-20 Jan Amoraal
+ - Migrated to LHCb v20r0
+ - In MCOTDepositCreator::addCrossTalk(): (*iterDeposit)->tdcTime()
+   should be (*iterDeposit)->time. As we don't use tdcTime to create 
+   cross talk. Anyhow tdcTime=0 when we create cross talk.
+ - In OTRandomDepositCreator::OTRandomDepositCreator: Removed channel
+   deadtime it's now structure parameter. 
+ - In OTRandomDepositCreator::createDeposit: tdcTime -> time, we're not
+   using tdcTime to create deposits.
+ - Renamed OTFillRawBuffer.* to OTFillRawEvent.* as well as the class therein.  
+
+! 2005-10-11 Jacopo Nardulli
+- Introduction of the Double Pulse implementation in the MCOTDepositCreator 
+  and of the the Multiple/Single Hit Mode in the MCOTTimeCreator.
+  Change from RawBuffer-> RawEvent in OTFillRawBuffer
+
+!==================== OTSimulation v2r0 2005-07-13 ======================
+! 2005-07-12 Jacopo Nardulli
+ - Introduction of the OT RawBank version v2 in OTFillRawBuffer. Requires OTDAQ
+   v3r3 or greater to decode
+
+! 2005-06-29 Jacopo Nardulli
+ - Fixing bug in OTFillRawBuffer
+ - Modifications in Efficiency Calculator Tool (New Test Beam 2005)
+
+!==================== OTSimulation v1r4 2005-04-15 ======================
+! 2005-04-15 - Marco Cattaneo
+ - OTFillRawBuffer: fix memory leaks and do big code cleanup
+
+!==================== OTSimulation v1r3 2005-01-14 ======================
+! 2005-01-18 - Marco Cattaneo
+ - Add missing base class initialisation to OTEffCalculator.cpp
+
+! 2005-01-14 - Jacopo Nardulli
+ - Protect against empty Raw banks
+
+!==================== OTSimulation v1r2 2004-12-10 ======================
+! 2004-12-06 - Jacopo Nardulli
+- Complete move to new base classes
+
+! 2004-11-09 - Jacopo Nardulli
+ - Move to the New Gaudi Base Classes
+
+!==================== OTSimulation v1r1 2004-10-26 ======================
+! 2004-10-26 - Marco Cattaneo
+ - OTFillRawBuffer.cpp: add version number OTBankVersion::v1 to RawBuffer banks
+
+!==================== OTSimulation v1r0 2004-09-10 ======================
+! 2004-30-08 - Jacopo Nardulli
+ - The new package OTSimulation contains some of the algorithms and tools that 
+   previously were part of the OT/OTAlgorithms package, modified 
+   for the New OT Event Model. 
+   The main differences are that MCOTTimeCreator replaces 
+   MCOTDigitCreator. All the checking and monitor algorithms have been moved 
+   in the new package called OTMonitor. The algorithm OTFillRawBuffer has been 
+   moved here from the package OTDAQ. 
+   All the algorithms of this package run in the digitization program Boole.

@@ -1,0 +1,551 @@
+# --> Including file '/afs/cern.ch/work/c/cattanem/private/cmtuser/Boole_HEAD/BooleSys/tests/options/testBoole.py'
+# <-- End of file '/afs/cern.ch/work/c/cattanem/private/cmtuser/Boole_HEAD/BooleSys/tests/options/testBoole.py'
+# applying configuration of Boole
+# /***** User Boole/Boole ****************************************************************************
+# |-DatasetName         = 'Boole'
+# |-DetectorLink        = ['PuVeto', 'Velo', 'TT', 'IT', 'OT', 'Tr', 'Rich1', 'Rich2', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'L0']
+# |                     (default: ['PuVeto', 'Velo', 'TT', 'IT', 'OT', 'Tr', 'Rich1', 'Rich2', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'L0'])
+# |-DetectorInit        = {'MUON': ['Muon'], 'DATA': ['Data']}  (default: {'MUON': ['Muon'], 'DATA': ['Data']})
+# |-Histograms          = 'NONE'  (default: 'Default')
+# |-SkipEvents          = 0
+# |-VeloTell1Processing = True
+# |-ProductionMode      = False
+# |-SplitRawEventFormat = None
+# |-FilterSequence      = []  (default: [])
+# |-TAESubdets          = ['Calo', 'Muon']  (default: ['Calo', 'Muon'])
+# |-Outputs             = ['DIGI', 'MDF']  (default: ['DIGI'])
+# |-DetectorDigi        = ['PuVeto', 'Velo', 'TT', 'IT', 'OT', 'Rich1', 'Rich2', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'L0']
+# |                     (default: ['PuVeto', 'Velo', 'TT', 'IT', 'OT', 'Rich1', 'Rich2', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'L0'])
+# |-MainSequence        = []  (default: [])
+# |-DigiType            = 'Default'
+# |-MoniSequence        = ['Velo', 'TT', 'IT', 'OT', 'Rich', 'Calo', 'Muon', 'MC']  (default: [])
+# |-DetectorMoni        = ['PuVeto', 'Velo', 'TT', 'IT', 'OT', 'Rich1', 'Rich2', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'L0', 'MC']
+# |                     (default: ['PuVeto', 'Velo', 'TT', 'IT', 'OT', 'Rich1', 'Rich2', 'Spd', 'Prs', 'Ecal', 'Hcal', 'Muon', 'L0', 'MC'])
+# |-TAEPrev             = 0
+# |-EnablePack          = True
+# |-DigiSequence        = ['Velo', 'TT', 'IT', 'OT', 'Rich', 'Calo', 'Muon']  (default: [])
+# |-OutputLevel         = 3
+# |-EvtMax              = 0  (default: -1)
+# |-TAENext             = 0
+# |-UseSpillover        = False
+# |-EnableL0            = False
+# |-CondDBtag           = ''
+# |-InitSequence        = ['Data', 'Muon']  (default: [])
+# |-DataType            = '2012'
+# |-NoWarnings          = False
+# |-SiG4EnergyDeposit   = False
+# |-LinkSequence        = ['Velo', 'TT', 'IT', 'OT', 'Tr', 'Rich', 'Calo', 'Muon']  (default: [])
+# |-SpilloverPaths      = ['Prev', 'PrevPrev', 'Next', 'NextNext']  (default: [])
+# |-DDDBtag             = ''
+# |-Monitors            = []  (default: [])
+# \----- (End of User Boole/Boole) -------------------------------------------------------------------
+# DigiWriter.ItemList    = ['/Event/Gen/Header#1', '/Event/MC/Header#1', '/Event/MC/DigiHeader#1', '/Event/DAQ/RawEvent#1', '/Event/Gen/BeamParameters#1', '/Event/Gen/Collisions#1', '/Event/pSim/MCVertices#1', '/Event/pSim/MCParticles#1', '/Event/pSim/Rich/DigitSummaries#1', '/Event/MC/Muon/DigitsInfo#1', '/Event/Link/Raw/Velo/Clusters#1', '/Event/Link/Raw/TT/Clusters#1', '/Event/Link/Raw/IT/Clusters#1', '/Event/Link/Raw/OT/Times#1', '/Event/Link/Raw/Muon/Digits#1', '/Event/Link/Raw/Ecal/Digits#1', '/Event/Link/Raw/Hcal/Digits#1', '/Event/MC/TrackInfo#1', '/Event/Link/Raw/Velo/Clusters2MCHits#1', '/Event/Link/Raw/TT/Clusters2MCHits#1', '/Event/Link/Raw/IT/Clusters2MCHits#1', '/Event/Link/Raw/OT/Times2MCHits#1']
+# DigiWriter.OptItemList = ['/Event/Gen/HepMCEvents#1']
+# WARNING: Using default tag dq-20130806-1 for partition DQFLAGS
+ApplicationMgr    SUCCESS
+====================================================================================================================================
+                                                   Welcome to Boole version v27r0
+                                          running on lxplus0127 on Fri Mar 14 16:20:56 2014
+====================================================================================================================================
+ApplicationMgr       INFO Application Manager Configured successfully
+DetectorPersist...   INFO Added successfully Conversion service:XmlCnvSvc
+DetectorDataSvc   SUCCESS Detector description database: conddb:/lhcb.xml
+RndmGenSvc.Engine    INFO Generator engine type:CLHEP::RanluxEngine
+RndmGenSvc.Engine    INFO Current Seed:1234567 Luxury:3
+RndmGenSvc           INFO Using Random engine:HepRndm::Engine<CLHEP::RanluxEngine>
+TimingAuditor.T...   INFO This machine has a speed about   1.33 times the speed of a 2.8 GHz Xeon.
+BooleSequencer       INFO Member list: ProcessPhase/Init, ProcessPhase/Digi, ProcessPhase/Link, ProcessPhase/Moni, ProcessPhase/Filter
+Init                 INFO Member list: GaudiSequencer/InitBooleSeq, GaudiSequencer/InitDataSeq, GaudiSequencer/InitMuonSeq
+InitBooleSeq         INFO Member list: BooleInit, GaudiSequencer/SpilloverHandler
+BooleInit         SUCCESS ==================================================================
+BooleInit         SUCCESS Requested to process 0 events
+BooleInit         SUCCESS ==================================================================
+RootHistSvc          INFO Writing ROOT histograms to: UndefinedROOTOutputFileName
+HistogramPersis...   INFO Added successfully Conversion service:RootHistSvc
+HistogramDataSvc     INFO Added stream file:/afs/cern.ch/lhcb/software/DEV/nightlies/PARAM/ParamFiles/v8r10/data/muonlow-G4.root as LowEnergy
+HistogramDataSvc     INFO Added stream file:/afs/cern.ch/lhcb/software/DEV/nightlies/PARAM/ParamFiles/v8r10/data/muonflat-G4.root as MuonFlatSpillover
+HistogramDataSvc     INFO Added stream file:/afs/cern.ch/lhcb/software/DEV/nightlies/PARAM/ParamFiles/v8r10/data/OTDoublePulse.root as OTDoublePulse
+SpilloverHandler     INFO Member list: TESCheck/SpilloverLoader, EventNodeKiller/SpilloverKiller
+InitDataSeq          INFO Member list:
+InitMuonSeq          INFO Member list: MuonBackground/MuonLowEnergy, MuonBackground/MuonFlatSpillover
+COOLConfSvc          INFO CORAL Connection Retrial Period set to 60s
+COOLConfSvc          INFO CORAL Connection Retrial Time-Out set to 900s
+DDDB                 INFO Connected to database "sqlite_file:/afs/cern.ch/lhcb/software/DEV/nightlies/DBASE/Det/SQLDDDB/db/DDDB.db/DDDB"
+DDDB                 INFO Using TAG "head-20100407"
+EventClockSvc.F...   INFO Event times generated from 0 with steps of 0
+SIMCOND              INFO Connected to database "sqlite_file:/afs/cern.ch/lhcb/software/DEV/nightlies/DBASE/Det/SQLDDDB/db/SIMCOND.db/SIMCOND"
+SIMCOND              INFO Using TAG "sim-20100412-vc-md100"
+RFileCnv             INFO opening Root file "/afs/cern.ch/lhcb/software/DEV/nightlies/PARAM/ParamFiles/v8r10/data/muonlow-G4.root" for reading
+MuonLowEnergy        INFO The low energy background is run by default for main events plus (if any) spillover events (max 4)
+RFileCnv             INFO opening Root file "/afs/cern.ch/lhcb/software/DEV/nightlies/PARAM/ParamFiles/v8r10/data/muonflat-G4.root" for reading
+Digi                 INFO Member list: GaudiSequencer/DigiVeloSeq, GaudiSequencer/DigiTTSeq, GaudiSequencer/DigiITSeq, GaudiSequencer/DigiOTSeq, GaudiSequencer/DigiRichSeq, GaudiSequencer/DigiCaloSeq, GaudiSequencer/DigiMuonSeq
+DigiVeloSeq          INFO Member list: VeloSim, VeloSim/VeloPUSim, VeloTell1DataProcessor, VeloSimTell1ClusterMaker, PuVetoFillRawBuffer
+DeVeloRType       WARNING VELO R sensor M2 routing lines not in conditions DB cond: Routing-R-X-Strip0000 and Routing-R-Y-Strip0000
+VeloSim              INFO Probability to add noise to empty strips 0.0153028
+VeloSim              INFO Probability to add noise to isolated empty strips 3.2331e-08
+VeloSim.RadDamage WARNING VeloRadDamageTool:: VELO radiation damage parameters not in conditions DB
+VeloPUSim            INFO Probability to add noise to empty strips 0.0153028
+VeloPUSim            INFO Probability to add noise to isolated empty strips 3.2331e-08
+VeloPUSim.RadDa...WARNING VeloRadDamageTool:: VELO radiation damage parameters not in conditions DB
+DigiTTSeq            INFO Member list: MCSTDepositCreator/MCTTDepositCreator, MCSTDigitCreator/MCTTDigitCreator, STDigitCreator/TTDigitCreator, STClusterCreator/TTClusterCreator, STClusterKiller/TTClusterKiller, STClustersToRawBankAlg/createTTRawBuffer
+MagneticFieldSvc     INFO Opened magnetic field file : /afs/cern.ch/lhcb/software/DEV/nightlies/DBASE/FieldMap/cdf/field048.c1.vs.down.cdf
+MagneticFieldSvc     INFO Opened magnetic field file : /afs/cern.ch/lhcb/software/DEV/nightlies/DBASE/FieldMap/cdf/field048.c2.vs.down.cdf
+MagneticFieldSvc     INFO Opened magnetic field file : /afs/cern.ch/lhcb/software/DEV/nightlies/DBASE/FieldMap/cdf/field048.c3.vs.down.cdf
+MagneticFieldSvc     INFO Opened magnetic field file : /afs/cern.ch/lhcb/software/DEV/nightlies/DBASE/FieldMap/cdf/field048.c4.vs.down.cdf
+MagneticFieldSvc     INFO Map scaled by factor 1 with polarity internally used: -1 signed relative current: -1
+TTClusterCreator     INFO Loading cuts tagged as Data10
+ToolSvc.TTKiller     INFO Adding Tool: type: STRndmEffSelector / name: Selector
+DigiITSeq            INFO Member list: MCSTDepositCreator/MCITDepositCreator, MCSTDigitCreator/MCITDigitCreator, STDigitCreator/ITDigitCreator, STClusterCreator/ITClusterCreator, STClusterKiller/ITClusterKiller, STClustersToRawBankAlg/createITRawBuffer
+ITClusterCreator     INFO Loading cuts tagged as Data10
+ToolSvc.ITKiller     INFO Adding Tool: type: STRndmEffSelector / name: Selector
+DigiOTSeq            INFO Member list: MCOTDepositCreator, MCOTTimeCreator, OTFillRawBuffer
+ToolSvc.OTRando...   INFO ******** Noise Settings ********
+ToolSvc.OTRando...   INFO Number of channels: 55296
+ToolSvc.OTRando...   INFO Noise rate: 1e-05
+ToolSvc.OTRando...   INFO Width of read out gate in ns75
+ToolSvc.OTRando...   INFO Dead time : 25
+ToolSvc.OTRando...   INFO Number of deposits to generate: 55
+ToolSvc.OTRando...   INFO ********************************
+DigiRichSeq          INFO Member list: Rich::MC::Digi::Signal/RichPDSignal, Rich::MC::Digi::SimpleChargeSharing/RichChargeShare, Rich::MC::Digi::SummedDeposits/RichSummedDeposits, Rich::MC::Digi::DetailedFrontEndResponse/RichPDResponse, Rich::MC::Digi::MCRichDigitsToRawBufferAlg/RichFillRawBuffer
+RichChargeShare      INFO Will add charge sharing at 2.5 % level
+ToolSvc.RichSma...   INFO Created active HPD channel list : # channels RICH(1/2) = 167776 / 246528
+RichPDResponse       INFO Time Calibration (Rich1/RICH2) = [10, 6]
+ToolSvc.RichRaw...   INFO Using [DAQ/RawEvent] as search path for the RawEvent object
+RichFillRawBuffer    INFO Using RICH Level1 buffer format : 129
+DigiCaloSeq          INFO Member list: CaloSignalAlg/SpdSignal, CaloSignalAlg/PrsSignal, CaloSignalAlg/EcalSignal, CaloSignalAlg/HcalSignal, CaloDigitAlg/SpdDigit, CaloDigitAlg/PrsDigit, CaloDigitAlg/EcalDigit, CaloDigitAlg/HcalDigit, CaloFillPrsSpdRawBuffer, CaloFillRawBuffer/EcalFillRawBuffer, CaloFillRawBuffer/HcalFillRawBuffer
+SpdSignal            INFO Initialised. Store also previous BX.
+PrsSignal            INFO Initialised. Store also previous BX.
+EcalSignal           INFO Initialised.
+HcalSignal           INFO Initialised.
+SpdDigit             INFO ----- Detector parameters (from condDB) ------------------
+SpdDigit             INFO Nominal gain parameters for    Outer region :    0.0 +   3.2 x sin(theta)
+SpdDigit             INFO Nominal gain parameters for   Middle region :    0.0 +   3.2 x sin(theta)
+SpdDigit             INFO Nominal gain parameters for    Inner region :    0.0 +   3.2 x sin(theta)
+SpdDigit             INFO Noise          :   0.0 +   0.0 (coherent) counts.
+SpdDigit             INFO Pedestal shift :  0.00 counts
+SpdDigit             INFO Actual dynamics saturation :   0.90 x ADCMax
+SpdDigit             INFO Subtract 0.2000 of previous BX
+SpdDigit             INFO  MIP deposit    :   2.74 MeV
+SpdDigit             INFO Number of photo-electrons per MIP for    Outer region :   22.00
+SpdDigit             INFO Number of photo-electrons per MIP for   Middle region :   32.00
+SpdDigit             INFO Number of photo-electrons per MIP for    Inner region :   27.00
+SpdDigit             INFO Zero-suppression threshold :   0.50 ADC
+SpdDigit             INFO L0 trigger suppression     :   0.50 ADC
+SpdDigit             INFO L0 trigger ADC correction for    Outer region :    1.00
+SpdDigit             INFO L0 trigger ADC correction for   Middle region :    1.00
+SpdDigit             INFO L0 trigger ADC correction for    Inner region :    1.00
+SpdDigit             INFO ----- Digitization parameters (from CaloDigitAlg configuration) ------------------
+SpdDigit             INFO Additional  0.0% of the cells as dead (gain=0).
+SpdDigit             INFO Additional gain error  0.0%
+PrsDigit             INFO ----- Detector parameters (from condDB) ------------------
+PrsDigit             INFO Nominal gain parameters for    Outer region :    0.0 + 274.0 x sin(theta)
+PrsDigit             INFO Nominal gain parameters for   Middle region :    0.0 + 274.0 x sin(theta)
+PrsDigit             INFO Nominal gain parameters for    Inner region :    0.0 + 274.0 x sin(theta)
+PrsDigit             INFO Noise          :   1.0 +   0.0 (coherent) counts.
+PrsDigit             INFO Pedestal shift :  0.00 counts
+PrsDigit             INFO Actual dynamics saturation :   0.90 x ADCMax
+PrsDigit             INFO Subtract 0.2000 of previous BX
+PrsDigit             INFO  MIP deposit    :   2.74 MeV
+PrsDigit             INFO Number of photo-electrons per MIP for    Outer region :   22.00
+PrsDigit             INFO Number of photo-electrons per MIP for   Middle region :   32.00
+PrsDigit             INFO Number of photo-electrons per MIP for    Inner region :   27.00
+PrsDigit             INFO Zero-suppression threshold :   5.00 ADC
+PrsDigit             INFO L0 trigger suppression     : 100.00 ADC
+PrsDigit             INFO L0 trigger ADC correction for    Outer region :    1.00
+PrsDigit             INFO L0 trigger ADC correction for   Middle region :    1.00
+PrsDigit             INFO L0 trigger ADC correction for    Inner region :    1.00
+PrsDigit             INFO ----- Digitization parameters (from CaloDigitAlg configuration) ------------------
+PrsDigit             INFO Additional  0.0% of the cells as dead (gain=0).
+PrsDigit             INFO Additional gain error  1.0%
+EcalDigit            INFO ----- Detector parameters (from condDB) ------------------
+EcalDigit            INFO Nominal gain parameters for    Outer region :  10000.0 + 7000.0 x sin(theta)
+EcalDigit            INFO Nominal gain parameters for   Middle region :  10000.0 + 7000.0 x sin(theta)
+EcalDigit            INFO Nominal gain parameters for    Inner region :  10000.0 + 7000.0 x sin(theta)
+EcalDigit            INFO Noise          :   1.2 +   0.3 (coherent) counts.
+EcalDigit            INFO Pedestal shift :  0.60 counts
+EcalDigit            INFO Actual dynamics saturation :   0.95 x ADCMax
+EcalDigit            INFO L0 trigger suppression     :   0.50 ADC
+EcalDigit            INFO L0 trigger ADC correction for    Outer region :    1.00
+EcalDigit            INFO L0 trigger ADC correction for   Middle region :    1.04
+EcalDigit            INFO L0 trigger ADC correction for    Inner region :    1.08
+EcalDigit            INFO ----- Digitization parameters (from CaloDigitAlg configuration) ------------------
+EcalDigit            INFO Additional  0.0% of the cells as dead (gain=0).
+EcalDigit            INFO Additional gain error  1.0%
+HcalDigit            INFO ----- Detector parameters (from condDB) ------------------
+HcalDigit            INFO Nominal gain parameters for    Outer region :  15000.0 +   0.0 x sin(theta)
+HcalDigit            INFO Nominal gain parameters for    Inner region :  15000.0 +   0.0 x sin(theta)
+HcalDigit            INFO Noise          :   1.2 +   0.3 (coherent) counts.
+HcalDigit            INFO Pedestal shift :  0.60 counts
+HcalDigit            INFO Actual dynamics saturation :   0.95 x ADCMax
+HcalDigit            INFO L0 trigger suppression     :   0.50 ADC
+HcalDigit            INFO L0 trigger ADC correction for    Outer region :    1.00
+HcalDigit            INFO L0 trigger ADC correction for    Inner region :    1.05
+HcalDigit            INFO ----- Digitization parameters (from CaloDigitAlg configuration) ------------------
+HcalDigit            INFO Additional  0.0% of the cells as dead (gain=0).
+HcalDigit            INFO Additional gain error  1.0%
+CaloFillPrsSpdR...   INFO Data coding type 3
+EcalFillRawBuffer    INFO Processing 192 FE-Cards and 26 TELL1
+EcalFillRawBuffer    INFO Data coding type 2
+HcalFillRawBuffer    INFO Processing 54 FE-Cards and 8 TELL1
+HcalFillRawBuffer    INFO Data coding type 2
+DigiMuonSeq          INFO Member list: MuonDigitization, MuonDigitToRawBuffer
+Link                 INFO Member list: GaudiSequencer/LinkVeloSeq, GaudiSequencer/LinkTTSeq, GaudiSequencer/LinkITSeq, GaudiSequencer/LinkOTSeq, GaudiSequencer/LinkTrSeq, GaudiSequencer/LinkRichSeq, GaudiSequencer/LinkCaloSeq, GaudiSequencer/LinkMuonSeq
+LinkVeloSeq          INFO Member list: DecodeVeloRawBuffer/createVeloClusters, VeloCluster2MCHitLinker, VeloCluster2MCParticleLinker
+createVeloClusters   INFO Cancel processing of events with more than 10000 Velo clusters
+LinkTTSeq            INFO Member list: STDigit2MCHitLinker/TTDigitLinker, STCluster2MCHitLinker/TTClusterLinker, STCluster2MCParticleLinker/TTTruthLinker
+LinkITSeq            INFO Member list: STDigit2MCHitLinker/ITDigitLinker, STCluster2MCHitLinker/ITClusterLinker, STCluster2MCParticleLinker/ITTruthLinker
+LinkOTSeq            INFO Member list: OTMCDepositLinker, OTMCHitLinker, OTMCParticleLinker
+LinkTrSeq            INFO Member list: BuildMCTrackInfo
+LinkRichSeq          INFO Member list: Rich::MC::MCRichDigitSummaryAlg
+Rich::MC::MCRic...   INFO Will only store MCParticle references for main event
+LinkCaloSeq          INFO Member list: CaloDigitsFromRaw/EcalFromRaw, CaloDigitsFromRaw/HcalFromRaw, CaloReCreateMCLinks, CaloDigitMCTruth/EcalDigitMCTruth, CaloDigitMCTruth/HcalDigitMCTruth
+LinkMuonSeq          INFO Member list: MuonDigit2MCParticleAlg, MuonTileDigitInfo
+Moni                 INFO Member list: GaudiSequencer/MoniVeloSeq, GaudiSequencer/MoniTTSeq, GaudiSequencer/MoniITSeq, GaudiSequencer/MoniOTSeq, GaudiSequencer/MoniRichSeq, GaudiSequencer/MoniCaloSeq, GaudiSequencer/MoniMuonSeq, GaudiSequencer/MoniMCSeq
+MoniVeloSeq          INFO Member list: VeloSimMoni, VeloRawClustersMoni
+MoniTTSeq            INFO Member list: MCSTDepositMonitor/MCTTDepositMonitor, MCSTDigitMonitor/MCTTDigitMonitor, STDigitMonitor/TTDigitMonitor, ST::STClusterMonitor/TTClusterMonitor, MCParticle2MCHitAlg/MCP2TTMCHitAlg, STEffChecker/TTEffChecker
+TTEffChecker.MC...   INFO MCParticle Momentum cut     : 1 GeV/c < P < 1.79769e+308 GeV/c
+TTEffChecker.MC...   INFO            Beta * gamma cut : 1 < beta*gamma
+TTEffChecker.MC...   INFO            Eta cut          : -1.79769e+308 < P < 1.79769e+308
+MoniITSeq            INFO Member list: MCSTDepositMonitor/MCITDepositMonitor, MCSTDigitMonitor/MCITDigitMonitor, STDigitMonitor/ITDigitMonitor, ST::STClusterMonitor/ITClusterMonitor, MCParticle2MCHitAlg/MCP2ITMCHitAlg, STEffChecker/ITEffChecker
+ITEffChecker.MC...   INFO MCParticle Momentum cut     : 1 GeV/c < P < 1.79769e+308 GeV/c
+ITEffChecker.MC...   INFO            Beta * gamma cut : 1 < beta*gamma
+ITEffChecker.MC...   INFO            Eta cut          : -1.79769e+308 < P < 1.79769e+308
+MoniOTSeq            INFO Member list: MCOTDepositMonitor
+MoniRichSeq          INFO Member list: Rich::MC::Digi::DigitQC/RiDigitQC
+MoniCaloSeq          INFO Member list: CaloDigitChecker/SpdCheck, CaloDigitChecker/PrsCheck, CaloDigitChecker/EcalCheck, CaloDigitChecker/HcalCheck
+SpdCheck             INFO Monitoring Hits MC/Spd/Hits   MC Digit   MC/Spd/Digits   Digit   Raw/Spd/Digits, Histograms booked
+PrsCheck             INFO Monitoring Hits MC/Prs/Hits   MC Digit   MC/Prs/Digits   Digit   Raw/Prs/Digits, Histograms booked
+EcalCheck            INFO Monitoring Hits MC/Ecal/Hits   MC Digit   MC/Ecal/Digits   Digit   Raw/Ecal/Digits, Histograms booked
+HcalCheck            INFO Monitoring Hits MC/Hcal/Hits   MC Digit   MC/Hcal/Digits   Digit   Raw/Hcal/Digits, Histograms booked
+MoniMuonSeq          INFO Member list: MuonDigitChecker
+MoniMCSeq            INFO Member list:
+Filter               INFO OR Member list:
+PrepareDIGI          INFO Member list: PackMCVertex, PackMCParticle, DataPacking::Pack<LHCb::MCRichDigitSummaryPacker>/MCRichDigitSummaryPacker, EventNodeKiller/MCRichNodeKiller
+EventPersistenc...   INFO Added successfully Conversion service:RootCnvSvc
+DigiWriter           INFO Data source: EventDataSvc output: DATAFILE='PFN:Boole.digi' SVC='RootCnvSvc' OPT='REC'
+EventPersistenc...   INFO Added successfully Conversion service:LHCb::RawDataCnvSvc
+RawWriter            INFO Data source: EventDataSvc output: DATAFILE='PFN:Boole.mdf' SVC='LHCb::RawDataCnvSvc' OPT='REC'
+ApplicationMgr       INFO Application Manager Initialized successfully
+ApplicationMgr       INFO Application Manager Started successfully
+ApplicationMgr       INFO Application Manager Stopped successfully
+BooleInit         SUCCESS ==================================================================
+BooleInit         SUCCESS 0 events processed
+BooleInit         SUCCESS ==================================================================
+TTClusterKiller      INFO Fraction of clusters killed 0 %
+TTClusterKiller   SUCCESS Number of counters : 2
+ |    Counter                                      |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |
+ | "Dead"                                          |         0 |          0 |     0.0000 |     0.0000 | 1.7977e+308 |-1.7977e+308 |
+ | "Processed"                                     |         0 |          0 |     0.0000 |     0.0000 | 1.7977e+308 |-1.7977e+308 |
+ITClusterKiller      INFO Fraction of clusters killed 0 %
+ITClusterKiller   SUCCESS Number of counters : 2
+ |    Counter                                      |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |
+ | "Dead"                                          |         0 |          0 |     0.0000 |     0.0000 | 1.7977e+308 |-1.7977e+308 |
+ | "Processed"                                     |         0 |          0 |     0.0000 |     0.0000 | 1.7977e+308 |-1.7977e+308 |
+VeloSimMoni          INFO ------------------------------------------------------
+VeloSimMoni          INFO                 - VeloSimMoni table -
+VeloSimMoni          INFO ------------------------------------------------------
+VeloSimMoni          INFO | Number of MCVeloFEs/Event: 0 +/- 0
+VeloSimMoni          INFO | ==> No MCVeloFEs found!
+VeloSimMoni          INFO ------------------------------------------------------
+VeloRawClusters...   INFO ======================================================
+VeloRawClusters...   INFO               - VeloClusterMoni table -
+VeloRawClusters...   INFO ------------------------------------------------------
+VeloRawClusters...   INFO | Number of Clusters/Event: 0 +/- 0
+VeloRawClusters...   INFO | ==> No VeloClusters found!
+VeloRawClusters...   INFO ======================================================
+TTClusterMonitor  SUCCESS Booked 17 Histogram(s) : 1D=12 2D=4 1DProf=1
+TTEffChecker         INFO  -------Efficiency %---------
+TTEffChecker         INFO TTaX eff 9999 +/- 9999
+TTEffChecker         INFO TTaU eff 9999 +/- 9999
+TTEffChecker         INFO TTbX eff 9999 +/- 9999
+TTEffChecker         INFO TTbV eff 9999 +/- 9999
+TTEffChecker         INFO  -----------------------
+TTEffChecker      SUCCESS Booked 24 Histogram(s) : 1D=16 2D=8
+ITClusterMonitor  SUCCESS Booked 13 Histogram(s) : 1D=8 2D=4 1DProf=1
+ITEffChecker         INFO  -------Efficiency %---------
+ITEffChecker         INFO IT1TopX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT1TopU eff 9999 +/- 9999
+ITEffChecker         INFO IT1TopV eff 9999 +/- 9999
+ITEffChecker         INFO IT1TopX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT1BottomX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT1BottomU eff 9999 +/- 9999
+ITEffChecker         INFO IT1BottomV eff 9999 +/- 9999
+ITEffChecker         INFO IT1BottomX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT1ASideX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT1ASideU eff 9999 +/- 9999
+ITEffChecker         INFO IT1ASideV eff 9999 +/- 9999
+ITEffChecker         INFO IT1ASideX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT1CSideX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT1CSideU eff 9999 +/- 9999
+ITEffChecker         INFO IT1CSideV eff 9999 +/- 9999
+ITEffChecker         INFO IT1CSideX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT2TopX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT2TopU eff 9999 +/- 9999
+ITEffChecker         INFO IT2TopV eff 9999 +/- 9999
+ITEffChecker         INFO IT2TopX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT2BottomX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT2BottomU eff 9999 +/- 9999
+ITEffChecker         INFO IT2BottomV eff 9999 +/- 9999
+ITEffChecker         INFO IT2BottomX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT2ASideX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT2ASideU eff 9999 +/- 9999
+ITEffChecker         INFO IT2ASideV eff 9999 +/- 9999
+ITEffChecker         INFO IT2ASideX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT2CSideX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT2CSideU eff 9999 +/- 9999
+ITEffChecker         INFO IT2CSideV eff 9999 +/- 9999
+ITEffChecker         INFO IT2CSideX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT3TopX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT3TopU eff 9999 +/- 9999
+ITEffChecker         INFO IT3TopV eff 9999 +/- 9999
+ITEffChecker         INFO IT3TopX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT3BottomX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT3BottomU eff 9999 +/- 9999
+ITEffChecker         INFO IT3BottomV eff 9999 +/- 9999
+ITEffChecker         INFO IT3BottomX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT3ASideX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT3ASideU eff 9999 +/- 9999
+ITEffChecker         INFO IT3ASideV eff 9999 +/- 9999
+ITEffChecker         INFO IT3ASideX2 eff 9999 +/- 9999
+ITEffChecker         INFO IT3CSideX1 eff 9999 +/- 9999
+ITEffChecker         INFO IT3CSideU eff 9999 +/- 9999
+ITEffChecker         INFO IT3CSideV eff 9999 +/- 9999
+ITEffChecker         INFO IT3CSideX2 eff 9999 +/- 9999
+ITEffChecker         INFO  -----------------------
+ITEffChecker      SUCCESS Booked 288 Histogram(s) : 1D=192 2D=96
+MCOTDepositMonitorSUCCESS Booked 15 Histogram(s) : 1D=12 2D=3
+RiDigitQC            INFO ===============================================================================================
+RiDigitQC            INFO                             RICH Digitisation Simulation Summary
+RiDigitQC            INFO -----------------------------------------------------------------------------------------------
+RiDigitQC            INFO  Rich1 : Av. total  hit occupancy         0.00 +- 0.00 hits/event
+RiDigitQC            INFO        : Av. signal hit occupancy         0.00 +- 0.00 hits/event
+RiDigitQC            INFO        : Av. HPD hit occupancy            0.00 +- 0.00 hits/event
+RiDigitQC            INFO        :   Min Av. HPD occ. hID=     0    0.00 +- 0.00 hits/event
+RiDigitQC            INFO        :   Max Av. HPD occ. hID=     0    0.00 +- 0.00 hits/event
+RiDigitQC            INFO        : % overall background hits        0.00 +- 0.00 %
+RiDigitQC            INFO        :   % rayleigh scattered hits      0.00 +- 0.00 %
+RiDigitQC            INFO        :   % charged track on HPD hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % gas quartz window CK hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % hpd quartz window CK hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % nitrogen CK hits             0.00 +- 0.00 %
+RiDigitQC            INFO        :   % aerogel filter CK hits       0.00 +- 0.00 %
+RiDigitQC            INFO        :   % silicon back-scatter hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % internal reflection hits     0.00 +- 0.00 %
+RiDigitQC            INFO        :   % silicon charge share hits    0.00 +- 0.00 %
+RiDigitQC            INFO -----------------------------------------------------------------------------------------------
+RiDigitQC            INFO  Rich2 : Av. total  hit occupancy         0.00 +- 0.00 hits/event
+RiDigitQC            INFO        : Av. signal hit occupancy         0.00 +- 0.00 hits/event
+RiDigitQC            INFO        : Av. HPD hit occupancy            0.00 +- 0.00 hits/event
+RiDigitQC            INFO        :   Min Av. HPD occ. hID=     0    0.00 +- 0.00 hits/event
+RiDigitQC            INFO        :   Max Av. HPD occ. hID=     0    0.00 +- 0.00 hits/event
+RiDigitQC            INFO        : % overall background hits        0.00 +- 0.00 %
+RiDigitQC            INFO        :   % rayleigh scattered hits      0.00 +- 0.00 %
+RiDigitQC            INFO        :   % charged track on HPD hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % gas quartz window CK hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % hpd quartz window CK hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % nitrogen CK hits             0.00 +- 0.00 %
+RiDigitQC            INFO        :   % aerogel filter CK hits       0.00 +- 0.00 %
+RiDigitQC            INFO        :   % silicon back-scatter hits    0.00 +- 0.00 %
+RiDigitQC            INFO        :   % internal reflection hits     0.00 +- 0.00 %
+RiDigitQC            INFO        :   % silicon charge share hits    0.00 +- 0.00 %
+RiDigitQC            INFO ===============================================================================================
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO        Muon Monitoring Table
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO     Digi Information
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----   Container: Geant------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO M1     M2     M3     M4     M5
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R1
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R2
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R3
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R4
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----   Container: FlastSpillOver------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO M1     M2     M3     M4     M5
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R1
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R2
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R3
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R4
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----   Container: Low Energy Background------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO M1     M2     M3     M4     M5
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R1
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R2
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R3
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R4
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----   Container: Chamber Noise------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO M1     M2     M3     M4     M5
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R1
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R2
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R3
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R4
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----   Container: Crosstalk------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO M1     M2     M3     M4     M5
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R1
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R2
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R3
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R4
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO -----   Container: Electronic Noise------------------------
+MuonDigitChecker     INFO -----------------------------------------------------------------
+MuonDigitChecker     INFO M1     M2     M3     M4     M5
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R1
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R2
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R3
+MuonDigitChecker     INFO 0.000  0.000  0.000  0.000  0.000   R4
+DigiWriter           INFO Events output: 0
+RawWriter            INFO Events output: 0
+RootHistSvc       WARNING no ROOT output file name, Histograms cannot be persistified
+EventLoopMgr         INFO Histograms converted successfully according to request.
+ToolSvc              INFO Removing all tools created by ToolSvc
+VeloPUSim.RadDa...SUCCESS Exceptions/Errors/Warnings/Infos Statistics : 0/0/1/0
+VeloPUSim.RadDa...SUCCESS  #WARNINGS   = 1        Message = 'VELO radiation damage parameters not in conditions DB'
+VeloSim.RadDamage SUCCESS Exceptions/Errors/Warnings/Infos Statistics : 0/0/1/0
+VeloSim.RadDamage SUCCESS  #WARNINGS   = 1        Message = 'VELO radiation damage parameters not in conditions DB'
+ToolSvc.OTChann...SUCCESS Exceptions/Errors/Warnings/Infos Statistics : 0/0/1/0
+ToolSvc.OTChann...SUCCESS  #WARNINGS   = 1        Message = 'Updating OT channel map for bank version 3'
+TimingAuditor.T...   INFO --------------------------------------------------------------------------------------------------
+TimingAuditor.T...   INFO This machine has a speed about   1.33 times the speed of a 2.8 GHz Xeon.
+TimingAuditor.T...   INFO Algorithm          (millisec) |    <user> |   <clock> |      min       max | entries | total (s) |
+TimingAuditor.T...   INFO --------------------------------------------------------------------------------------------------
+TimingAuditor.T...   INFO EVENT LOOP                    |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO  BooleSequencer               |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   Init                        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    InitBooleSeq               |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     BooleInit                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     SpilloverHandler          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO      SpilloverLoader          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO      SpilloverKiller          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    InitDataSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    InitMuonSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MuonLowEnergy             |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MuonFlatSpillover         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   Digi                        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    DigiVeloSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloSim                   |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloPUSim                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloTell1DataProcessor    |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloSimTell1ClusterMaker  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     PuVetoFillRawBuffer       |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    DigiTTSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCTTDepositCreator        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCTTDigitCreator          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTDigitCreator            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTClusterCreator          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTClusterKiller           |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     createTTRawBuffer         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    DigiITSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCITDepositCreator        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCITDigitCreator          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITDigitCreator            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITClusterCreator          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITClusterKiller           |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     createITRawBuffer         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    DigiOTSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCOTDepositCreator        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCOTTimeCreator           |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     OTFillRawBuffer           |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    DigiRichSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     RichPDSignal              |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     RichChargeShare           |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     RichSummedDeposits        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     RichPDResponse            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     RichFillRawBuffer         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    DigiCaloSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     SpdSignal                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     PrsSignal                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     EcalSignal                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     HcalSignal                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     SpdDigit                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     PrsDigit                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     EcalDigit                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     HcalDigit                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     CaloFillPrsSpdRawBuffer   |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     EcalFillRawBuffer         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     HcalFillRawBuffer         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    DigiMuonSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MuonDigitization          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MuonDigitToRawBuffer      |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   Link                        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkVeloSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     createVeloClusters        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloCluster2MCHitLinker   |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloCluster2MCParticleLink|     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkTTSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTDigitLinker             |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTClusterLinker           |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTTruthLinker             |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkITSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITDigitLinker             |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITClusterLinker           |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITTruthLinker             |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkOTSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     OTMCDepositLinker         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     OTMCHitLinker             |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     OTMCParticleLinker        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkTrSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     BuildMCTrackInfo          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkRichSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     Rich::MC::MCRichDigitSumma|     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkCaloSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     EcalFromRaw               |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     HcalFromRaw               |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     CaloReCreateMCLinks       |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     EcalDigitMCTruth          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     HcalDigitMCTruth          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    LinkMuonSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MuonDigit2MCParticleAlg   |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MuonTileDigitInfo         |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   Moni                        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniVeloSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloSimMoni               |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     VeloRawClustersMoni       |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniTTSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCTTDepositMonitor        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCTTDigitMonitor          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTDigitMonitor            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTClusterMonitor          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCP2TTMCHitAlg            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     TTEffChecker              |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniITSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCITDepositMonitor        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCITDigitMonitor          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITDigitMonitor            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITClusterMonitor          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCP2ITMCHitAlg            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     ITEffChecker              |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniOTSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MCOTDepositMonitor        |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniRichSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     RiDigitQC                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniCaloSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     SpdCheck                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     PrsCheck                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     EcalCheck                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     HcalCheck                 |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniMuonSeq                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO     MuonDigitChecker          |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO    MoniMCSeq                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   Filter                      |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO  PrepareDIGI                  |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   PackMCVertex                |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   PackMCParticle              |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   MCRichDigitSummaryPacker    |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO   MCRichNodeKiller            |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO  DigiWriter                   |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO  MDFKiller                    |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO  RawWriter                    |     0.000 |     0.000 |    0.000       0.0 |       0 |     0.000 |
+TimingAuditor.T...   INFO --------------------------------------------------------------------------------------------------
+DataOnDemandSvc      INFO Handled "DataFault" incidents: 0/0/0(Alg/Node/Total).
+ApplicationMgr       INFO Application Manager Finalized successfully
+ApplicationMgr       INFO Application Manager Terminated successfully

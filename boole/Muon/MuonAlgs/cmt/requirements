@@ -1,0 +1,19 @@
+package           MuonAlgs 
+version           v6r13
+
+# ================ structure ===========================================
+branches src cmt options doc
+
+# ================ own includes ========================================== 
+include_path none
+
+# ================ used packages ========================================= 
+use MuonDet     v*      Det
+use DigiEvent   v*      Event	
+use MCEvent	v*	Event	
+use MuonKernel  v*      Muon
+use GaudiAlg    v*
+
+# build a component library
+library MuonAlgs  *.cpp
+apply_pattern component_library library=MuonAlgs

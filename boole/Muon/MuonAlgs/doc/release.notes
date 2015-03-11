@@ -1,0 +1,221 @@
+!-----------------------------------------------------------------------------
+! Package     : Muon/MuonAlgs
+! Responsible : Alessia Satta
+! Purpose     : Muon digitisation algorithms
+!-----------------------------------------------------------------------------
+
+!========================= MuonAlgs v6r13 2013-07-18 =========================
+! 2013-06-26 - Marco Cattaneo
+ - Fix several Coverity defects
+ - Protect unprotected debug()
+
+!========================= MuonAlgs v6r12 2013-06-06 =========================
+! 2013-05-16 - Giovanni Passaleva
+ - Several fixes to allow configuration without M1 mainly removal of
+   hardcoded # of stations changed with parametric one
+
+!========================= MuonAlgs v6r11 2012-12-12 =========================
+! 2012-12-11 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= MuonAlgs v6r10p1 2011-12-16 =======================
+! 2011-11-24 - Marco Cattaneo
+ - Fix trivial gcc46 warning and icc remarks
+ - Replace endreq by endmsg
+
+!========================= MuonAlgs v6r10 2011-10-20 =========================
+! 2011-10-20 - Alessia Satta
+ - Fix uncheck statsucode
+
+! 2011-10-19 - Alessia Satta
+ - Update deadtime description
+
+! 2011-10-13 - Alessia Satta
+ - Fix spillover for MC11
+
+!========================= MuonAlgs v6r9p1 2010-06-23 ========================
+! 2010-06-15 - Marco Cattaneo
+ - Fix Windows compilation warnings
+
+!========================= MuonAlgs v6r9 2009-10-22 ==========================
+! 2009-10-22 - Marco Cattaneo
+ - remove obsolete file MuonAlgs_dll.cpp
+
+! 2009-10-08 - Alessia Satta
+ - Adapt to changes in MuonDet v9r0
+
+!========================= MuonAlgs v6r8 2009-04-09 ==========================
+! 2009-04-09 - Alessia Satta
+ - add a counter to detect hits which due to rounding problem do not belong 
+   to any gaps
+
+! 2009-03-31 - Marco Cattaneo
+ - In MuonDigitization:
+   . Remove need to access SpilloverAlg to determine number of spillover slots,
+     now set as job option, replace EnableSpillover option
+   . Cleanup up some debug messages
+
+!========================= MuonAlgs v6r7 2009-02-20 ==========================
+! 2009-02-12 - Alessia Satta
+ - Fix an error in electronic noise simulation
+ 
+! 2009-01-29 - Marco Cattaneo
+ - Add EnableSpillover option to MuonDigitization (default False) to avoid
+   looking for SpilloverAlg when Spillover is disabled
+
+! 2009-01-26 - Marco Cattaneo
+ - Backward compatible fixes for Gaudi v21
+
+!========================= MuonAlgs v6r6 2008-02-03 ==========================
+! 2008-02-03 - Alessia Satta
+ - Fix index out of range in MuonDetectorResponse
+ - Fix for invalid  sensitive detector ID ( originated in Gauss by hit placed outside gap valumes)
+
+! 2008-01-30 - Marco Cattaneo
+ - Add a finalize() to MuonDetectorResponse, to avoid deleting in the destructor
+   objects created in initialize(), to please genConf
+
+!========================= MuonAlgs v6r5 2007-11-30 ==========================
+! 2007-11-30 - Marco Cattaneo
+ - Add a missing include
+ - Fix compilation warnings
+
+! 2007-11-20 - Alessia Satta
+ - fix for unchecked StatusCode 
+
+!======================== MuonAlgs v6r4 2007-06-08 =========================
+! 2007-06-05 - Alessia Satta
+ - add check of sereval StatusCode + access via a variale the DeMuonDetector Location
+
+! 2007-06-05 - Marco Cattaneo
+ - Adapat to new rootInTES convention of Gaudi v19r4
+
+!======================== MuonAlgs v6r3 2007-03-11 =========================
+! 2007-03-09 - Alessia Satta
+ - Fix bug in v6r2 change that was causing access to an unitialised pointer
+   (reported by valgrind, causing crash on Windows)
+
+!======================== MuonAlgs v6r2 2007-03-01 =========================
+! 2007-03-01 - Marco Cattaneo
+ - Remove obsolete MuonAlgs_load.cpp file
+
+! 2007-02-27 - Alessia Satta
+ - Modified for dialog deadtime
+
+!======================== MuonAlgs v6r1 2007-02-27 =========================
+! 2006-11-16 - Alessia Satta
+ - Modified for TAE
+
+!======================== MuonAlgs v6r0p1 2006-06-16 =========================
+! 2006-06-16 - Marco Cattaneo
+ - Fix for gcc 3.4.5
+
+!======================== MuonAlgs v6r0 2006-02-15 ========================
+! 2006-02-15 - Marco Cattaneo
+ - Migrate requirements to DigiEvent
+
+! 2006-01-31 - Marco Cattaneo
+ - Major cleanup of includes:
+   . Move all package includes to src, MuonAlgs directory not exported
+   . Remove many unneccessary includes from .cpp
+   . Remove unneccessary dependency on AIDA
+
+! 2006-01-30 - Alessia Satta
+ - compatible with new event model and MuonDet
+
+!======================== MuonAlgs v5r7 2005-04-05 ========================
+! 2005-04-05 - Marco Cattaneo
+ - Adapt to MuonEvent v4r0 (backward incompatible change to MCMuonHit)
+ - Remove some obsolete or unneccessary #include statements
+
+!======================== MuonAlgs v5r6 2004-07-22 ========================
+! 2004-07-22 - Marco Cattaneo
+ - Fix requirements for Gaudi v15
+
+!======================== MuonAlgs v5r5 2004-04-21 ========================
+! 2004-04-21 - Alessia Satta
+ - Change digitization Time Gate to 25. (from 20.)
+
+!======================== MuonAlgs v5r4 2004-04-14 ========================
+! 2004-04-14 - Marco Cattaneo
+ - Change some floats to double, to fix data truncation warnings on Windows
+
+! 2004-04-09 - Alessia Satta
+ - Fixes for background parameterisation 
+
+!======================== MuonAlgs v5r3 2004-03-31 ========================
+! 2004-03-31 - Alessia Satta
+ - Fix rounding problem
+
+!======================== MuonAlgs v5r2 2004-02-03 ========================
+! 2004-02-03 - Alessia Satta
+ - Modify to cope with the new digit time format (MuonEvent v3r1)
+
+!======================== MuonAlgs v5r1 2004-01-07 ========================
+! 2004-01-07 - Marco Cattaneo
+ - Move to Gaudi v14 (use MuonEvent v3r* in requirements)
+
+!======================== MuonAlgs v5r0 2003-10-06 ========================
+! 2003-09-30 - Marco Cattaneo
+ - Adapt MuonDigitization to look for number of spillover events from new
+   SpilloverAlg (non-SICB version) released in DigiAlg v2r0
+
+!======================== MuonAlgs v4r1 2003-06-23 ========================
+! 2003-06-23 -Alessia Satta
+ - Modified to be compatible with gcc3.2
+
+! 2003-04-22 - Alessia Satta
+ - Modified to include LHCbackground
+
+!======================== MuonAlgs v4r0 2003-04-15 ========================
+! 2003-04-14 - Marco Cattaneo
+ - Set MuonDigitisation timegate default to 20. for consistency with new low
+   energy background 
+
+! 2003-04-09 - Marco Cattaneo
+ - Fix some memory leaks
+
+! 2003-03-24 - Alessia Satta
+ - Separated the part of the code that group geometry information and 
+   creted with them a  new package
+	  
+!======================== MuonAlgs v3r3 2003-01-22 ========================
+! 2003-01-22 - Alessia Satta
+ - Fix a memory leak in MuonDetectorResponse and fix an uninitialized variables 
+  in MuonHitTraceBack	
+
+!======================== MuonAlgs v3r2 2003-01-08 ========================
+! 2003-01-07 - Marco Cattaneo
+ - Release interfaces when they are no longer needed
+
+! 2002-12-18 - Marco Cattaneo
+ - Release tools at finalise
+
+!======================== MuonAlgs v3r1 2002-12-05 ======================
+! 2002-11-15 - Florence Ranjard
+ - requirements - use LHCB v11r4
+
+!========================= MuonAlgs v3r0 2002-11-06 =======================
+! 2002-11-06 - Alessia Satta
+ - Add the possibility to run on data produced with different number of muon 
+   station setups. E.g. M1/noM1 setups 
+!========================= MuonAlgs v2r3 2002-08-24 =======================
+! 2002-08-24 - Alessia Satta
+ - Add possibility to switch on-off all the physics effects during the digitization
+   E.G. all the effects switched off means the perfect detector
+   Bug fix in the treatment of the combined readout chamber 
+                                                                             
+!========================= MuonAlgs v2r2 2002-07-29 =======================
+! 2002-07-28 - Alessia Satta
+ - Bug Fix in XTalk and add time stamp in MuonDigit
+
+!========================= MuonAlgs v2r1 2002-07-09 =======================
+! 2002-07-07 - Alessia Satta
+ - Bug fix to MuonDigitizationData.cpp, add MuonTest.cpp
+
+! 2002-06-27 - Marco Cattaneo
+ - Remove NmbOfSpilloverEvents property and get the number directly from the
+   SpillOverAlg
+
+! 2002-06-26 - Marco Cattaneo
+ - First public version

@@ -1,0 +1,317 @@
+!-----------------------------------------------------------------------------
+! Package     : Calo/CaloDigit
+! Responsible : Olivier Deschamps
+! Purpose     : Digitisation and Zero-suppression of the Calorimeters
+!-----------------------------------------------------------------------------
+
+!========================= CaloDigit v3r4p1 2013-10-02 =========================
+! 2013-09-26 - Marco Cattaneo
+ - Remove extra ';' to fix CMake warnings
+
+!========================= CaloDigit v3r4 2013-07-18 =========================
+! 2013-06-25 - Marco Cattaneo
+ - Fix UNINIT_CTOR and FORWARD_NULL defects
+ - Protect unprotected debug()
+ - Replace endreq by endmsg
+ - Remove empty finalize method
+
+!========================= CaloDigit v3r3 2012-12-12 =========================
+! 2012-12-11 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================== CaloDigit v3r2 2010-01-25 ==========================
+! 2010-01-22 - Patrick Robbe
+ - CaloDigitAlg.cpp: convert int to unsigned long in caloTriggerFromAdc
+   function to try to remove floating point exceptions when running on 
+   32 bit machines.
+
+! 2010-01-15 - Patrick Robbe
+ - CaloDigitAlg.cpp/.h: 
+   * change ADC -> L0ADC conversion to reflect what is done in electronics.
+
+!======================== CaloDigit v3r1 2009-10-22 ==========================
+! 2009-10-22 - Marco Cattaneo
+ - Remove obsolete file CaloDigit_dll.cpp
+
+! 2009-10-01 - Vanya BELYAEV
+ - minor fix for the recent changes in CaloCellCode functions 
+ - cmt/requirements 
+   version increment to v3r1 
+
+!======================== CaloDigit v3r0 2009-05-13 ==========================
+! 2009-05-05 - Olivier Deschamps
+ - CaloDigitAlg :  get digitisation parameters from condDB (via DeCalorimeter)
+
+! 2009-04-06 - Olivier Deschamps
+ - CaloPinDigitAlg :  adapt to change in CaloDet
+
+!======================== CaloDigit v2r12 2009-02-24 =========================
+! 2009-02-19 - Olivier Deschamps
+ - CaloDigitAlg :  - align default pedestalShit value with condDB/simcond value
+                     (yes, I know it better be extracted from DB !) 
+
+!======================== CaloDigit v2r11 2009-01-13 =========================
+! 2008-11-17 - Olivier Deschamps
+ - CaloDigitAlg :  - default noise for Ecal is 'gaussian' 
+                   - trigger threshold for Prs set to 27.4 MeV = 10 MIP according to Geant4 v8
+
+!======================== CaloDigit v2r10 2008-11-24 =========================
+! 2008-11-17 - Olivier Deschamps
+ - CaloDigitAlg :  - default noise for Ecal is 'gaussian' 
+                     (CW noise description set to UseAdvancedNoise = false)
+                   - 0-suppression threshold for Prs set to 5 ADC (was 15)
+                   - trigger threshold for Prs set to 23.5 MeV = 10 MIP (was 10 MeV ~ 5 Mip)
+
+!======================== CaloDigit v2r9 2008-10-09 ==========================
+! 2008-09-10 - Marco Cattaneo
+ - One more protection against FPE
+
+!======================== CaloDigit v2r8 2008-07-29 ==========================
+! 2008-07-24 - Marco Cattaneo
+ - Add a wrapper to Rndm::Poisson to avoid floating point exception
+
+!======================== CaloDigit v2r7 2008-07-17 ==========================
+! 2008-07-16 - Olivier Deschamps 
+  - fix uninitialized data members (m_useAdvancedNoise, m_monitorNoise)
+    in CaloDigitAlg.cpp
+
+!======================== CaloDigit v2r6 2008-07-03 ==========================
+! 2008-06-30 - Olivier Deschamps for Miriam Calvo
+  - fix bug in CalODigitAlg : missing "/" in "Prev/" prefix -> no spillover correction
+
+! 2008-06-30 - Olivier Deschamps for Sasha  Akozlin
+ - implement realistic Ecal Cockroft-Walton noise in CaloDigitAlg
+ - fully incoherent noise description as a sum of gaussian (can be set by options)
+ - can be swith on/off via options
+
+!======================== CaloDigit v2r5 2007-12-11 ==========================
+! 2007-12-10 - Olivier Deschamps
+ - fix in CaloSignalAlg
+
+!======================== CaloDigit v2r5 2007-12-06 ==========================
+! 2007-12-05 - Olivier Deschamps
+ - adapt options/CaliBoole.opts to the change in CaloDAQ : writing pin-diode data
+   in rawBank need to be explicitely requested.
+
+! 2007-06-20 - Olivier Deschamps
+ - protection against negative modulus in CaloSignalAlg
+
+!======================== CaloDigit v2r4 2007-06-05 ==========================
+! 2007-06-05 - Marco Cattaneo
+ - Adapt to new rootInTES convention in Gaudi v19r4
+
+!======================== CaloDigit v2r3 2007-03-05 ==========================
+! 2007-03-05 - Vanya BELYAEV
+ -  src/MCCaloLED.h
+     very simple algorithm which produces MC-LED signals.
+     Algorithm parameters: 
+
+    Output:             the location of output MCCaloHit container
+         default value: LHCb::MCCaloHitLocation::Ecal
+    Calorimeter:        Calorimeter to simulate, 
+         default value: DeCalorimeterLocation::Ecal
+    MeanET:             Mean value of LED signal in (ET) 
+         default value: 5.00 * Gaudi::Units::GeV  of transverse enerty,
+                        close to the middle of the dynamic range
+    Sigma:              Relative sigma in LED 
+         default value: 0.25 * Gaudi::Units::perCent, 
+                        close to 5 ADC channel near the middle of the dynamic range
+    Fraction:           Fraction of cells to be fired
+         default value: 1/16 
+
+    If this algorithm runs BEFORE CaloSignalAlg, 
+    It produces a good emulation of LED event.
+    All sources of possible non-perfectness 
+    (noise, time-treatment, spillover, etc..) are treated 
+    by subsequent digitization algorithms 
+    exactly as for any other data.
+
+! 2007-03-01 - Marco Cattaneo
+ - Remove obsolete CaloDigit_load.cpp file, and an LHCbDefinitions include
+
+! 2007-02-28 - Olivier Deschamps 
+ - complete CaloPinDigitAlg for production of LED data for Prs & Spd
+
+! 2007-02-27 - Olivier Deschamps 
+ - adapt to change in DeCalorimeter 
+
+! 2007-02-22 - Olivier Deschamps 
+ - add new algorithm : CaloPinDigitAlg : allow to produce
+	"Calibration Data (LED)" for Ecal/Hcal
+ - options/CaliBoole.opts : special setup of Boole to produce Calo 
+	"calibration data"  (only Calo Banks are filled)
+
+!======================== CaloDigit v2r2 2006-11-23 ==========================
+! 2006-11-23 - Marco Cattaneo
+ - get SystemOfUnits from GaudiKernel
+ - use DECLARE_ALGORITHM_FACTORY macro
+
+! 2006-11-22 - Olivier Callot
+ - Adapt for TAE: use globalTimeOffset() and rootOnTES().
+ - Change the off-time addiition: only for bin>10 to avoid problems.
+ - Get previous data (Spd, Prs) from previous TAE in case it exists.
+   To distinguish the normal "Prev/" and the TAE "Prev1/" locations, one
+   uses the context = "TAE" to indicate to normal time that it has to get the
+   TAE previous, not the default one. This may be changed if the name of the
+   standard spill-over event is changed...
+
+!======================== CaloDigit v2r1p1 2006-03-28 ========================
+! 2006-03-28 - Marco Cattaneo
+ - Backwards compatible fixes to compile with Gaudi v18r3
+
+!======================== CaloDigit v2r1 2006-03-16 ========================
+! 2006-03-15 - Olivier Deschamps
+ - CaloZSupAlg.{cpp,h} algorithm removed (moved to CaloDAQ)
+ - remove dependency to CaloDAQ in requirements
+ - add explicit dependency to MCEvent in requirements
+
+!======================== CaloDigit v2r0 2006-02-15 ========================
+! 2006-02-15 - Marco Cattaneo
+ - Migrate requirements to DigiEvent
+
+! 2006-01-19 - Marco Cattaneo
+ - Use definitions from CaloDet for detector locations, instead of raw strings
+
+! 2006-01-10 - Olivier Callot
+ - Adapt to LHCb v20, i.e. add LHCb:: namespace and convert from CLHEP
+
+! 2005-12-02 - Olivier Callot
+ - CaloZSupAlg: Remove Prs and SPD options: This is done in 
+   CaloDigit, it writes CaloAdc for the Raw Buffer directly
+ - CaloZSupAlg starts from CaloAdc and produces CaloAdc. This is now run
+   only in HLT processing, to convert TELL1 Raw Buffer to final Raw Buffer. It
+   may eventually move to a HLT package.
+ - CaloDigitAlg: Produces CaloAdc and no longer CaloDigit. Also produces the
+   L0CaloAdc and L0PrsSpdHits for the trigger.
+
+!======================== CaloDigit v1r8 2005-01-18 ========================
+! 2005-01-18 - Olivier Callot
+ - Fix an unitialized parameter in CaloZSup, due to too strong a cleanup.
+
+! 2005-01-14 - Marco Cattaneo
+ - Fix some trivial doxygen warnings
+
+! 2005-01-12 - Olivier Callot
+ - Remove the production of the RawBuffer for Calo digits and trigger
+   This is now done in the (new) Calo/CaloDAQ package by dedicated
+   algorithms. CaloZSup produces banks for the trigger, of type L0PrsSpdHits
+   and  L0CaloAdcs. These are the input (with CaloDigits) for the Raw buffer 
+   creation.
+
+! 2004-12-16 - Olivier Callot
+ - Transform CaloAlgoprithm to GaudiAlgorithm
+ - Remove processing of LHC background in CaloSignalAlg as this is now 
+   obsolete, will be added to the normal event.
+
+!======================== CaloDigit v1r7 2004-09-10 ========================
+! 2004-09-10 - Marco Cattaneo
+ - Remove obsolete CaloDigitToMCParticle associator. Removes dependency on
+   Relations package
+
+!======================= CaloDigit v1r6p1 2004-09-08 =======================
+! 2004-09-08 - Marco Cattaneo
+ - Use explicitly Relations in requirements
+
+!======================== CaloDigit v1r6 2004-02-26 ========================
+! 2004-02-23 - Vanya BELYAEV
+ - src/CaloDigitAlg.cpp, CaloSignalAlg.cpp, CaloZSupAlg.cpp
+     adaptation for new signature of "get" methods 
+ - cmt/requirements
+     increment the MINOR version 
+
+!======================== CaloDigit v1r5 2004-01-07 ========================
+! 2004-01-07 - Marco Cattaneo
+ - Move to Gaudi v14 (use CaloEvent v13r* in requirements)
+
+!======================= CaloDigit v1r4p1 2003-12-02 =======================
+! 2003-12-02 - Marco Cattaneo
+ - Initialize m_energyScale in SpdZSup case, to please valgrind.
+
+!======================== CaloDigit v1r4 2003-11-25 ========================
+! 2003-11-18 - Olivier Callot
+ - CaloZSup produces the RawBuffer for the CaloDigit. New options 
+    BankType : type of bank for RAW, default according to detector
+    EnergyScale : to code energy in integer. 1 MeV for E/HCAL, 0.1 MeV for Prs
+    NumberOfBanks : number of banks in this detector.
+    SpdInputData : Container with SPD digits, to create PrsSpd trigger banks
+    TriggerEtScale : To digitise transverse energy (Ecal,Hcal), 20 MeV
+    TriggerThreshold : Threshold for Prs trigger bit, default 10 MeV
+    TriggerBankType : type of the RawBank produced.
+ - Removed option TagData in CaloZSup: The Prs Z-sup is now independent of the 
+   SPD
+ - Handle the LHC background in the CaloSignal algorithm: Signals in time 
+   (bunch ID = 0) are added.
+ - Removed algorithm CaloProduceRaw, obsolete as the RawBuffer is produced
+   in CaloZSup.
+
+!======================== CaloDigit v1r3 2003-07-16 ========================
+! 2003-07-16 - Marco Cattaneo
+ - Use CaloEvent v12r*
+
+!======================= CaloDigit v1r2p1 2003-06-23 =======================
+! 2003-06-23 - Olivier Callot
+ - Adaptation to gcc 3.2, few technicalities, no expected effect.
+
+!======================== CaloDigit v1r2 2003-04-15 ========================
+! 2003-04-17 - Olivier Callot
+ - Fix a stupid incompatibility of the Windows compiler: push_back in a vector
+   requires an argument, and doesn't accept no argument = default creator.
+
+! 2003-03-23 - Olivier Callot
+ - New algorithm CaloProduceRaw to create the DAQEvent from CaloDigit,
+   L0CaloAdc and L0PrsSpdHit using trhe DAQ bank structure. This is a first 
+   draft to help specifying the tools needed, for the FEBuffer object.
+
+! 2003-03-20 - Olivier Callot
+ - Changed the default pePerMev from 30 to 10 according to the Calo Soft
+   meeting of the 18/03/2003
+ - Added the option (DeadCellFraction) to have dead cells, whose gain is set
+   to zero. default is NO dead cells at all.
+
+ - New algorithm CaloDigitToMCParticleAsct to associate properly the digits
+   to a MC Particle. The main difference with the naive association, using 
+   MCCaloDigit, is that we ignore particles produced INSIDE the calorimeter
+   and associate to their deposit to their parent. Needed for a proper 
+   L0CaloCandidate association. 
+
+! 2002-12-19 - Olivier Callot
+ - Change the default Prs/Spd fractional correction, 0.15 -> 0.20
+
+!========================= CaloDigit v1r1 2002-12-05 =====================
+! 2002-11-22 - Florence Ranjard
+ - requirements - use new versions
+
+! 2002-11-29 - Ivan Belyaev
+ - cmt requirements   version update 
+
+!========================= CaloDigit v1r0 2002-11-19 =========================
+! 2002-11-18 - Olivier Callot
+ - Change default pe/Mev for Prs/Spd form 40 to 30.
+ - Use symbolic names for full digits locations.
+ - New option file for old SICBMC, where time information should be ignored.
+
+! 2002-11-15 - Ivan Belyaev
+ - options/Brunel.opts - remove explicit loading of DLL
+                         "DLLs" statements are now only in top level packages
+ - options/Brunel.opts - remove #pragma print on/off 
+                         (rely on #pragma directives from top level packages) 
+
+! 2002-10-10 - Olivier Callot
+ - Based on the old algorithms, restructuration in 3 phases, conversion to 
+   CaloAlgorithms
+
+  o CaloSignalAlg transform the MCHits into MCCaloDigit, taking into account
+    the TIME information from SICBMC v255, i.e. given by BX number. The 
+    previous BX is also converted to MCCaloDigit as this is neede for the
+    spill over processing of Prs/Spd.
+
+  o CaloDigitAlg transforms the MCCaloDigits to CaloDigits for all cells, 
+    adding noise, gain fluctuations, photo-electron statistics, correcting for
+    the 15% (option) of the previous signal (with photo-electron fluctuation) 
+    for Prs and Spd, ...
+
+  o CaloZSupAlg peforms the 1D or 2D zero suppression, producing the final
+    container for calorimeter reconstruction. This is as close as possible
+    to the output of the CROP.
+  
+   Monitoring and algorithm to produce pseudo-raw-data should be added...

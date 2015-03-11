@@ -1,0 +1,237 @@
+!-----------------------------------------------------------------------------
+! Package     : FT/FTDigitisation
+! Responsible : Eric Cogneras
+! Purpose     : Digitize the FT hits
+!-----------------------------------------------------------------------------
+
+!========================= FTDigitisation v2r3 2015-02-23 =========================
+! 2015-02-21 - Michel De Cian
+ - Revert to fraction range [0,1[ for consistency in the release in FTClusterCreator.
+
+! 2015-02-19 - Jacco de Vries
+ - Cleaned up FTClusterCreator code
+ - Added monitoring functionality to FTClusterMonitor for RawBank maxClus (bandwidth) studies
+ - Added option in MCFTDigitCreator to enforce 2-bits ADC at Digit level
+ - Added option in SiPMResponse to turn on new data-driven electronics response
+    (also added the tools used to create this response from the data table, in the folder 'tools')
+
+! 2015-01-13 - Michel De Cian
+ - Reduce verbosity of MCFTDepositCreator and MCFTAttenuationTool. Fix unchecked StatusCode.
+
+! 2015-01-12 - Michel De Cian
+ - Split up MCFTDepositCreator in MCFTDepositCreator, which is mostly a wrapper, and MCFTAttenuationTool, which calculates the attenuation length. Performance should be identical. Add interface IMCFTAttenuationTool.
+
+!========================= FTDigitisation v2r2 2014-06-20 =======================
+! 2014-06-20 - Michel De Cian
+ - Change link location for FTClusters<->MCHits to (standard) /Event/Link/Raw/FT/Clusters2MCHits
+
+!========================= FTDigitisation v2r1 2014-06-10 =======================
+! 2014-06-06 - Eric Cogneras
+ - Undo last changes (keep (MCParticle,Cluster) linker)
+ - Create new linker associating Hit to Clusters
+
+! 2014-06-04 - Eric Cogneras
+ - Change (MCParticle,Cluster) linker into a (Hit,Cluster) linker
+
+!========================= FTDigitisation v2r0 2014-05-15 =======================
+! 2014-05-13 - Eric Cogneras
+ - Floating point exception correction in MCFTDigitCreator
+
+! 2014-05-12 - Eric Cogneras
+ - Bug fix : out of the map reading
+
+! 2014-05-07 - Eric Cogneras
+ - Fix the 'division by zero' bug
+
+! 2014-05-06 - Michel De Cian
+ - Fix unchecked StatusCode in MCFTDepositCreator and MCFTDigitCreator
+
+! 2014-04-30 - Eric Cogneras
+ - Bug fix : protection against reading transmission map out of the box
+
+! 2014-04-10 - Jacco de Vries
+ - Initialized variable in SiPMResponse
+
+! 2014-04-04 - Eric Cogneras
+ - remove unused parameter
+ - redefinition of default value of parameters
+
+! 2014-04-01 - Eric Cogneras
+ - remove unused keepAdding() function 
+
+! 2014-03-31 - Eric Cogneras
+ - add if statement for debugging tests
+
+! 2014-03-27 - Eric Cogneras
+ - Move clustering algorithm to its 2 bits version
+ - propagation of the change (calculateHits -> calculateListOfFiredChannels) in Det/FTDet
+
+! 2014-03-25 - Eric Cogneras
+ - Removal of last piece of code referring to old FT geometry without dead areas
+ - Add new control plots
+
+! 2014-03-20 - Eric Cogneras
+ - Removed in MCDepositCreator all what referred to the old geometry without dead regions
+ - changed MCDigitCreator (noise creation) according to the new FTChannelID definition
+!========================= FTDigitisation v1r9 2014-03-19 =======================
+! 2014-03-17 - Jacco de Vries
+ - Moved FTNoiseCreator content to MCFTDigitCreator
+ - improved functionality of acceptance studies in FTClusterCreator
+
+!========================= FTDigitisation v1r8 2014-02-19 =======================
+! 2014-02-18 - Jacco de Vries
+ - Cleaned up IT removal option in FTClusterCreator
+
+! 2014-02-14 - Paul Szczypka
+ - Fixed release notes added after v1r7 tag.
+ - Temp fix for unused variable hitZ in FTClusterCreator.cpp
+
+! 2014-02-14 Jacco de Vries
+ - Fixed some plots
+
+! 2014-02-12 Jacco de Vries
+ - Added cluster plots for separate noise sources
+ - Separated spillover cluster plots in Prev and Next
+ - Added option to remove the IT region clusters in the FT for tracking eff. studies
+
+! 2014-01-23 Jacco de Vries
+ - Fixed debug messages and commented out unused instance
+
+! 2013-12-12 Jacco de Vries
+ - Forgot to change some values in previous commit, fixed now
+ - Added noise cluster plots
+
+! 2013-12-12 Jacco de Vries
+ - Removed some printouts in FTNoiseCreator
+ - Edited the plots in MCFTDepositCreator
+ - Made FTClusterCreator cluster cuts more intuitive (> --> >=) and changed values accordingly
+
+!========================= FTDigitisation v1r7 2013-12-10 =======================
+
+! 2013-12-08 Jacco de Vries
+ - removed escape character '\%' that gives a warning in cmake
+
+! 2013-12-06 Jacco de Vries
+ - Fixed bug in previous update to MCFTDepositCreator
+ - Added 5 ns time offset in MCFTDigitCreator, to match extra times of previous update
+ - Removed Afterpulsing on Thermal noise in FTNoiseCreator
+
+! 2013-12-06 - Jacco de Vries
+ - Adapted MCFTDepositCreator to include fiberPropagationTime of light
+   (instead of refractive_index / c_light), and scintillation light release time
+
+! 2013-12-04 - Jacco de Vries
+ - Adapted FTClusterCreator to handle noise clusters that will have
+    no associated mcDeposit (null-pointer checks).
+
+! 2013-12-04 - Jacco de Vries
+ - Fixed MCFTDigit::MCFTDigit call to match new FTDigitisation implementation
+ - Added on 2013-12-03 : FTNoiseCreator implementation for thermal noise,
+    afterpulsing and cross-talk.
+
+! 2013-12-02 - Marco Clemencic
+ - Fixed segmentation fault during genconf (on some platforms).
+
+! 2013-12-01 - Maurizio Martinelli
+ - fixed a few compilation warnings
+
+! 2013-11-29 - Maurizio Martinelli
+ - forgot to add a class
+
+! 2013-11-28 - Maurizio Martinelli
+ - Implemented direct and reflected light pulse in the DepositCreator. This is needed for studying spillover.
+ - DigitCreator is also modified for matching the new Deposit.
+
+!========================= FTDigitisation v1r6 2013-10-02 =======================
+! 2013-09-26 - Marco Cattaneo
+ - Remove extra ';' to fix CMake warnings
+
+! 2013-09-18 - Marco Cattaneo
+ - Fix unused variable warning
+
+!========================= FTDigitisation v1r5 2013-07-18 =======================
+! 2013-07-12 - Eric Cogneras
+ - MCFTDepositCreator : adapt the call of function converting 'hit to ftchannel' to have  backward 
+   compatibility between old and new detector description
+ - MCFTDepositCreator : A bug in Det/FTDet package produces fired FTChannel with layerID above 11, inducing a
+   crash at RawBankEncoder level
+   Bug fix TEMPORARY recording only fired FTChannel with layer() < 12 (limit was previously set to 15, which 
+   corresponds to unsensitive parts of SiPMs)
+ - FTClusterCreator : (bug fix) type of meanChanPosition variable moved from 'int' to 'uint' to avoid max
+   value of type 'int' to be reached
+
+! 2013-06-25 - Marco Cattaneo
+ - Fix UNINIT_CTOR and DIVIDE_BY_ZERO defects
+ - Fix unprotected debug()
+ - Remove empty finalize methods
+
+!========================= FTDigitisation v1r4 2013-04-30 =======================
+! 2013-04-29 - Eric Cogneras
+ - Plot of the number of cluster per SiPM, needed by electronics
+ - Debugging information encapsulation
+
+! 2013-04-10 - Eric Cogneras
+ - cluster monitoring
+ - Change of DDDB version numbering from O. Gruenberg propagated to joboption
+
+! 2013-04-05 - Eric Cogneras
+ -  Add monitoring plots and improve plotting python script
+
+! 2013-03-27 - Eric Cogneras
+ - Bug fix : double declaration of variable reported by gcc47
+
+!========================= FTDigitisation v1r3 2013-03-25 =======================
+! 2013-03-13 - Eric Cogneras
+ - Fix a typo in plot2D call
+
+! 2013-02-23 - Eric Cogneras
+ - Assessement of the ADC gain (ADC/photoelectron) and gain (photoelectron/cluster)
+ - Remove Monitor classes, with migration of plotting to Creator classes
+ - code cleaning
+
+! 2013-02-20 - Eric Cogneras
+ - MCHits map from MCFTDigit used to compute the fraction of hit lost in clusterisation 
+ - typo correction
+
+!========================= FTDigitisation v1r2 2013-02-15 =======================
+! 2013-02-05 - Olivier Callot
+ - Set the gain to 25 photoelectrons near SIPM, i.e. before attenuation.
+
+! 2013-01-28 - Olivier Callot
+ - Add a fluctuation to the gain, to avoid a comb structure in the ADC values.
+
+! 2013-01-25 - Olivier Callot
+ - Set the default pe/MeV to 86, and teh gain to 2 cx/p.e, add adc Noise (.5 cx)
+ - Eric Cogneras added plots to monitor the signals.
+
+!========================= FTDigitisation v1r1 2012-12-12 =======================
+! 2012-12-11 - Marco Clemencic
+ - Added CMake configuration file.
+
+! 2012-12-11 - Olivier Callot
+ - Better description of the attenuation: List of length by step of 10 cm along the wire
+   for the irradiated zone.
+ - Corrected the reclected component, proper attenuation now.
+
+! 2012-12-07 - Olivier Callot
+ - Multi-parameter attenuation along the fibre in MCFTDepositCreator
+   * Short and Long attenuation length, with their fraction.
+   * Zone affected by radiation: Losange defined by xmax and ymax
+   * Attenuation length at centre of this zone
+   * Refelxion coefficient of the mirror
+   * Cut of in reflexion due to time delay, smoothly between y min and max.
+   The map of attenuation in the fibre is computed at initialization, and then
+   used by interpolation for each deposit
+
+ - Manual implementation of the poisson generation of number of photo electrons,
+   to avoid re-initializing the generator for each deposit. Factor ~10 in speed.
+   Use a gaussian distribution for average > 50.
+
+
+!========================= FTDigitisation v1r0 2012-10-03 =======================
+! 2012-08-23 - Olivier Callot
+ - Change the sorting function for MCFTDigit. No longer need for the functor class...
+
+! 2012-07-30 - Olivier Callot
+ - From Eric's version, I cleaned-up a bit the code.
+ - Implement proper computation of number of photo-electrons

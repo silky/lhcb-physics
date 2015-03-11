@@ -1,0 +1,63 @@
+! -----------------------------------------------------------------------------
+! Package     : Calo/CaloMoniDigi
+! Responsible : Olivier Deschamps
+! Purpose     : monitoring of Calo content for Boole output
+! -----------------------------------------------------------------------------
+
+!========================= CaloMoniDigi v2r6p1 2013-10-02 =========================
+! 2013-09-26 - Marco Cattaneo
+ - Remove extra ';' to fix CMake warnings
+
+!========================= CaloMoniDigi v2r6 2013-07-18 =========================
+! 2013-06-26 - Marco Cattaneo
+ - Fix an UNINIT_CTOR defect
+ - Protect unprotected debug()
+ - Remove empty finalize methods
+ - Replace endreq by endmsg
+
+!========================= CaloMoniDigi v2r5 2012-12-12 =========================
+! 2012-12-12 - Marco Cattaneo
+ - Remove obsolete file CaloMoniDigi_dll.cpp
+
+! 2012-12-11 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================== CaloMoniDigi v2r4 2008-11-24 ========================
+! 2008-10-30 - Olivier Deschamps for Yasmine Amhis
+ - add new algorithm : CaloDigitChannel (moved from CaloCalib)
+ - requirements : add dependency to CaloDet
+
+!======================== CaloMoniDigi v2r3 2007-11-01 ========================
+! 2007-10-30 - Olivier Deschamps
+ - change algo naming (Monitor->Checker)
+
+!======================== CaloMoniDigi v2r2 2006-12-18 ========================
+! 2006-12-18 - Marco Cattaneo
+ - get units from GaudiKernel
+
+!======================== CaloMoniDigi v2r1 2006-03-22 ========================
+! 2006-03-22 - Olivier Deschamps
+ - update histo scales in MoniDigi.opts
+
+!======================== CaloMoniDigi v2r0 2006-02-15 ========================
+! 2006-02-15 - Olivier Deschamps
+ - Migrate requirements to DigiEvent
+
+! 2006-02-13 : Olivier Deschamps
+  - migration to GaudiHistoAlg completed in src/CaloDigitMonitor 
+
+! 2006-01-30 : Olivier Deschamps
+  - Bug fix in src/CaloDigitMonitor 
+
+! 2006-01-18 : Olivier Deschamps
+  - Adapt to New Event Model & LHCb v20 change
+  - src/CaloDigitMonitor algorithm inheritance from GaudiHistoAlg
+  - cmt/requirements : Adapt dependancies
+
+!======================== CaloMoniDigi v1r0 2004-11-16 ========================
+! 2004-10-25 - Vanya BELYAEV
+  - new package: the code is imported from Calo/CaloMonitor package
+
+! -----------------------------------------------------------------------------
+! The END 
+! -----------------------------------------------------------------------------

@@ -1,0 +1,77 @@
+package           Boole
+version           v29r4
+# Remember to change version also in ../job/valgrind.job, ../job/Boole_Ganga.py
+#                                    ../CMakeLists.txt
+
+branches doc cmt job options
+
+# Set the default path for Boole options.
+set BOOLEOPTS  $(BOOLEROOT)/options
+
+# Packages needed to compile and link the application
+use GaudiConf          v*           -no_auto_imports
+use GaudiKernel        v*
+
+# Packages needed to resolve external dependencies at run time
+use Python             v*    LCG_Interfaces -no_auto_imports
+use RELAX              v*    LCG_Interfaces -no_auto_imports
+
+# Databases
+use DDDB               v*    Det    -no_auto_imports
+use ParamFiles         v8r*         -no_auto_imports
+use FieldMap           v5r*         -no_auto_imports
+use AppConfig          v3r*         -no_auto_imports
+use PRConfig           v* 
+
+
+# The rest are needed only to set up environment variables for job options
+# and to give a cmt broadcast dependency for user checked out component packages
+
+# From GAUDI project
+use Gaudi              v*           -no_auto_imports
+
+# From LHCbSys
+use EventPacker        v*    Event  -no_auto_imports
+use LHCbAlgs           v*    Kernel -no_auto_imports
+use SimComponents      v*    Sim    -no_auto_imports
+use XmlTools           v*    Tools  -no_auto_imports
+use CaloDetXmlCnv      v*    Det    -no_auto_imports
+use DetDescSvc         v*    Det    -no_auto_imports
+use Magnet             v*    Det    -no_auto_imports
+use MDF                v*    DAQ    -no_auto_imports
+use DAQSys             v*    DAQ    -no_auto_imports
+
+# The whole LBCOM project
+use LbcomSys           v*           -no_auto_imports
+
+# The whole BOOLE project (cannot use BooleSys at it uses Boole...)
+use BcmDigi            v*    Bcm    -no_auto_imports
+use CaloDigit          v*    Calo   -no_auto_imports
+use CaloMoniDigi       v*    Calo   -no_auto_imports
+use BooleUMC           v*    Digi   -no_auto_imports
+use DigiAlg            v*    Digi   -no_auto_imports
+use FTDigitisation     v*    FT     -no_auto_imports
+use MuonAlgs           v*    Muon   -no_auto_imports
+use MuonBackground     v*    Muon   -no_auto_imports
+use MuonMoniDigi       v*    Muon   -no_auto_imports
+use OTSimulation       v*    OT     -no_auto_imports
+use RichDigiQC         v*    Rich   -no_auto_imports
+use RichMCAssociators  v*    Rich   -no_auto_imports
+use RichDigiSys        v*    Rich   -no_auto_imports
+use RichReadout        v*    Rich   -no_auto_imports
+use STDigiAlgorithms   v*    ST     -no_auto_imports
+use VPDigitisation     v*    VP     -no_auto_imports
+use VPAssociators      v*    VP     -no_auto_imports
+
+# ========================= Install configurable ============================
+apply_pattern install_python_modules
+
+# ==========  Export application name and version to gaudirun.py ============
+apply_pattern GaudiApp
+
+# Run the tests
+private
+  macro CASTOR_use "" QMTest "CASTOR v* LCG_Interfaces"
+  use $(CASTOR_use)
+  apply_pattern QMTest
+end_private

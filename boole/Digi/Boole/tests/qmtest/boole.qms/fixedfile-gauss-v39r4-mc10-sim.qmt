@@ -1,0 +1,32 @@
+<?xml version="1.0" ?><!DOCTYPE extension  PUBLIC '-//QM/2.3/Extension//EN'  'http://www.codesourcery.com/qm/dtds/2.3/-//qm/2.3/extension//en.dtd'>
+<!--
+#######################################################
+# SUMMARY OF THIS TEST
+# ...................
+# Author: rlambert
+# Purpose: FixedFile tests verify that Boole remains backwards-compatible
+# Prerequisites: 
+# Common failure modes, severities and cures: 
+#               . SEVERE: Segfault or raised exception, stderr, nonzero return code
+#               . MAJOR: additional FATAL/ERROR messages always a major problem. no ERROR messages should ever be printed when running this test.
+#               . MINOR: additional WARNING messages, it is unclear how severe these may be, you will need to hunt down the cause and either fix the problem or suppress the warning.
+#               . EXPECTED: There are always small differences in output from one stack to the next, if there are such small differences the reference files need to be updated.
+#######################################################
+-->
+<extension class="GaudiTest.GaudiExeTest" kind="test">
+  <argument name="program"><text>gaudirun.py</text></argument>
+  <argument name="timeout"><integer>1200</integer></argument>
+  <argument name="args"><set>
+    <text>$BOOLEROOT/tests/options/testBoole-defaults.py</text>
+    <text>$APPCONFIGOPTS/Boole/DataType-2010.py</text>
+    <text>--option</text>
+    <text>from Boole.Configuration import *; from Configurables import LHCbApp; LHCbApp().DDDBtag="head-20101206"; LHCbApp().CondDBtag="sim-20101210-vc-md100"; from PRConfig import TestFileDB; TestFileDB.test_file_db['boole.fixedfile-gauss-v39r4-mc10-sim'].run()</text>
+  </set></argument>
+  <argument name="reference"><text>../refs/fixedfile-gauss-v39r4-mc10-sim.ref</text></argument>
+  <argument name="validator"><text>
+from Boole.QMTest.BooleExclusions import preprocessor as BoolePreprocessor
+preprocessor = BoolePreprocessor + \
+  RegexpReplacer(when = "CaloFillPrsSpdR...   INFO Average event size :   325.2 words,    70.5 for trigger  Mean bank size", orig = r'40.7', repl = r'40.6')
+validateWithReference(preproc = preprocessor)
+</text></argument>
+</extension>

@@ -1,0 +1,29 @@
+#=========================================================================
+# Created    : 2004-10-25
+# Author     : Vanya Belyaev
+# Maintainer : Olivier Deschamps odescham@in2p3.fr
+#=========================================================================
+package           CaloMoniDigi
+version           v2r6p1
+
+# =============== structure ==================================================
+branches          cmt doc src options 
+
+# =============== environment ================================================
+set               CALOMONIDIGIOPTS $(CALOMONIDIGIROOT)/options 
+
+# =============== dependencies ===============================================
+use             GaudiAlg     v*
+use             MCEvent      v*    Event
+use             DigiEvent    v*    Event
+use		CaloDet	     v*    Det
+
+# =============== constituents ===============================================
+library           CaloMoniDigi   -import=AIDA *.cpp
+
+# =============== patterns ===================================================
+apply_pattern     component_library library=CaloMoniDigi
+
+# ========================================================================
+# The END 
+# ========================================================================

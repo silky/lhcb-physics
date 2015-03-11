@@ -1,0 +1,11 @@
+// Default settings for Flat Spillover background simulation
+
+MuonFlatSpillover.HistogramsFile= "MuonFlatSpillover";
+MuonFlatSpillover.HistogramsUpCode = 100000;
+MuonFlatSpillover.ContainerName = "FlatSpilloverHits";
+MuonFlatSpillover.SafetyFactors ={ 1 , 1 ,1, 1, 1};
+MuonFlatSpillover.HistogramsNumber = {  1 , 2 , 3 , 4 , 5, 6, 7};
+MuonFlatSpillover.HistogramsDimension = { 1 , 2 , 2 , 2 , 2 , 2, 1};      
+MuonFlatSpillover.HistogramsMeaning =  { "r", "phi", "thetaloc", "philoc", "lintime" , "logtime" , "hitgap"  }; 
+MuonFlatSpillover.BackgroundType = "FlatSpillover" ;
+MuonFlatSpillover.FlatSpillNumber =8 ;
