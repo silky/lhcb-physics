@@ -1,0 +1,92 @@
+!-----------------------------------------------------------------------------
+! Package       : Muon/MuonMoniSim
+! Responsible   : A Sarti
+! Purpose       : Monitoring for the muon system for simulated data
+!-----------------------------------------------------------------------------
+
+!======================= MuonMoniSim v3r0p1 2015-01-16 =======================
+! 2014-11-25 - Gloria Corti
+ - Fixes for compilation warnings with --pedantic
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================== MuonMoniSim v3r0 2014-01-30 ========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!======================= MuonMoniSim v2r6p1 2013-10-10 =======================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================== MuonMoniSim v2r6 2012-05-15 ========================
+! 2012-05-07 - Alessia Satta
+ - Fix compilation error with Gaudi v23
+
+!======================= MuonMoniSim v2r5p1 2009-07-15 =======================
+! 2009-06-15 - Gloria CORTI
+ - Fix compilation warning for unused variables, commenting out line where
+   defined.
+   . MuonHitChecker.cpp
+
+!======================== MuonMoniSim v2r5 2009-05-28 ========================
+! 2009-04-27  - Stefania Vecchi
+ - added Algorithm MuonMultipleScatteringChecher: provide histograms to check 
+   the MS simulation in CALORIMETERS and MuonFilters
+
+!======================== MuonMoniSim v2r4 2009-04-06 ========================
+! 2009-03-26 - Patrick Robbe
+ - MuonHitChecker: add possibility to change location of MuonHits by option
+   to generate spill over inside Gauss
+
+!======================== MuonMoniSim v2r3 2008-02-08 ========================
+!  2008-02-03 - Alessia Satta
+ - add counter for hit generated outside gaps volume
+
+!======================== MuonMoniSim v2r2 2007-02-08 ========================
+! 2007-01-12 - Gloria CORTI
+ - update code to cope with Gaudi v19r0: use macro for factory (also
+   compatible with v18) 
+   . MuonHitChecker
+
+! 2007-01-12 - Florence RANJARD
+ - Use single pattern for compenent library instead of two
+   . requirements
+
+!======================= MuonMoniSim v2r1 2006-04-12  ========================
+ 2006-04-12 - Gloria CORTI
+ - Put message "Hello" in debug mode in execute method, not necessary in
+   production
+   . src/MuonHitChecker.cpp
+
+!======================= MuonMoniSim v2r0 2006-02-14  ========================
+! 2006-02-14 - Gloria CORTI
+ - Introduce necessary use of GaudiAlg, no longer gotten via LHCbKernel
+   . requirements
+
+! 2006-01-23 - A. Sarti
+ - Fixed the call to MCevent in requirements
+ - Use MuonDet to retrieve the info from sensDetID!
+
+! 2006-01-13 - A. Sarti
+ - Moved the code to LHCb v20r0 [LHCb namespace and MChit instead of
+   MCMuonHit]
+ - Now getting station, region and other informations from MCHit
+   directly
+
+!=============================== MuonMoniSim v1r1 ============================
+! 2005-06-17 - Gloria CORTI
+ - Make print out at execute in debug() instead of info()
+ - Remove options regarding Gauss jobs.
+
+! 2005-06-10 A. Sarti
+ - Fixed a bug in the normalization of the various mean hits evaluation
+
+! 2005-06-09 A. Sarti
+ - Added more printout
+ 
+!======================== MuonMoniSim v1r0 2005-05-05 ========================
+! 2005-05-55 A. Sarti
+ - New package to hold Muon Sim checking/monitoring algorithms
+ 
+!=============================================================================

@@ -1,0 +1,70 @@
+#============================================================================
+# Created    : 2011-03-03
+# Maintainer : Sajan Easo
+#============================================================================
+package GaussCherenkov
+version v4r5
+
+# Structure, i.e. directories to process. 
+#============================================================================
+branches          cmt src doc options
+
+# Used packages. 
+#============================================================================
+use GaussTools    v*   Sim
+use AIDA          v*   LCG_Interfaces
+use MCEvent       v*   Event
+use RichKernel    v*   Rich
+use RichDet       v*   Det
+use Relations     v*   Kernel
+use GaussRICH     v*   Sim
+
+
+use  LinkerEvent  v*   Event
+
+# Component library building rule
+#============================================================================
+library          GaussCherenkov    ../src/*.cpp             \
+                                ../src/SensDet/*.cpp     \ 
+                              ../src/CherenkovPhysProcess/*.cpp \
+                              ../src/CkvPhysPhotDet/*.cpp \
+                              ../src/srcG4Ckv/*.cc       \
+                              ../src/CherenkovAction/*.cpp \
+                              ../src/CherenkovAnalysis/*.cpp \
+                              ../src/CherenkovMisc/*.cpp \
+                              ../src/CherenkovAssoc/*.cpp \
+                              ../src/CherenkovTestBeamPhysProcess/*.cpp \
+                              ../src/CherenkovTestBeamSensDet/*.cpp \
+                              ../src/TorchTestBeamAnalysis/*.cpp
+
+# Includes used internally
+#============================================================================
+include_dirs     $(GAUSSCHERENKOVROOT) 
+
+# define component library link options
+#============================================================================
+apply_pattern    component_library library=GaussCherenkov
+
+# define options directory
+#============================================================================
+#macro_append GaussCherenkov_linkopts "-lGaussRICH"
+# special linking for genConf (see GaudiTools)
+#============================================================================
+private
+apply_pattern use_genconf_helper_lib pkg=GaussTools 
+
+private 
+include_dirs     $(GAUSSCHERENKOVROOT) \
+                 $(GAUSSCHERENKOVROOT)/src/SensDet \
+                 $(GAUSSCHERENKOVROOT)/src/CherenkovPhysProcess \
+                 $(GAUSSCHERENKOVROOT)/src/CkvPhysPhotDet \
+                 $(GAUSSCHERENKOVROOT)/src/srcG4Ckv \
+                 $(GAUSSCHERENKOVROOT)/src/CherenkovAction \
+                 $(GAUSSCHERENKOVROOT)/src/CherenkovAnalysis \
+                 $(GAUSSCHERENKOVROOT)/src/CherenkovMisc \
+                 $(GAUSSCHERENKOVROOT)/src/CherenkovAssoc \
+                 $(GAUSSCHERENKOVROOT)/src/CherenkovTestBeamPhysProcess \
+                 $(GAUSSCHERENKOVROOT)/src/CherenkovTestBeamSensDet  \
+                 $(GAUSSCHERENKOVROOT)/src/TorchTestBeamAnalysis
+
+

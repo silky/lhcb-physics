@@ -1,0 +1,258 @@
+!-----------------------------------------------------------------------------
+! Package     : EvtGenExtra
+! Responsible : Michal Kreps, Tom Latham, John Back
+! Purpose     : Repository of EvtGen models with external linkages
+!-----------------------------------------------------------------------------
+
+!======================= EvtGenExtras v3r11 2014-12-16 =======================
+! 2014-12-12 - Nikolai Nikitin
+ - Added new model BSTOGLLISRFSR for rare radiative leptonic B-decays
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+! 2014-11-18 - Michal Kreps
+  - Removing semicolons from wrong places to clear warnings when compiled
+    with -pedantic option.
+
+! 2014-11-17 - Gloria Corti
+ - Fix compilation errors with --pedantic for missing std:: in front of
+   {i,o}fstream
+   
+!======================= EvtGenExtras v3r10 2013-12-02 =======================
+! 2013-11-27 - William Sutcliffe
+ - Fix in EvtLb2BaryonlnuFF for warning message.
+
+! 2013-11-26 - William Sutcliffe
+ - Added new model EvtLb2Baryonlnu and corresponding form factor class 
+   EvtLb2BaryonlnuFF. Registered this new model.
+ - Updated EvtSLBaryonAmp with a fix for discrepencies between baryon and 
+   anti-baryon decays.
+
+!======================= EvtGenExtras v3r9 2013-10-10 ========================
+! 2013-10-09 - Sam Hall
+ - K_1(1270) - K_1(1400) mixing angle changed from 34^o to -34^o
+ - And a correction on the 17th.
+
+! 2013-10-02 - Philip Hunt (LHCB)
+ - Added EvtRand class to EvtDTohhhh, which enables the MINT code to use
+   the EvtGen random number generator
+ - Added support for DCS K3pi models in EvtDTohhh
+ - Changed the order by which EvtDTohhhh searched for MINT model files
+   . $DECFILESROOT/MintData checked first
+   . $MINTROOT/Models checked second
+   . current directory used as a final check
+
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================= EvtGenExtras v3r8 2013-08-07 ========================
+! 2013-07-31 - William sutcliffe
+ - Added models Lb2plnuLCSR and Lb2plnuLQCD together with corresponding form 
+   factor classes Lb2plnuLCSRFF and Lb2plnuLQCDFF.  These models calculate the
+   amplitude of Lb->plnu making use of Lb->p form factor predictions from 
+   Light Cone Sum Rules and Lattice QCD.
+ - Added the class EvtSLBaryonAmp.  This is a modified version of the class 
+   EvtSemiLeptonicBaryonAmp in the standard EvtGen distribution.  
+   This modification allows for the case of a Lb->p transtion. 
+   This class is then used in the models to calculate the full amplitude.
+ - Modified EvtModelRegExtras.cpp to include the new models.  
+
+!======================= EvtGenExtras v3r7 2013-07-24 ========================
+! 2013-07-10 - Patrick Robbe
+ - Add new EvtGen model to generate decays with PHSP and a flat 
+   lifetime distribution: EvtPhspFlatLifetime
+
+! 2013-07-03 - Patrick Robbe
+ - Fix gcc47 warnings
+
+! 2013-06-28 - Patrick Robbe
+ - Fix coverity warnings
+
+!====================== EvtGenExtras v3r6p1 2013-06-27 =======================
+! 2013-06-26 - Patrick Robbe
+ - Fix coverity warnings
+
+!======================= EvtGenExtras v3r6 2013-03-07 ========================
+! 2013-02-13 - Patrick Robbe
+ - Fix gcc46 compilation warnings
+
+!======================= EvtGenExtras v3r5 2013-02-04 ========================
+! 2013-02-04 - by Alexander Luchinski
+ - New models for Bc -> psi K K pi, Bc -> psi K pi pi
+
+!====================== EvtGenExtras v3r4p1 2013-01-28 =======================
+! 2012-11-29 - Patrick Robbe
+ - Fix compilation warnings
+
+!======================= EvtGenExtras v3r4 2012-10-19 ========================
+! 2012-09-24 - Nikolai Nikitin
+ - Memory distribution optimization in the matrix elements fo the decays B -> (P,V,Gamma) l+l-
+
+! 2012-08-03 - Nikolai Nikitin
+ - Optimization of the maximum matrix element calculation for Bq -> 4 leptons and ff calculations 
+   for the Bs -> f0(980) transitions.
+
+!======================= EvtGenExtras v3r3 2012-07-13 ========================
+! 2012-07-11 - Aurelien Martens
+ - remove spin checking for EvtFlatSqDalitz
+
+! 2012-07-10 - Aurelien Martens
+ - Added new model for 3body decays to be generated flat on the so-called
+   square Dalitz plot (see PRD72 052002 (2005))
+
+! 2012-07-09 - Nikolai Nikitin
+ - Added new model for Bq -> 4 leptons decay (BQTOLLLLHYPERCP) with light sgoldstino
+
+! 2012-06-20 - Nikolai Nikitin
+ - cout deleting
+
+! 2012-06-20 - Nikolai Nikitin
+ - Optimization of memory allocation in the matrix element calculation.
+
+! 2012-05-22 - Nikolai Nikitin
+ - Added a new decay Bs -> f0(980) Mu Mu in the BTOSLLMS and BTOSLLMSEXT models.
+
+!======================= EvtGenExtras v3r2 2012-02-12 ========================
+! 2012-01-31 - Nikolai Nikitin
+ - Added new models for B -> K_1(1270) Mu Mu and B -> K_1 (1400) Mu Mu decays
+   in the BTOSLLMSEXT model.
+
+! 2012-01-18 - Nikolai Nikitin
+ - Added new models for B -> K_1(1270) Mu Mu and B -> K_1 (1400) Mu Mu decays
+
+!======================= EvtGenExtras v3r1 2011-11-11 ========================
+! 2011-10-04 - Nikolai Nikitn
+ - Added a new decay Bd->Omega Mu Mu
+ - Minor bug fix in the pseudoscalar matrix elementx
+
+! 2011-10-25 - Nikolai Nikitin
+ - Added a model for simulation of the rare semileptonic decays. The model is
+   based on the BSTOLLMS decay model, but includes a possibility to simulate
+   different New Physics scenarios by varying of the Wilson Coefficients.
+
+! 2011-10-24 - Nikolai Nikitin
+ - Added new QED-based model for the B(d,s) -> 4 leptons decays (BQTOLLLL)
+
+!======================= EvtGenExtras v3r0 2011-09-19 ========================
+! 2011-09-19 - Gloria Corti
+ - Increase major version because of new dependency introduced.
+
+! 2011-08-23 - Matthew Coombes
+ - Added new class for description of 4-body D decays, EvtDTohhhh.hh
+ - Updated requirements to use MINT generator for these 4-body decays
+
+!======================= EvtGenExtras v2r7 2011-07-15 ========================
+! 2011-07-15 - Gloria Corti
+ - Apply pattern not to build on windows, so that conditional use can be
+   removed from GaussSys
+
+! 2011-06-19 - Patrick Robbe
+ - src/EvtMathematicaFn.cpp: fix compilation warning
+
+!======================= EvtGenExtras v2r6 2011-04-13 ========================
+! 2011-22-02 - Nikolai Nikitin
+ - Minor bug fix: optimization of the function for the maximum probability
+   calculation
+
+!====================== EvtGenExtras v2r5p1 2010-10-12 =======================
+! 2010-23-09 - Nikolai Nikitin
+ - Some minor bug fixes
+
+!======================= EvtGenExtras v2r5 2010-09-13 ========================
+! 2010-10-09 - Nikolai Nikitin
+ - Commented noisy printouts
+
+! 2010-08-02 - Nikolai Nikitin
+ - Small optimization of the decay amplitudes and formfactors calculation
+   algorithms for the B(s,d)2llGamma decays.
+
+!======================= EvtGenExtras v2r4 2010-07-09 ========================
+! 2010-05-28 - Nikolai Nikitin
+ - Add new classes for the description of rare radiative leptonic B-mesons decays
+   (MNT - Model) with CP-violation effects.
+
+!======================= EvtGenExtras v2r3 2010-03-22 ========================
+! 2010-02-24 - Nikolai Nikitin
+ - Improved the MS model for the simulation of the CP-effects in the rare
+   semileptonic decays. Fixed a typo in the totally antisymmetric tensor.
+
+!======================= EvtGenExtras v2r2 2009-11-04 ========================
+! 2009-09-10 - Patrick Robbe
+ - fix for gcc4.3 compilation
+
+!======================= EvtGenExtras v2r1 2009-10-05 ========================
+! 2009-09-17 - Patrick Robbe for Nikolai Nikitin
+ - Add new classes for the description of rare semileptonic B-mesons decays.
+   . Class EvtbTosllWilsCoeffNLO - for calculation of the Wilson coefficients
+     in the NLO approach at MSbar substruction scheme, including mu-dependence
+     and contribution of the J/psi and psi' resonances, for Standart Model.
+   . Class EvtbTosllFFNew - for calculation of the transition form factors for
+     B -> P and B -> V in framework of the dispersion relation of the quark
+     model (see paper D.Melikhov, B.Stech, PRD62, 014006 (2000)).
+   . Class EvtbTosllAmpNew - for calculation of the decay amplitudes of the
+     rare semileptonic B-mesons decays using the Wilson coefficients from class
+     EvtbTosllWilsCoeffNLO, form factors from class EvtbTosllFFNew and 
+     CKM-matrix elements in Wolfenstein parametrization with accuracy 
+     O(lambda^4).
+ - These classes may help to make the generation of the following rare
+   semileptonic B-mesons decays (l denotes e, mu and tau):
+   . B+ -> K+ l+l-
+   . B0 -> K0 l+l-
+   . B+ -> pi+ l+l-
+   . B0 -> pi0 l+l-
+   . B0 -> eta  l+l-
+   . B0 -> eta' l+l-
+   . Bs0 -> eta  l+l-
+   . Bs0 -> eta' l+l-
+   . B+ -> K*+ l+l-
+   . B0 -> K*0 l+l-
+   . B+ -> rho+ l+l-
+   . B0 -> rho0 l+l-
+   . Bs0 -> phi l+l-
+   . Bs0 -> anti-K*0 l+l-
+ - Modify code to use this new files:
+   . EvtGenModels/EvtbTosllAmpNew.hh
+   . EvtGenModels/EvtbTosllScalarAmpNew.hh
+   . EvtGenModels/EvtbTosllVectorAmpNew.hh
+   . EvtGenModels/EvtbTosllWilsCoeffNLO.hh
+   . EvtGenModels/EvtbTosllFFNew.hh
+   . EvtGenModels/EvtbTosllMS.hh
+   . EvtGenModels/EvtbTosllMSFF.hh
+   . src/EvtbTosllScalarAmpNew.cpp
+   . src/EvtbTosllVectorAmpNew.cpp
+   . src/EvtbTosllWilsCoeffNLO.cpp
+   . src/EvtbTosllMS.cpp
+   . src/EvtbTosllMSFF.cpp
+   . src/EvtModelReg.cpp
+
+!======================= EvtGenExtras v2r0 2009-04-06 ========================
+! 2009-03-16 - Patrick Robbe
+ - Fixes for new EvtGen version
+
+!======================= EvtGenExtras v1r0 2009-02-09 ========================
+
+! 2009-02-23 - Will REECE
+ - Adds support for a the right-handed operators O7', O8', O9' and
+   O10'. Two models that take advantage of these are added, and some
+   general code clean-up has been done. The model is still 
+   *not production ready*.
+
+! 2009-02-09 - Will REECE
+ - Adds a new model for the decay of Bd->K*mumu based on work with 
+   A. Bhurucha. Reference for theory side is arXiv:0811.1214 (hep-ph).
+   The model is stable and will compile but is *not validated*, and so 
+   should not yet be used for production jobs.
+
+! 2009-01-20 - Will REECE
+ - New Package
+
+   Initial version for testing, including a dummy model.
+   Allows extra models to be passed into EvtGen at runtime.
+   These models are provided as a list using the method
+   EvtModelRegExtras::getModels(). This can be uses in the
+   situation where it is desirable to include a new model,
+   but not introduce extra external dependencies for the EvtGen
+   package itself.
+
+!=============================================================================

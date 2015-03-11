@@ -1,0 +1,39 @@
+// ============================================================================
+/** @file 
+ *  The configuration file for Spd sensitive detector 
+ *  @author Vanya Belyaev    Ivan.Belyaev@itep.ru
+ *  @author Grigori Rybkine  Grigori.Rybkine@cern.ch
+ *  @date   2002-12-05
+ */
+// ============================================================================
+
+GiGaGeo.Spd.StartVolumes = {
+  "/dd/Geometry/DownstreamRegion/Spd/Modules/InnCell"  ,
+  "/dd/Geometry/DownstreamRegion/Spd/Modules/MidCell"  ,
+  "/dd/Geometry/DownstreamRegion/Spd/Modules/OutCell"
+};
+
+GiGaGeo.Spd.EndVolume      =  "/dd/Geometry/DownstreamRegion/Spd/Installation/Spd" ;
+GiGaGeo.Spd.CollectionName =  "SpdHits"                            ;
+GiGaGeo.Spd.Detector       =  "/dd/Structure/LHCb/DownstreamRegion/Spd"             ;
+GiGaGeo.Spd.zMin           =  12300. * mm ;
+GiGaGeo.Spd.zMax           =  15000. * mm ;
+
+GiGaGeo.Spd.DetectorPath   =  "/LHCb/Calo"             ;
+
+GiGaGeo.Spd.IntegrationDelays = { 18.5 * ns , 17.5 * ns , 16.5 * ns } ;
+
+// Input Root histograms
+GiGaGeo.Spd.Histograms = { 	
+  "GaussCalo/SPDTIME/h1", 
+  "GaussCalo/SPDTIME/h2",
+  "GaussCalo/SPDTIME/h3" 
+};
+
+// Conversion of Hits
+GetSpdHits.MCHitsLocation = "/Event/MC/Spd/Hits" ;
+GetSpdHits.CollectionName = "SpdHits" ;
+
+// ============================================================================
+// The END 
+// ============================================================================

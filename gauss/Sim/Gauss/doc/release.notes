@@ -1,0 +1,2862 @@
+!-----------------------------------------------------------------------------
+! Package     : Sim/Gauss
+! Responsible : Gloria CORTI
+! Purpose     : LHCb Simulation Application with Geant4
+!-----------------------------------------------------------------------------
+
+! 2015-03-05 - Gloria Corti
+ - Use LHAPDFSet v2r* compatible with LHAPDF6
+
+! 2015-01-28 - Gloria Corti
+ - Comment out use of Geant4Files that should now be in G4Config
+
+!========================= Gauss v48r0p1 2015-01-21 ==========================
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+! 2014-10-28 - Gloria Corti
+ - Modifiy options for 2011 and 2012 to pick up the same dbase tags as in
+   production
+ - Introduce new options for 2015
+
+!========================== Gauss v48r0 2014-10-08 ===========================
+! 2014-10-08 - Gloria Corti
+ - Change major version to reflect changes in generators
+
+!========================== Gauss v47r0 2014-10-08 ===========================
+! 2014-10-08 - Gloria Corti
+ - Introduce changes for Upgrade RICH in configurable, requires GaussCherenkov
+   v4r4 
+
+! 2014-10-07 - Gloria Corti
+ - Revert back to LHAPDFSet v1r*
+ - Put back configuration of BcVegPy that had been temporarily switched off
+ - Introuduce DataType = 2015
+ - New property RICHRandomHits to have backgorund hits in RICH2
+
+! 2014-09-30 - Gloria Corti
+ - Change version of LHAPDFSet to v2r* for tests, will only be for v47r1
+
+! 2014-08-22 - Gloria Corti
+ - Increase major version for dependency to LCG68
+
+!========================== Gauss v46r8 2014-07-28 ===========================
+! 2014-07-28 - Gloria Corti
+ - Change major version of GenXiccData to be used (to v3r*)
+ - Add use of PGunsData package fixing major version (v1r*)
+ - Replace use of GaussUMC with that of VPMoniSim after renaming of package
+
+!========================= Gauss v46r7p2 2014-04-01 ==========================
+! 2014-01-04 - Gloria Corti
+ - Technical release for patch in options of Pythia8 for ad-hoc setting
+
+!========================= Gauss v46r7p1 2014-02-26 ==========================
+! 2014-02-04 - Paul Szczypka
+ - Purged the VL from Configuration.py
+
+!========================== Gauss v46r7 2014-02-03 ===========================
+! 2014-02-01 - Rob Lambert
+ - Suppress Persistency option, not needed any longer.
+
+!========================== Gauss v46r6 2013-02-03 ===========================
+! 2013-12-03 - Gloria Corti
+ - Insert use of LHAPDFSets to fix here the major version
+
+! 2013-11-08 - Paul Szczypka
+ - Updated upgrade tests and refs after new UT additions in DB.
+
+! 2013-11-07 - Paul Szczypka
+ - Corrected simcond values in upgrade tests.
+
+! 2013-11-06 - Paul Szczypka
+ - Additional QMTests and modifications for Upgrade
+   . gauss-upgrade-baseline      (inc ref)
+   . gauss-upgrade-baseline-25ns (inc ref)
+   . gauss-upgrade-baseline-ut   (inc ref)
+   . gauss-upgrade-mininal       (exit code only)
+   . gauss-upgrade-calo_nospdprs (inc ref)
+   . gauss-upgrade-muon_nom1     (inc ref)
+ - Removal of obsolete upgrade qmtests
+   . gauss-upgrade-ft_mono.qmt
+   . gauss-upgrade-ft.qmt
+   . gauss-upgrade-vl_compact_microchannel-ut-ft.qmt
+   . gauss-upgrade-vl_compact_tpg-ut-ft.qmt
+   . gauss-upgrade-vl_loi_microchannel-ut-ft.qmt
+   . gauss-upgrade-vl_loi_tpg-ut-ft.qmt
+   . gauss-upgrade-vp_compact_microchannel-ut-ft.qmt
+   . gauss-upgrade-vp_compact_pocofoam-ut-ft.qmt
+   . gauss-upgrade-vp-ut-ft.qmt
+
+!========================== Gauss v46r5 2013-10-28 ===========================
+! 2013-10-28 - Paul Szczypka
+ - Corrections to Configuration.py to safely access GenInit's properties after
+   PowHeg additions.
+
+! 2013-10-24 - Gloria Corti
+ - Port from v45b branch chnages by Patrick Robbe (r163031)
+   . Configuration.py: add options to generate events with Powheg
+ - Add use of LbPowheg
+
+! 2013-10-11 - Paul Szczypka
+ - Added Baseline qmtest and references.
+ - Added db tags directly to baseline qmtest.
+
+! 2013-10-06 - Paul Szczypka
+ - Added qmtest and options for Muon_NoM1 test.
+
+! 2013-09-24 - Marco Clemencic
+ - Added (empty) __init__.py to the Gauss Python module.
+
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+! 2013-09-02 - Paul Szczypka
+ - Updated Gauss Pythia Config references.
+
+!========================== Gauss v46r4 2013-07-24 ===========================
+! 2013-07-24 - Paul Szczypka
+ - Added gauss-upgrade-ft_mono, reverted gauss-upgrade-ft to use FT_BiLayer.
+
+! 2013-07-22 - Paul Szczypka
+ - Correct some recent release notes to have proper date (2013 vs. 2012)
+ - Updated gauss-upgrade-ft to read DEV DB and use new FT_MonoLayer geo 
+   from there.
+ - Updated upgrade qmtests to use latest global tags as default.
+
+! 2013-07-21 - Patrick Robbe
+ - QMTests: merge changes from v45b
+
+! 2013-07-18 - Paul Szczypka
+ - Updated Configuration to remove the now-annoying AEROGEL WARNINGS.
+
+! 2013-07-12 - Paul Szczypka
+ - QMTests: Added new gauss-upgrade-ft qmtest, currently points to my public 
+   area for the DDDB location. Needs to be updated once the geo is in the 
+   official DB.
+
+! 2013-07-16 - Patrick Robbe
+ - CaloOnly.py: add option to switch off RichCuts
+
+! 2013-07-02 - Paul Szczypka
+ - QMTests: clear upgrade test expected stderr file. (empty file now)
+
+! 2013-07-04 - Patrick Robbe
+ - Set as unsupported the Pythia8 QMTests for 43900004, 42511100, 
+   42112002, 42112000, 40911011, 18412431, 28102062
+
+! 2013-07-03 - Patrick Robbe
+ - QMTests: reduce the number of events to 10 for Pythia8 tests, and 
+   divide the time limit by 5
+
+! 2013-06-28 - Patrick Robbe
+ - QMTests: increase time limit for Lambda_b Pythia8 test (15874100)
+
+!========================== Gauss v46r3 2013-06-27 ===========================
+
+! 2013-06-26 - Patrick Robbe
+ - MonitorInDetail.opts: remove GeneratorFullMonitor which is not
+   supported anymore.
+ - qmtests: increase the time limit for pythia8 tests to 3600s
+
+! 2013-06-06 - Patrick Robbe
+ - QMTests: add pythia8 QMTests and clean obsolete reference files
+
+! 2013-06-02 - Patrick Robbe
+ - python/Gauss/Configuration.py: clean configuration for .xgen file
+   generation
+ - QMTests: new sets of tests replacing the generator tests. Only the
+   output status is checked, not the standard out
+
+!========================== Gauss v46r2 2013-05-30 ===========================
+! 2013-05-08 - Paul Szczypka
+ - Add IT back into TrackingSystem list.
+
+! 2013-05-02 - Paul Szczypka
+ - Added SL code to configurable.
+
+!========================= Gauss v46r1 2013-04-25 ===========================
+! 2013-04-23 - Paul Szczypka
+ - Updated upgrade qmtest scripts (not references).
+
+!======================== Gauss v46r0p1 2013-04-04 ===========================
+! 2013-03-29 - Paul Szczypka
+ - Removed old VL qmtest
+ - Removed old VL DB options file for qmtest
+ - Updated Upgrade qmtests to use latest DB tags.
+
+! 2013-03-28 - Paul Szczypka
+ - Added tests for the Velo Upgrade Geometries
+   . gauss-upgrade-vp_compact_microchannel
+   . gauss-upgrade-vp_compact_pocofoam
+   . gauss-upgrade-vl_compact_microchannel
+   . gauss-upgrade-vl_compact_tpg
+   . gauss-upgrade-vl_loi_microchannel
+   . gauss-upgrade-vl_loi_tpg
+ - Edited qmtests to work with legacy DB geometries
+   . gauss-upgrade-vp-ut-ft
+   . gauss-upgrade-vl-ut-ft
+
+!========================= Gauss v46r0 2013-03-27 ============================
+! 2013-03-27 - Gloria Corti
+ - Remove use of MCatNLOData that is no longer in use since a while
+
+! 2013-03-26 - Gloria Corti
+ - Port change from v45b branch:
+ - Set Gauss() default physics list as in Sim08: EmNoCuts and FTFP_BERT
+
+! 2013-03-25 - Gloria Corti
+ - Port changes from v45b branch:
+ - Update qmtests with changes from Patrick Robbe in v42r4. 
+ - Commit new file with reference error for most tests, since info message
+   from tauola is sent to stderr
+ - Modify the template for the evttype tests to use the common reference 
+   error file
+ - Reformat some tests to make them more readable and to use the common
+   reference error file. Also remove the specific error file and update 
+   the reference output. Copy the new references for -opt to -dbg, 
+   although they may be different they will be more similar then the old -dbg.
+   To be updated or removed later.
+   The tests affected are:
+   . gauss-config-2011 (no reformatting, only one outpur referecence existed)
+   . gauss-dev
+   . gauss-dev-pythia8-30000000
+   . gauss-dev-spillover
+   . gauss-gen-10000000
+   . gauss-gen-10000000
+   . gauss-gen-11164012
+   . gauss-gen-14165011
+   . gauss-gen-18112001
+   . gauss-gen-18412431
+   . gauss-gen-22112001
+   . gauss-gen-24142004
+   . gauss-gen-42112000
+   . gauss-gen-42112002
+   . gauss-gen-pythia8-10000000
+   . gauss-gen-pythia8-13164051
+   . gauss-xgen
+ - Change error reference for all upgrade tests, testGauss-Upgrade-err.ref
+ - Add options 'SpillOver-50ns.py' to switch off at any energy when bunch
+   spacing is 50 ns. Use this option in qmtest gauss-dev-spillover
+ - Remove the reference output and error files for slc5 32-bits that is no 
+   longer supported (i686-slc5-gcc43-{opt,dbg}
+ - Update the qmtests that were using the old 'Beam3500GeV...' no longer
+   compatible with the Configurable to use 'Sim08-Beam3500GeV...' and remove
+   it in template for the event type check because it is no longer needed
+ - Modify properties of Gauss() for beam parameters:
+   . remove InteractionSize(x,y,z) where x and y are not used but set
+     in the BeamParameter class from beta* and emittance and where z is really
+     used as RMS of the bunch, so introuduce BunchRMS property to make it
+     clear what it is
+   . rename BeamCrossingAngle as BeamHCrossingAngle, since it is the horizontal 
+     one
+   . add BeamVCrossingAngle for the vertical crossing angle and set value
+     in BeamParameter (remove need of postConfigAction as for MC11)
+ - Modify Gauss-2011.py to include new options in AppConfig with new Gauss()
+   properties (Sim08-Beam3500GeV...) as for Sim08 for 2011 data
+ - Modify Gauss-DEV.py to remove setting of beam interaction position and use
+   default from Gauss()
+ - Add new Gauss-2012.py setting beam and tags as for Sim08 for 2012 data
+ - Remove obsolete Gauss-MC10.py no longer supported
+ - Rename options Gauss-MC11a.py to Gauss-2011.py to reflect that they can be
+   used to generate samples for 2011 with this latest version
+ - Change database tags in Gauss-2011.py to use compatible one for 2011 in
+   DDDB and SIMCOND. Also introduce beam transveral offset as needed by these
+   tags. 
+ - Adapt qmtests to use Gauss-2011.py and remove in that case the use of 
+   Beam3500GeV-md100-MC11-nu2.py already in Gauss itself.
+ - Change Gauss-DEV.py to use compatible DDDB tag for 2012 and DataTypes 2012
+   so that latest SIMCOND tag will be picked up
+
+! 2013-03-07 - Gloria Corti
+ - Undo my changes for VL just made for release
+ - Gauss v45r1 is released on a branch
+
+!========================= Gauss v45r0 2013-03-07 ============================
+! 2013-03-07 - Gloria Corti
+ - Note that Gauss v42r3 and v42r4 are on v42b branch
+   v43r4 on v43b branch
+   v44r3, v44r3p1 and v44r4 on v44b branch
+ - Put in VL qmtest the DB tags for release Upgrade DBASE
+ - Change back VL path in Configurable.py since DB release has not occured 
+   and also requires a new LHCb 
+
+! 2013-03-07 - Paul Szczypka
+ - Added VL upgrade options for qmtest, uses VL path DB tags now
+ - edited VL qmtest to pick up new options file.
+
+! 2013-03-06 - Gloria Corti
+ - The property Gauss().Output has been renamed Gauss().OutputType to be in
+   line with Brunel and make clear its meaning.
+   The following values can be used:
+   . GEN, forced when running the Generator only phase
+   . RGEN and XGEN (default), when running the Generator phase followed by
+                              filling the MCParticles/MCVertices with the
+                              generator information (i.e. no Geant4 processing)
+   . SIM (default) and XSIM, when running also the Simulation phase
+
+ - By default "MC/Gen/HepMCEvents" in no longer written in SIM files. In order
+   to have it one has to speciy the OutputType to be the new 'XSIM'
+ - "MC/Gen/HepMCEvents" is not written out when specifying the OutputType to 
+   be the new 'RGEN'
+ - "MC/Gen/HepMCEvents" continues to be written out in the GEN and XGEN 
+   filetypes
+ - Adapt the Gauss-Job.py examample and the qmtest to the change from
+   Gauss().Output to Gauss().OutputType
+
+! 2013-03-04 - Paul Szczypka
+ - Change VL path in Configurable.py (assuming DB release)
+
+! 2013-02-27 - Gloria Corti
+ - Use Feb dbase tags in upgrade qmtest
+ - Change version of DecFiles to v27r* for latest EvtGen
+ - Add use of package GDMLData for import of GDML files
+ - Port changes for GDML from v42b branch: see below
+
+! 2013-02-12 - Paul Szczypka (merged r152118)
+ - Correction to the GDML code - tool now added to correct algo.
+
+! 2013-02-12 - Gloria Corti and Paul Szczypka (merged r152070,152071)
+ - Introduce in the Gauss() configurable a new property "ReplaceWithGDML" to
+   allow to replace a list of volumes with a GDML description given in a file.
+   The name of the tool is set from the filename.
+
+! 2013-02-26 - Paul Szczypka
+ - Commented out upgrade position of IT in Configuration.py (Removes warnings)
+
+! 2013-02-14 - Paul Szczypka
+ - Commented out upgrade position of OT in Configuration.py (Removes warnings)
+
+! 2013-02-14 - Paul Szczypka
+ - Added qmtests, options and refs, for the upgrade configurations:
+ . VL-UT-FT
+ . VL-UT-FT
+ . Upgrade Reference (Minimal)
+
+! 2013-02-12 - Paul Szczypka
+ - Change to Configurable such that the velo misalignment (and therefore definiition)
+   is always done even for the upgrade. 
+
+! 2013-02-11 - Patrick Robbe
+ - Suppress warning output form the script "makeQMTests.py" to avoid 
+   compilation warnings in the nightlies
+
+! 2013-02-10 - Paul Szczypka
+ - Uncomment line which prevented the simulation of the Velo in Configuration.py
+
+! 2013-02-07 - Gloria Corti
+ - Replace CaloOnly.py with Gauss-CaloOnly.py and remove dependency from upgrade
+ - Add file from v42b branch for setting simulation conditions when RICHES are
+   not simulated (xml/SimulationRICHesOff.xml)
+
+! 2013-02-06 - Paul Szczypka
+ - Changed print messages to log.warning.
+ - Cleaned up some if statements.
+
+! 2013-02-04 - Paul Szczypka
+ - Reverted some changes inadvertantly included in last commit.
+
+! 2013-02-04 - Paul Szczypka
+ - Add method to pass detector list to LHCbApp in Configuration.py
+ - Corrected 'Moun' typos in Configuration.py
+
+! 2013-01-08 - Paul Szczypka
+ - Correction to GaussVis.py options to use new Detector configuration syntax.
+
+! 2012-12-20 - Paul Szczypka
+ - Removed comments and some unused methods in Configuration.py
+
+! 2012-12-18 - Paul Szczypka
+ - Removed debug statements in Configuration.py
+ - Corrected date of previous edit in release.notes
+
+! 2012-12-17 - Paul Szczypka
+ - Added Gauss-CaloOnly.py options.
+ - Edited BeamPipe configuration method.
+
+! 2012-12-11 - Paul Szczypka
+ - Whitespace editing
+ - Added BeamPipe entry to PropertyDocDict
+
+! 2012-12-06 - Paul Szczypka
+ - Typo, Moun -> Muon in Configuration.py
+
+! 2012-12-04 - Patrick Robbe
+ - Configuration.py: add options to pass beam energy to BcVegPy in Pythia8
+
+!========================= Gauss v43r3 2012-11-30 ============================
+! 2012-11-30 - Gloria Corti
+ - Pick version v2r* of GenXiccData for support to 8 TeV collisions
+
+! 2012-11-22 - Nigel Watson
+ - Updated python/Gauss/Configuration.py for QGSP_FTFP_BERT.
+
+! 2012-11-20 - Nigel Watson
+ - Added options for new hadronic list, G4PL_QGSP_FTFP_BERT.py
+
+! 2012-11-13 - Gloria Corti
+ - Use data package for Geant4 9.5, Geant4Files v95r*
+
+! 2012-10-24 - Paul Szczypka
+ - Small changes to gauss-config-2011.qmt
+
+!========================= Gauss v42r2 2012-10-24 ============================
+! 2012-10-24 - Gloria Corti
+ - Change options for upgrade detector combination to make them directly
+   usable in production
+ - Modify example overall stearing options for upgrade, Gauss-Upgrade.py, to
+   pick latest database tags and show how to combine necessary options
+
+! 2012-10-22 - Paul Szczypka
+ - Modified (corrected) gauss-config reference file.
+
+! 2012-10-22 - Paul Szczypka
+ - added Upgrade options files:
+ - $GAUSSOPTS/Gauss-Upgrade-VL-UT-FT.py
+ - $GAUSSOPTS/Gauss-Upgrade-VL-UT-FT-noRich1.py
+ - $GAUSSOPTS/Gauss-Upgrade-VP-UT-FT.py
+ - $GAUSSOPTS/Gauss-Upgrade-VP-UT-FT-noRich1.py
+ - $GAUSSOPTS/Gauss-Upgrade-Reference.py
+
+! 2012-10-21 - Paul Szczypka
+ - made corrections to config references and test
+
+! 2012-10-18 - Paul Szczypka
+ - tinkering with the qmtest config
+
+! 2012-10-18 - Paul Szczypka
+ - Added expected err stream for config qmtest.
+ - Edited config qmtest to refer to the expected error stream.
+
+! 2012-10-18 - Paul Szczypka
+ - Remove some upstream and downstream parts of the beampipe which aren't
+   normally simulated in GeoStream.
+ - Add T/PipeInT beampipe section to GeoStream.
+ - Only list Velo once in GeoStream.
+
+! 2012-10-15 - Gloria Corti
+ - Rename qmtest gauss-config-MC11a.qmt to gauss-config-2011.qmt otherwise it
+   is not run.
+ - Put latest CondDb tags as in Sim05d for MC2011 (aka MC11a)
+
+! 2012-10-12 - Paul Szczypka
+ - Added limit of one event to:
+   Sim/Gauss/tests/options/testGauss-config-defaults.py
+   and changed reference file accordingly.
+
+! 2012-10-12 - Paul Szczypka
+ - Added first version of configuration qmtest, files:
+   Sim/Gauss/tests/qmtest/gauss.qms/gauss-config-MC11a.qmt
+   Sim/Gauss/tests/refs/testGauss-config-10000000.ref.x86_64-slc5-gcc43-opt
+   Sim/Gauss/tests/options/testGauss-config-defaults.py
+
+! 2012-10-09 - Paul Szczypka
+ - Corrected a bug in the PuVeto configuration whereby the test used to check
+   if either the VL or VP was also requested meant that it would configure
+   whichever detector it found instead.
+   
+! 2012-10-08 - Aurelien Martens 
+ - Update qmtests for pythia8
+
+! 2012-10-08 - Gloria Corti
+ - Put r* in requirements file for generator and LHCb data packages
+
+! 2012-10-08 - Paul Szczypka
+ - Corrected a bug in the Configuration whereby all detectors defined in the
+   "T" volume would be loaded irrespective of detector choice if any of the
+   IT, OT or FT detectors were chosen.
+
+! 2012-10-05 - Gloria Corti
+ - Merge changes from the branch v42b
+   . Remove spill-over from Gauss-MC11a.py
+   . Modify Gauss-Upgrade.py to pick up beam conditions as in the upgrade for
+     nu=2.6 (and show how to pick others) but remove spill-over explicitely and
+     use the new Upgrade Database (DDDB and SIMCOND). 
+ - Update upgrade example options to use latest global tags
+ - Remove use of GaudiPartProp from Gauss() since all code has been migrated 
+   to the LHCb::ParticlePropertySvc 
+
+! 2012-10-05 - Paul Szczypka
+ - Added Gauss-Debug.py option file.
+
+! 2012-10-02 - Aurelien Martens
+ - Added few qmtests for pythia8
+
+! 2012-10-02 - Paul Szczypka
+ - Removed most debug statements from Configuration.
+ - Added Debug flag to Configuration.
+
+! 2012-09-24 - Gloria Corti
+ - Remove use of LbHerwig that is obsolete since v42r1. 
+   Put use of LbAlpGen and LbHerwigpp that are new
+   Change version of DecFiles to v26r* for compatibility with new LHCb
+   ParticlePropertySvc and remove use of the Gaudi old one. 
+
+! 2012-09-23 - Paul Szczypka
+ - Minor edits to BeamPipe code fixing typos.
+
+! 2012-09-21 - Paul Szczypka
+ - Minor edits to BeamPipe configuration for UT
+
+! 2012-09-20 - Paul Szczypka
+ - Temporary fix in Configurable.py for non-schema VL path in DDDB
+
+! 2012-09-20 - Paul Szczypka
+ - Modifications to Configurable.py to fix FT typo
+
+! 2012-08-30 - Paul Szczypka
+ - Modifications to Configurable.py to accommodate VP and VL
+
+! 2012-07-23 - Gloria Corti
+ - Remove use of GaudiPartProp from Gauss() since all code has been migrated 
+   to the LHCb::ParticlePropertySvc
+
+! 2012-07-11 - Paul Szczypka
+  - Rewrite of python/Gauss/Configurable.py in order to more easily replace
+    detectors with upgrade versions.
+
+! 2012-06-06 - Gloria Corti
+ - Introduce new script by Emmanouil Kiagias to make qmtest files from a 
+   template. The script is added as a make action so that they will be made
+   in the nighlty and used to check newly committed event types in DecFiles
+   . cmt/makeQMTests.py
+
+! 2012-05-21 - Paul Szczypka
+ - Small corrections to RunTimeError execptions in Configuration.py
+
+!========================= Gauss v42r0 2012-05-15 ============================
+! 2012-05-12 - Gloria Corti
+ - Modify reference files for qmtests after running them with v41r3.
+
+! 2012-05-09 - Gloria Corti
+ - Put use of GaudiPartProp to keep using TEMPORARILY the old 
+   ParticleProperySvc and configure it in Gauss() to read file from DDDB.
+   It should be removed for the next release!
+ - Update Gauss-DEV.py to use latest 2012 tags
+
+! 2012-05-04 - Gloria Corti
+ - Remove use of GaudiPoolDb as no longer in Gaudi and not needed.
+ - First version post-MC11, only compile it against latest stack but do not
+   change external libraries as Pythia6 or Geant4
+
+!========================= Gauss v41r3 2012-04-03 ============================
+! 2012-04-02 - Gloria Corti
+ - Add use of GenXiccData v1r1
+
+! 2012-02-20 - Gloria Corti
+ - GaussVis.py: new options for visualization in python, to replace '.opts'
+
+!========================= Gauss v41r2 2012-02-12 ============================
+! 2012-01-05 - Marc-Olivier Bettler
+ - Update scripts/GaussStat.py to be working with MC11a, specifically:
+   -- locally modified the float() function to be compatible with fortran 
+      scientific notation with Double
+   -- modified the way the eventype is retrieved to be working on MC11 
+      and MC10 logs
+
+
+! 2011-12-07 - Patrick Robbe
+ - Gauss-DEV.py: remove import of Beam parameters, use default ones instead
+ - QMTests: use new Beam options for MC11
+
+!========================= Gauss v41r1 2011-11-24 ============================
+! 2011-11-24 - Gloria Corti
+ - Remove obsolete properties no longer in use from Gauss() configurables.
+   This has the side effect that options for older version of Gauss in 
+   AppConfig will not work with this version of Gauss.
+ - Put default values of beam properties in configurable as for 2011 data.
+
+! 2011-11-16 - Patrick Robbe
+ - tests: update references for new physics list
+
+!========================= Gauss v41r0 2011-11-15 ============================
+! 2011-11-15 - Gloria Corti
+ - Put example for MC11a configuration
+   . Gauss-MC11a.py
+
+! 2011-11-11 - Gloria Corti
+ - Use DecFiles version for MC11, v25r*
+ - Remove options for MC09 and 2009 that are no longer supported.
+   . Gauss-MC09.py
+   . Gauss-2009.py
+ - Put default for Em physics as to be used in MC11 (i.e. Opt1NoCuts).
+
+! 2011-11-09 - Patrick Robbe
+ - another attempt to correct QMTests
+
+! 2011-10-19 - Patrick Robbe
+ - tests: update references and options
+
+!========================= Gauss v40r5 2011-10-18 ============================
+! 2011-10-18 - Gloria Corti
+ - Use first version of DecFiles for MC11: DecFiles v24r*
+
+! 2011-10-17 - Gloria Corti
+ - Increase version
+
+!========================= Gauss v40r4 2011-10-03 ============================
+! 2011-10-03 - Gloria Corti
+ - Update configurable to be able to use LHCbTest and combination with options.
+   Also introuduce optional 'other' in physics list dictionary for higgses.
+
+!========================= Gauss v40r3 2011-09-20 ============================
+! 2011-09-20 - Gloria Corti
+ - Use latest release of ParamFiles
+
+! 2011-09-16 - Gloria Corti
+ - Update Gauss-DEV.py to pick latest tag in DDDB
+ - Switch off qmtest for upgrade as it causes memory problems on server
+
+!======================== Gauss v40r2p3 2011-08-25 ===========================
+! 2011-09-02 - Rob Lambert
+ - Fix in Configuration.py for bug #86302
+ - if GaussTape output is set externally it must be undressed
+   before passing to IOHelper
+
+!========================= Gauss v40r2 2011-08-25 ============================
+! 2011-08-25 - Gloria Corti
+ - Put in configuration the stearing of the creation of the static class
+   needed for beam parameters for the main event. This allow to be able to
+   run spill-over with BeamParameters and the new GenInit setting it up.
+
+!========================= Gauss v40r1 2011-07-25 ============================
+! 2011-07-25 - Gloria Corti
+ - Remove conditional build of generators packages as now pattern to prevent 
+   building them on windows is in packages themselves
+ - Use Geant4Files for G4 9.4
+ - Introduce example on how to read directly files with simulation information
+   with Gauss and execute monitoring phase. This file, GaussRead.py has been 
+   adapted by Mark Whitehead from Gloria's template and provide a guideline. 
+   Its functionality will be integrated and provided by the Gauss configurable
+   in a future release.
+ - Options for using new physics lists by G4 9.4 for LHCb:
+   . G4PL_QGSP_BERT_CHIPS: for better Kaons cross sections
+   . G4PL_LHEP_EmNoCuts:   to have Opt1 reproducing G4 9.2 behaviour
+   . G4PL_LHEP_EmLHCb:     for better MS description
+
+! 2011-06-21 - Rob Lambert
+ - Add Persistency to Configurable, to support ROOT persistency.
+ - use IOHelper to define outStream.
+
+! 2011-06-07 - Patrick Robbe
+ - python/Gauss/Configuration.py: restore CollisionRate option for backward
+   compatibilite
+
+! 2011-05-30 - Patrick Robbe
+ - python/Gauss/Configuration.py: transmit "DataType" property to SimConf
+
+! 2011-05-29 - Patrick Robbe
+ - python/Gauss/Configuration.py: use new beam parameter class
+
+!========================= Gauss v40r0 2011-04-15 ============================
+! 2011-04-15 - Gloria Corti
+ - Fix error in Gauss-DEV.py that was picking up DDDB tag for 2010 instead of
+   2011.
+
+! 2011-04-13 - Gloria Corti
+ - New options for Gauss-MC10.py with standard options as in production.
+ - Modify options in Gauss-DEV.py to pick up 2011 tags.
+
+!========================= Gauss v39r2 2011-03-15 ============================
+! 2011-02-07 - Silvia Miglioranzi
+ - Updated ref files for QMTests gauss-dev, gauss-mc09 and gauss-up (on slc4 
+   64,32 and slc5 platforms).
+   Updated test gauss-gen-mc09-14143011.qmt to use BcVegPy.py (instead of 
+   BcVegPy.opts).
+
+!========================= Gauss v39r1 2010-01-31 ============================
+! 2011-01-31 - Gloria CORTI
+ - Increase minor version
+ - Fix version of some generator database packages:
+   . MIBData       v3r2
+   . BcVegPyData   v2r0
+
+! 2011-01-31 - Silvia Miglioranzi
+ - Added QMTest gauss-xgen.qmt (plus test option testGauss-XGen.py and test
+   ref files for slc4, slc5 platforms).
+
+! 2011-01-31 - Silvia Miglioranzi
+ - Updated QMTest ref files (based on Gauss v39r0) for platforms:
+   -  x86_64-slc5-gcc43-opt 
+   -  slc4_amd64_gcc34 
+   -  slc4_ia32_gcc34
+
+! 2011-01-25 - Patrick Robbe
+ - python/Gauss/Configuration.py: add protection against incompatible 
+   options for Phases
+
+! 2011-01-20 - Patrick Robbe
+ - python/Gauss/Configuration.py: add new phase "GenToMCTree" to activate
+   filling of MCParticles/MCVertices for generator only productions
+
+!========================= Gauss v39r0 2010-12-12 ============================
+! 2010-12-12 - Gloria Corti
+ - Increase major version to make it clear this is the first version for MC10
+
+! 2010-12-10 - Gloria Corti
+ - Modify Gauss-DEV.py so that the latest 2010 tags are taken automatically.
+   Must specifiy the LHCbApp().DDDBTag as it is used inside Gauss() to choose
+   the list of geometry element in the VELO to simulate and prior to 2010 it
+   was different.
+ - Introduce new options in Gauss() configurable to allow for beam line to
+   be rotated with respect to nominal in both x and y:
+   Gauss().BeamLineAngles = [ 0.0, 0.0 ] as default
+
+! 2010-12-08 - Gloria CORTI
+ - Use latest DDDB and SIMCOND tags in Gauss-DEV.py (head-20101206 and 
+   sim-20101208-vc-md100 respectively)
+
+! 2010-10-28 - Patrick Robbe
+ - Configuration.py: add beam option handling for Pythia8 generator and
+   Special, Inclusive and SignalPlain methods
+
+!========================= Gauss v38r9 2010-10-12 ============================
+! 2010-10-12 - Gloria CORTI
+ - Use latest DDDB and SIMCOND tags for 2010 data (head-20101003 and
+   sim-20101008-vc-md100) in Gauss-DEV.py
+ - Use latest DecFiles major version v23r*
+
+! 2010-09-21 - Silvia Miglioranzi
+ - Corrected the QMTest gauss-dev.qmt to pick up the $GAUSSOPTS/Gauss-DEV.py 
+   (latest tags).
+ - removed wrong options:
+   $GAUSSROOT/test/options/Gauss-DEV.py
+
+!========================= Gauss v38r8 2010-09-13 ============================
+! 2010-09-13 - Gloria CORTI
+ - Use latest SIMCOND tags for DEV for 2010 data
+   . options/Gauss-DEV.py
+ - Use latest ParamFiles v8r3
+ - Increase major version of DecFiles (v22r*) as to take latest features
+   automatically
+
+! 2010-09-08 - Silvia Miglioranzi
+ - Updated ref files (platforms slc5, slc5 dbg, slc4 64 dbg,slc4 32 dbg) for  
+   all the QMTests in the Gauss suite.
+
+! 2010-09-07 - Silvia Miglioranzi
+ - Updated the ref files (platforms: slc4 64,32) for all the QMTests in the 
+   Gauss suite.
+
+!========================= Gauss v38r7 2010-07-26 ============================
+! 2010-07-26 - Gloria CORTI
+ - Use latest SIMCOND tags for DEV for 2010 data
+   . options/Gauss-DEV.py
+
+!========================= Gauss v38r6 2010-07-09 ============================
+! 2010-07-09 - Gloria CORTI
+ - Use latest DDDB and SIMCOND tags for DEV for 2010 data.
+   . options/Gauss-DEV.py
+
+!========================= Gauss v38r5 2010-05-09 ============================
+! 2010-05-09 - Gloria CORTI
+ - Introduce new options for setting mean value of interaction (x,y,z). X and
+   Y are also used for beam position for beam gas:
+   Gauss().InteractionPosition = [ <x-value>, <y-value>, <z-value> ]
+   Default is set to zero. 
+   . python/Gauss/Configuration.py
+ - Now crossing angle is also taken into account for beam gas (needs
+   Gen/Generators v10r8)
+   . python/Gauss/Configuration.py
+ - Use latest SIMCOND tags for MC09, set up to replace existing one because
+   of an additional conditions (not used in gauss...)
+   . options/Gauss-MC09.py
+ - Use latest SIMCOND tags for 2009 data and for DEV for 2010 data.
+   . options/Gauss-DEV.py
+   . options/Gauss-MC-2009.py
+ - Use Beam3500GeV-md100-nu1.py in DEV for 2010 data.
+   . options/Gauss-DEV.py
+
+!========================= Gauss v38r4 2010-03-25 ============================
+! 2010-03-25 - Gloria CORTI
+ - Set beam parameters of EvtGenDecay for Pythia as set in Configurable. 
+   This is not strictly necessary as it is only used when Pythia is not chosen 
+   as production engine but it avoids confusion because the values are now 
+   always printed in the log file.
+   . Configurable.py
+ - Put latest tags for simulation for 2009 data and for development (i.e. for
+   2010 data)
+   . Gauss-MC-2009.py
+   . Gauss-DEV.py
+
+! 2010-03-22 - Silvia Miglioranzi
+ - Added options to steer different settings for the Physics Lists:
+   - G4PL_LHEP_EmStd.py
+   - G4PL_LHEP_EmOpt3.py
+   - G4PL_QGSP.py
+   - G4PL_QGSP_BERT.py
+   - G4PL_FTFP_BERT.py
+
+! 2010-03-08 - Silvia Miglioranzi
+ - Modified the Configurable "PhysicsList". Previously only 'LHEP' 
+   and 'QGSP' options were used to steer the entire PhysicsList. 
+   Now more options are available to construct the physics to be simulated:
+   'Em'         :['Std','Opt1,'Opt2','Opt3']
+   'GeneralPhys':[True,False]
+   'Hadron'     :['LHEP','QGSP','QGSP_BERT','QGSP_BERT_HP','FTFP_BERT']
+   'LHCbPhys'   :[True,False]
+
+   The PhysList-*.opts have now been replaced by a method inside Configuration.py.
+
+! 2010-03-01 - Patrick Robbe
+ - Configurable.py: transmit beam settings to Pythia8 when used as a 
+   production tool.
+
+!========================= Gauss v38r3 2010-02-05 ============================
+! 2010-02-05 - Gloria CORTI
+ - Update with the latest database tags options/Gauss-DEV.py
+ - Make new options Gauss-MC-2009.py as shortcut to produce MC for 2009 data 
+   with latest available condition at time of release. 
+ - Update the QMTest gauss-dev.qmt with latest conditions not specific for 
+   simulation for 2009 data
+
+! 2010-01-26 - Silvia Miglioranzi
+ - Updated the QMTest gauss-dev.qmt with latest conditions.
+
+!========================= Gauss v38r2 2010-01-21 ============================
+
+! 2010-01-20 - Silvia Miglioranzi
+ - Modified Configuration.py in order to take into account the validity limits 
+   of the Velo geometry (comparison of global and local tags dates).
+
+!========================= Gauss v38r1 2009-12-17 ============================
+
+ - Modified Configuration.py to include in the Velo simulation the:
+   - Velo/DownstreamPipeSections
+   - Velo/UpstreamPipeSections.
+
+! 2009-12-15 - Patrick Robbe
+ - Configuration.py: fix the name of the generator monitoring sequence 
+   which was not attached to the main sequence.
+
+!========================= Gauss v38r0p1 2009-11-25 ==========================
+! 2009-12-03 - Victor Coco
+ - Modified the Configuration.py in order that VeloPix can be used (add
+   it to the detector list in __apply_configuration and uncomment the call to
+   VeloPix monitoring in configureMoni)
+
+!========================= Gauss v38r0 2009-11-25 ============================
+! 2009-11-25 - Silvia Miglioranzi
+ - Modified the Configuration.py in order to check the compatibility of the 
+   DDDB tags chosen and the Velo geometry to be simulated (after the global 
+   head-20091120 or the local velo-20091116 the new Velo geometry needs to be 
+   used).
+ - Put latest head-20091120 in Gauss-DEV.py
+
+! 2009-11-20 - Gloria CORTI
+ - Do not call SimVeloGeometry.py is VELO is not on the list of detectors to
+   simulate
+ - Put the Geo.StreamItems += ['/dd/Structure/LHCb/AfterMagnetRegion/T']
+   only once if both OT and IT are selected.
+
+! 2009-11-18 - Gloria CORTI
+ - Fix bug reported in production of not being able to set anymore the format
+   of the MessageSvc
+   . python/Gauss/Configuration.py
+ - Put in Gauss-DEV.py latest tags of DDDB and SIMCOND
+
+! 2009-11-18 - Silvia Miglioranzi
+ - Update ref files for QMTests onslc4_ia32_gcc34_dbg. 
+
+! 2009-11-16 - Silvia MIGLIORANZI
+ - Update ref files for QMTests on slc4_amd64_gcc34_dbg. Increased the time 
+   limit for gauss-up.qmt.
+
+! 2009-11-12 - Silvia Miglioranzi
+ - Added two new QMTests: gauss-dev.qmt and gauss-up.qmt (running with 
+   Gauss-DEV.py and Gauss-Upgrade.py options respectively). Added their ref 
+   files for platform slc432 and slc464.
+
+! 2009-11-11 - Silvia Miglioranzi
+ - Update of QMTest ref files (slc5). Update of gauss-gen-mc09 test.
+
+! 2009-11-09 - Silvia Miglioranzi
+ - Update of QMTest ref files (platforms slc4 64 and 32) for the nightly slot 
+   lhcb3.
+
+! 2009-11-07 - Silvia Miglioranzi
+ - Added BlsMoniSim to the packages list and changed version in 
+   Sim/Gauss/cmt/requirements
+ - Added the option Gauss-DEV.py (to run with the latest DDDB and SIMCOND) 
+
+! 2009-11-05 - Silvia Miglioranzi
+ - Configuration.py was modified: DRays configurable was added and "SimPhases"
+   configurable was renamed "Phases".
+ - GenStandAlone.py was modified to use the new "Phases" configurable
+ - In BeamScintillators.py a comment was added to inform that it is valid 
+   only in combination with the MC09 geometry.
+ - DRaysON-LT.opts and DRaysON-HT.py were removed. Kine-LT.py was added to steer
+   the lowering of the kinetic tresholds.
+ 
+! 2009-11-05 - Gloria Corti
+ - Change version of database packages
+ - Introduce new packages GaussUMC and BlsMoniSim
+
+! 2009-11-03 - Gloria CORTI
+ - Change version number of Geant4Files to pick the latest as from 9.2.
+
+! 2009-11-03 - Christopher Rob Jones
+ - Move knowledge of the output SIM file content to new SimConf() Configurable
+   in the gaudiConf package
+
+! 2009-10-23 - Chris Jones
+ - Add packing of MC data in output SIM file. Controlled by new Configurable 
+   option "DataPacking". In additional some optional checking of the packing
+   can be turned on/off via the option "DataPackingChecks"
+
+! 2009-10-23 - Victor COCO
+ - Changes to Gauss configurables to be able to selectively choose the list
+   of predefined detectors to simulate. Two new properties of Gauss() have
+   been introduced:
+   . DetectorGeoDict 
+   . DetectorSimDict
+   dictionaries specifying detector and subset
+   The default configuration for MC09 is
+   "DetectorGeoDict" : {"VELO":['Velo','PuVeto'], "TT":['TT'], "IT":['IT'], 
+	                      "OT":['OT'], "RICH":['Rich1','Rich2'], 
+                        "CALO":['Spd','Prs','Ecal','Hcal'], 
+                        "MUON":['Muon'],"MAGNET": True }
+	 "DetectorSimDict" : {"VELO":['Velo','PuVeto'], "TT":['TT'], "IT":['IT'], 
+                        "OT":['OT'], "RICH":['Rich1','Rich2'], 
+                        "CALO":['Spd','Prs', 'Ecal','Hcal'], 
+                        "MUON":['Muon'], "MAGNET": True }
+
+! 2009-10-13 - Silvia MIGLIORANZI
+ - In all QMTests running on signal events, the option "testGauss-NoOutput.py"
+   (the Output files are not produced) is used. The reference stdoutput files
+   for slc4_amd64_gcc34 have been updated.
+
+!========================= Gauss v37r5 2009-10-05 ============================
+! 2009-10-05 - Gloria CORTI
+ - Force version number for BcVegPyData to be v2r* as required by new version
+   of the code
+
+! 2009-10-02 - Tomasz Skwarnicki
+ - update options/Gauss-Upgrade.py to follow the changes in 
+   AppConfig/options/Gauss
+
+! 2009-10-01 - Jibo He
+ - change the BcVegPyData version in requirements file from "v1r*" to "v*" 
+
+! 2009-09-19 - Tomasz Skwarnicki 
+ - add DataType slot in Configuration.py to set Upgrade specific modifications
+   change OT,IT positions
+ - add options/Gauss-Upgrade.py
+
+! 2009-09-19 - Gloria CORTI
+ - Fix options for gauss-gen-mc09-14143011.qmt to use GenStandAlone.py instead
+   of .opts as it no longer exists.
+
+!========================= Gauss v37r4 2009-09-18 ============================
+! 2009-09-18 - Gloria CORTI
+ - Replace the use of the package Gen/ParticleGuns with Gen/LbPGuns and 
+   activate it. Reactivate Gen/LbMIB package.
+
+ - Replace options with corresponding python configurations
+	 . REPLACED: BeamScintillators.opts by BeamScintillators.py
+               BCMSimulation.opts by BcmSim.py
+               CaloOnly.opts by CaloOnly.py
+ - New options to switch on the geometry just upstream of the VELO (Beam pipe
+   and BCM and depending of database tag BLS or scintillator planes) and the
+   beam line upstream (the dipole compensators and beam pipe in RB84).
+   They are included in BcmSim.py, BeamScintillators.py and BlsSim.py
+   . BeforeVeloGeometry.py - NEW
+   . UpstreamGeometry.py   - NEW
+ - New options to switch on the simulation of the Beam Loss Scintillators 
+   (BLS). A local tag is used for MC09 compatible geometry.
+   . BlsSim.py - NEW
+ - GaussVis.opts works if given to gaudirun.py as post-options
+ - New options to switch off the simulation of the RICHes: geometry and 
+   associated physics processes. It will still write the RICH hits and other
+   data containers in the SIM file
+   . RICHesOff.py
+
+! 2009-09-16 - Gloria CORTI
+ - Introduce new properties in Gauss() configurable
+   . Output     : string to specify the type of output, it can be 'NONE' or
+                  'SIM' (default 'SIM'), allowing to not write an event data
+                  file
+   . Production : string to specify type of generation, it can be 'PHYS', 
+                  'PGUN' or 'MIB' (default 'PHYS') allowing to reactivate
+                  ParticleGun and MIBackground algorithm instead of Generation
+                  in Generator phase
+ - Clean up a little the configurable for Histogram options (only 'NONE' and
+   'DEFAULT' are allowed for the moment
+ - Use isPropertySet() to check if the name of the file catalog is set in 
+   options file as a default value exist in the list and value set in Gauss()
+   was not taken
+ - Use version of DecFiles v19r* as modification for particle guns and mib
+   compatible with Gauss v37r4 have been introduced and previous version cannot
+   be used for these event types
+
+! 2009-09-14 - Silvia MIGLIORANZI
+ - GaussStat.py (which analyze the Gauss log files and produce statistics
+   tables for both generator and simulation) was added under the "scripts"
+   directory. The requirements file was updated adding the line:
+   apply_pattern install_scripts
+
+! 2009-08-04 - Silvia Miglioranzi
+ - Updated QMTests (and corresponding ref files) using the new Gauss v37r3 
+   settings:
+   - gauss-gen-mc09-14103000.qmt
+   - gauss-gen-mc09-22112000.qmt
+   - gauss-gen-mc09-42112000.qmt
+   - gauss-gen-mc09-60001008.qmt
+
+! 2009-08-02 - Silvia Miglioranzi
+ - Updated QMtests (gauss-gen-mc09.qmt, gauss-gen-mc09-10000000.qmt) using the 
+   new Gauss v37r3 settings. Reference files for the different platforms were 
+   updated.
+
+!======================= Gauss v37r3p1 2009-07-29 ============================
+! 2009-07-29 - Silvia Miglioranzi
+ - To allow DIRAC people to change the XML catalog name, the FileCatalog 
+   instruction in Sim/Gauss/python/Gauss/Configuration.py was modified from:
+   FileCatalog().Catalogs = [ "xmlcatalog_file:NewCatalog.xml" ]
+   to:
+   if not FileCatalog().Catalogs:
+    FileCatalog().Catalogs = [ "xmlcatalog_file:NewCatalog.xml" ]
+ -  Update of QMTest gauss-mc09.qmt (and corresponding ref files).
+
+! 2009-07-23 - Silvia Miglioranzi
+ - Updated QMtest (gauss-mc09.qmt) using the new Gauss v37r3 settings. Updated 
+   the slc4_amd64_gcc34 reference file.
+
+!======================== Gauss v37r3 2009-07-21 =============================
+! 2009-07-17 - Gloria CORTI
+ - NOTE THAT Particle Guns and Machine Induces Background events (LSS and TCT)
+   CANNOT BE GENERATED with this version of Gauss as they are. 
+   The Gauss() configurable need to be extended and their options as shown
+   in example and in the DecFiles need to be modified. 
+   To prevent accidentally generaing them their packages are temporarly 
+   switched off in this release
+
+! 2009-07-16 - Gloria CORTI
+ - Put protection in Gauss() so that is LHCbApp.EvtMax is not set Gauss will
+   not run as only generating events is working and reading from a file (for
+   monitor or to separate the simulation phase) has not yet been implemented.
+ - Put protection in Gauss() enforcing only ONE OutStream in ApplicationMgr. 
+ - Modify options testGauss-gen-10evts-defaults.py and 
+   testGauss-gen-defaults.py to remove setting output stream that is not
+   necessary as done in Gauss()
+ - Modify Gauss-MC09.opts to remove import of Gauss.py no longer necessary
+   and pick default configuration for MC09 production also for beam parameters
+ - Gauss.py is now only a template to show what mustbe done. It will NOT
+   work by itself without setting databases' tags
+ - Reset number of events to 5 in Gauss-Job.py for tests
+
+! 2009-07-15 - Gloria CORTI
+ - Change major version of AppConfig as the previous one is incompatible
+   and can no longer be used
+ - Fix minor version of BcVegPyData
+ - Introduce Gauss() configurable and remove files that are obsolete.
+   Leave only options either used by Gauss() or that can be used as modifier.
+   Update them when necessary or write corresponding '.py'
+
+   The application sequence is now set by the configurable
+   . MODIFIED: python/Gauss/Configurable.py
+               options: Gauss.py Gauss-Job.py 
+                        BCMSimulation.opts (to include units)         
+   . REMOVED : Gauss.opts Generator.opts Simulation.opts SimGeometry.opts
+               RichExtendedInfo.opts Common.opts Monitor.opts
+               Gauss-2008-WithSpillOver.py
+               GaussSimPhase.opts ( not yet ported to Gauss() )
+               MergeWithMinBias.opts ( not yet ported to Gauss() )
+   . REPLACED: GenStandAlone.opts by GenStandAlone.py
+               CollisionsCenterOfCavern.opts by CollisionsCenterOfCavern.py
+
+   For setting beam parameters use files in $APPCONFIGOPTS/Gauss as example
+   to see how to set Gauss() properties
+   . REMOVED: Beam450GeV-VeloClosed-MagDown.py Beam450GeV-VeloClosed-MagOff.py
+              Beam450GeV-VeloClosed-MagUp.py Beam450GeV-VeloOpen-MagDown.py 
+              Beam450GeV-VeloOpen-MagOff.py Beam450GeV-VeloOpen-MagUp.py
+              Beam5TeV-VeloClosed-MagDown.py Beam5TeV-VeloClosed-MagOff.py 
+              Beam5TeV-VeloClosed-MagUp.py Beam5TeV-VeloOpen-MagDown.py 
+              Beam5TeV-VeloOpen-MagOff.py Beam5TeV-VeloOpen-MagUp.py
+              Beam7TeV-VeloClosed-MagDown.py Beam7TeV-VeloClosed-MagOff.py 
+              Beam7TeV-VeloClosed-MagUp.py Beam7TeV-VeloOpen-MagDown.py 
+              Beam7TeV-VeloOpen-MagOff.py Beam7TeV-VeloOpen-MagUp.py
+              BeamCond-5TeV.opts BeamCond-5TeV.py PilotRun.opts
+              FixedLumi-5.opts
+
+   The following still work (imported or as argument of gaudirun.py):
+              BeamScintillators.opts EvtGenAlone.opts MonitorInDetail.opts
+	
+   The following works only if given to gaudirun.py via --post-option
+              DRaysOn-HT.opts DRaysOn-LT.opts MuonLowEnergy.opts 
+              CaloOnly.opts DebugG4Track.opts  
+   for example:
+     > gaudirun.py ... --post-option='importOptions("DRaysOn-HT.opts")' 
+
+
+! 2009-06-24 - Silvia Miglioranzi
+ - Introduction of new gen-only QMtests for the following event types:
+   - 14143011 (use of BcVegPy instead of Pythia) 
+   - 60001008 (use of Hijing instead of Pythia)
+   and corresponding ref files for the different platforms.
+
+! 2009-06-23 - Silvia Miglioranzi
+ - Update of QMTests gauss-mc09.qmt and gauss-gen-mc09.qmt (and corresponding  
+   ref files). Introduction of new gen-only QMtests for the following event 
+   types:
+   - 10000000
+   - 14103000
+   - 22112000
+   - 42112000
+   and corresponding ref files for the different platforms.
+   Removal of the ref files of the obsolete gauss-2008.qmt (already removed).
+
+!======================== Gauss v37r2 2009-06-03 =============================
+! 2009-06-03 - Gloria CORTI
+ - Remove gauss-2008.qmt as the options that it was using have been removed
+ - Pick up latest DDDB and CondDB tag from AppConfig.
+
+! 2009-06-02 - Gloria CORTI
+ - Take latest tag for MC09 in Gauss-MC09.opts. It also sets velo close and
+   magnet down as 'default' settings. 
+ - Remove Gauss-2008.py that is obolete.
+
+!======================== Gauss v37r1 2009-05-28 =============================
+! 2009-05-28 - Gloria CORTI
+ - Include directly the options GaudiPoolDbRoot.opts instead of through
+   SimDicts.opts that only had 'pragma print off' that prevented seeing the
+   files included and configurable configurations.
+   . Common.opts
+ - Add monitoring of multiple scattering in muon system
+   . Monitor.opts 
+ - Use latest version of DecFiles v18r* (forces use of decay file with mixing
+   ON).
+   . requirements
+
+! 2009-05-26 - Silvia Miglioranzi
+ - Update of QMTest gauss-MC09.qmt (and corresponding ref files) which runs
+   with the options used for production:
+   - $APPCONFIGOPTS/Gauss/MC09-b5TeV-md100.py 
+   - $APPCONFIGOPTS/Conditions/MC09-20090519-vc-md100.py
+   - $LBPYTHIAROOT/options/Pythia.opts.
+
+! 2009-05-25 - Silvia Miglioranzi
+ - Update of QMTest gauss-gen-MC09.qmt (and corresponding ref files) which runs
+   with the options used for production:
+   - $APPCONFIGOPTS/Gauss/MC09-b5TeV-md100.py 
+   - $APPCONFIGOPTS/Conditions/MC09-20090519-vc-md100.py
+   - $LBPYTHIAROOT/options/Pythia.opts.
+
+! 2009-05-20 - Silvia Miglioranzi
+ - Update of ref file for QMTest gauss-gen-MC09.qmt (for slc4_ia32_gcc34_dbg
+   platform).
+
+! 2009-05-14 - Silvia Miglioranzi
+ - Update of QMTest gauss-MC09.qmt (EVTGEN options patch no longer needed) and 
+   update of the corresponding ref files. Update of gauss-2008.qmt 
+   ref files (few Rich messages in the stdoutput are no longer produced).  
+
+! 2009-05-08 - Silvia Miglioranzi
+ - New QMTest (gauss-gen-MC09.qmt) was added to the suite of Gauss tests; it is
+   running in generator stand-alone mode over 1K of "11144103" events. A set of
+   .ref files for this test were added.   
+
+! 2009-04-16 - Silvia Miglioranzi
+ - One QMTest was renamed (from gauss-MC09.qmt to gauss-mc09.qmt). 
+
+! 2009-04-08 - Silvia Miglioranzi
+ - New QMTest (gauss-MC09.qmt) was added to the suite of Gauss tests; it is 
+   running the new Gauss-MC09.py steering script. A set of .ref files for this 
+   test were added.
+
+!======================== Gauss v37r0 2009-04-08 =============================
+! 2009-04-08 - Patrick ROBBE
+ - First version of script to produce spill-over events with Gauss with 'older'
+   database tags, Gauss-2008-WithSpillOver.py
+
+! 2009-04-08 - Gloria CORTI
+ - Set beam conditions for 5 TeV in python options (BeamCond-5TeV.py), for
+   the moment this include BeamCond-5TeV.opts with leftover beam energy
+   as hijing part not yet ready in python. 
+   This is used by all Beam5TeV-Velo{Closed,Open}-Mag{Up,Down,Off}.py
+ - Use global tags for latest version of velo open/closed and mag up/down/off,
+   instead of local tags and update manager.
+   Modified all Beam{5,7}TeV-Velo{Closed,Open}-Mag{Up,Down,Off}.py
+   and Beam450GeV-Velo{Closed,Open}-Mag{Up,Down,Off}.py
+ - Clean up a little the Gauss-Job.py example
+ - Remove setting of masses in Generator.opts as they have been introduced in
+   particle table available with latest tag of DDDB
+
+! 2009-04-07 - Gloria CORTI
+ - New options Gauss-MC09.py uses the latest tags in DDDB (head-20090330)
+   and SIMCOND picking veloclosed and field up (sim-20090402-vc-mu100). 
+   It should be used instead of Gauss-2008.py for stearing
+ - Gauss-2008.py left for backward compatibility only. settings the old
+   tags, it now imports Gauss.py.
+ - Gauss.py new file that has parts common to all jobs and the sequencing 
+   It will be replaced in the future by the Gauss() configurable. 
+ - Remove GaussRead.opts that is no longer working
+ - Move GaussTape configuration and setting in Configuration.py and remove
+   GaussTape.opts file. Modify Gauss.opts to remove this obsolete part.
+
+! 2009-04-06 - Gloria CORTI
+ - Increase major version of DecFiles to be used as previous one is 
+   incompatible with EvtGen new version.
+
+! 2009-04-02 - Silvia MIGLIORANZI
+ - QMTest reference files updated and gauss-2008.qmt modified adding new lines 
+   to be skipped in the comparison of the stdoutput.
+
+! 2009-03-31 - Silvia MIGLIORANZI
+ - QMTest modified to have the DecFiles built in the nightlies (forcing the 
+   ToolSvc.EvtGenDecay.DecayFile=
+   "$LHCBDEV/GAUSS/Gen/DecFiles/v17r0/dkfiles/DECAY.DEC").
+
+! 2009-03-30 - Silvia MIGLIORANZI
+ - QMTest modified to have the DecFiles built in the nightlies.
+
+! 2009-03-25 - Silvia MIGLIORANZI
+ - QMTest added in test directory. Standard output and error reference for 
+   5 MinBias events created.
+ - QMtests activated in requirements file.
+  
+! 2009-03-06 - Gloria CORTI
+ - Adapt options for debugging G4Tracking to changes in CommandTrackAction
+   class (GaussTools v15r2)
+   . DebugG4Track.opts
+ - Reset particle width to prevent crashes in EvtGen due to changes in
+   ParticleProperty table (DDDD tag head-20090213).
+   TEMPORARY until put in DDDB.
+
+!======================== Gauss v36r2 2009-02-10 =============================
+! 2009-02-10 - Gloria CORTI
+ - Modify transverse beam size settings for 450 GeV and 5 TeV based on 
+   LHC-OP-ES-0011 (EDMS no. 931921).
+   . PilotRun.opts
+   . BeamCond-5TeV.opts
+ - Set luminosity to 2x10^32 for 5TeV to mimick pileup as expected for 
+   50ns bunch spacing
+   . BeamCond-5TeV.opts
+ - Define function (to be moved to configurable) to set crossing angle
+   for all generation type cases.
+   . python/Gauss/Configuration.py
+ - Set beam crossing angle to zero for all cases when LHCb magnet is off
+   under the assumption that this will happen most likely when running
+   with up to 156 bunches when external crossing angle is not required.
+   . Beam{450GeV,5TeV,7TeV}-Velo{Open,Closed}-MagOff.py
+ - Set beam crossing angle to 2.1 mrad for 450GeV beams as given only by
+   LHCb magnet, as will be the case for up to 156 bunches (no external
+   crossing angle required), LHC Project Note 419.
+   . Beam450GeV-Velo{Open,Closed}-Mag{Down,Up}.py
+ - Set beam crossing angle to 121 microrad for 5TeV beams: this is the 
+   effective angle due to both external angle for full positive polarity
+   of the LHCb magnet and for more than 156 bunches and the internal LHCb
+   magnet crossing angle (LHC Project Note 419). Does not know external
+   crossing angle for negative polarity, so leave the same effective angle
+   for the moment.
+   . Beam5TeV-Velo{Open,Closed}-Mag{Down,Up}.py
+
+! 2009-02-09 - Gloria CORTI
+ - Remove use of RichMCAssociators, not necessary since code is in GaussRICH
+
+! 2009-02-05 - Gloria CORTI
+ - Options to simulate only calorimeters, to allow production of particle 
+   guns for special studies.
+
+! 2009-02-04 - Gloria CORTI
+ - Move optional items to write to tape when running RICH to obtain extended
+   information to GaussTape.opts from RichExtendedInfo
+ - Remove bakeout from RICH from simulation (volume will not even exist in
+   as installed version)
+   . SimGeometry.opts
+ - Put back all geomtry by default, leave as commented example how to switch
+   off calorimeneters when running the visualization
+   . GaussVis.opts
+
+! 2009-01-26 - Chris Jones
+ - Changes to RICH extended information
+  + Activate by default.
+  + Run two additional algorithms, previously run in Boole, to create linker
+    information between the RICH extended information and the main MC data 
+    objects.
+
+!======================== Gauss v36r1 2009-01-14 =============================
+! 2009-01-14 - Gloria CORTI
+ - Take latest tag in DDDB (head-20090112) and SIMCOND (sim-20090112) where
+   latest muon geometry if off, due to problem observed of hits outside 
+   chambers. There is a mismatch between what in DeElement and G4 due to 
+   assembly used to describe misalignment.
+   . Gauss-2008.py
+
+! 2009-01-13 - Gloria CORTI
+ - Set maximum number of events via LHCbApp(), since ApplicationMgr() does
+   not seem to propagate the information. Also remove example from Gauss.opts
+   since options can no longer be used directly as steering
+   . Gauss-Job.py
+   . Gauss.opts
+ - Remove EvtType.py and put example in Gauss-Job.py, commented, since
+   '$DECFILESROOT/options/EvtType.opts' can be passed directly as argument 
+   of gaudirun.py
+   . Gauss-Job.py
+   . EvtType.py  - REMOVED
+
+! 2009-01-12 - Gloria CORTI
+ - Take latest tag in DDDB and SIMCOND. Ot now needs to be explicitely set.
+   . Gauss-2008.py
+ - Pick latest DecFiles compatible with new Particle Property table
+   . requirements
+
+! 2009-01-08 - Gloria CORTI
+ - Keep all particles that decay to preserve the whole tree in case of decay
+   at rest since the decay products are always kept
+   . Simulation.opts
+
+!======================== Gauss v36r0 2008-10-11 =============================
+! 2008-12-11 - Gloria CORTI
+ - Fix problem to run with tag velo-open 
+   . Beam{450GeV,5TeV,7TeV}-VeloOpen-Mag{Down,Off,Up}.opts
+ - Remove including DDDB.opts since all setting already don in LHCbApp()
+   . Common.opts
+
+! 2008-12-08 - Gloria CORTI
+ - Pack MCParticles and MCVertices to write them out
+   . GaussTape.opts
+ - Switch off checking of unknow particles in SimulationToMCTruth: all nuclei
+   are unknown as new PDGid used by G4 not know in particle table; it will be
+   in next release of DDDB (> v5r0)
+   . Simulation.opts
+ - Adapt to new Gauss structure
+   . Gauss_Ganga.py
+
+! 2008-12-07 - Gloria CORTI
+ - Remove setting of particle table file, that is taken from ConfDDDB.
+   . Common.opts
+ - Move GaussTape.opts to be included from Gauss.opts, in odred to put there
+   packing of MCParticles and MCVertices
+   . Common.opts
+   . Gauss.opts
+ - Removed obsolte options for setting of magnetic field maps, now taken
+   from ConfDDDB
+   . MeasuredFieldMap.opts - REMOVED
+ - Adapt main configuration to Gaudi v20r3:
+   + replace import of DDDB.py and LHCb-2008.py, and setting of SIMCOND as
+     conditions DB with LHCbApp( DataType = "2008", Simulation = True )
+   + no longer necessary to force DetectorDataSvc to be instantiated before
+     GiGa (automatically done)
+   + no longer necessary to explicitely pick particle table from DDDB, already
+     done in ConfDDDB
+   . Gauss-2008.py
+ - Import all units in SystemOfUnits 'namespace'
+   . python/Gauss/Configuration.py
+   . Gauss-2008.py
+   . Beam450GeV-VeloOpen-BfieldZero.py
+ - Rename files specifing beam/velo pos/magnet to have -Mag{Down,Off,Up} 
+   instead of Bfield{Zero,Neg} similarly to what in SIMCOND:   
+     Polarity -1 -> Down  (Default)
+              +1 -> Up
+   Introduce all options for Velo{Open,Closed}-Mag{Down,Off,Up} for 7 TeV
+   beam, and those missing for 5 TeV and 450 GeV.
+   It is possible to indentify in the data the different configurations 
+   because a different start time for the event time is set, with the following
+   convention 
+     1. beam energy E*100000*ns
+        E = 0 for   7 TeV
+            1 for 450 GeV
+            2 for   5 TeV
+     2. velo position V*10000*ns
+        V = 0 for velo closed
+            1 for velo open
+     3. magnet condition M*1000*ns
+        M = 0 for magnet down
+            1 for magnet off
+            2 for magnet up
+
+   . REMOVED                           REPLACED by                    StartTime
+     Beam450GeV-VeloOpen-BfieldNeg.py  Beam450GeV-VeloOpen-MagDown.py 110000*ns
+     Beam450GeV-VeloOpen-BfieldZero.py Beam450GeV-VeloOpen-MagOff.py  111000*ns
+     Beam5TeV-VeloClosed-BfieldNeg.py  Beam5TeV-VeloClosed-MagDown.py 200000*ns
+     Beam5TeV-VeloClosed-BfieldZero.py Beam5TeV-VeloClosed-MagOff.py  201000*ns
+     Beam5TeV-VeloOpen-BfieldNeg.py    Beam5TeV-VeloOpen-MagDown.py   210000*ns
+     Beam5TeV-VeloOpen-BfieldZero.py   Beam5TeV-VeloOpen-MagOff.py    211000*ns
+
+   . NEW                                StartTime
+     Beam450GeV-VeloClosed-MagDown.py   100000*ns
+     Beam450GeV-VeloClosed-MagOff.py    101000*ns
+     Beam450GeV-VeloClosed-MagUp.py     102000*ns
+     Beam450GeV-VeloOpen-MagUp.py       112000*ns
+     Beam5TeV-VeloClosed-MagUp.py       202000*ns
+     Beam5TeV-VeloOpen-MagUp.py         212000*ns
+     Beam7TeV-VeloClosed-MagDown.py          0*ns
+     Beam7TeV-VeloClosed-MagOff.py        1000*ns
+     Beam7TeV-VeloClosed-MagUp.py         2000*ns
+     Beam7TeV-VeloOpen-MagDown.py        10000*ns
+     Beam7TeV-VeloOpen-MagOff.py         11000*ns
+     Beam7TeV-VeloOpen-MagUp.py          12000*ns
+
+! 2008-12-02 - Gloria CORTI
+ - Replace MCtruth mechanism from/to Geant4: only particle traveling are
+   passed to Geant4 and the resonance are made as MCParticles when passing
+   the generator info to Geant4. Replace the two algorithm passing/retrieving
+   information.
+   . Simulation.opts 
+
+! 2008-11-27 - Gloria CORTI
+ - #BUG 44666
+   Remove obsolete options for particle gun. They are no longer valid since
+   ParticleGun v6r0. Example options are now available as 
+   $PARTICLEGUNSROOT/options/ParticleGun.opts as taken in Gauss.opts
+ - Remove obsolete files for doxygen documentation: this is handled since a
+   long time in GaussSys
+   . DoxyFile.cfg, Doxyfooter.html, Doxyheader.html, MainPage.doc, makedoc
+     are all removed from doc subdirectory
+
+! 2008-11-20 - Gloria CORTI
+ - Remove SimVeloGeometry.opts where one line is wrong dure to change in name
+   of a volume and replace it with SimVeloGeometry.py (by Thomas RUF).
+   This is now importeb by default in Gauss-2008.py because otherwise the
+   misalignment is not taken into account correctly for the r-sensors since
+   the modules, as assembly, are skipped into the conversion to G4 and the
+   sensores are put directly in the module's mother volume.
+   . SimVeloGeometry.opts - REMOVED
+   . SimVeloGeometry.py   - NEW
+   . Gauss-2008.py
+
+! 2008-10-30 - Gloria CORTI
+ - Adapt options to renaming of algorithms from "DumpMC" and "DumpMCDecay" to
+   "DumpHepMC" and "DumpHepMCDecay"
+
+!======================== Gauss v35r1 2008-10-10 =============================
+! 2008-10-10 - Gloria CORTI
+ - Adapt visualization options to run not as steering but as modifier in 
+   gaudirun.py. Also make comments clearer for switching between G4 UI control
+   and pure visualization with pre-defined viewer (in options dawn)
+   . GaussVis.opts
+ - Remove release_notes.html that where how release notes were done up to
+   Gauss v19r0
+
+! 2008-10-08 - Gloria CORTI
+ - Remove include of Pythia64.opts options no longer necessary since the
+   default in PythiaProduction
+   . Generator.opts
+ - Remove options no longer working: will need to be replaced with other
+   doing the same things
+   . lhcb-2008-GenPhase.opts
+   . lhcb-2008-SimPhase.opts
+ - Add options for beam energy with other Production tools
+   . BeamCond-5TeV.opts
+   . PilotRun.opts
+ - Do not add algorithms to generator sequence (setting properties by keeping
+   the name for the algorithm works). This reactivate the monitoring histogram
+   for the generator
+   . Gauss-Job.opts
+ - Do not print vertex multiplicity in monitoring by default to reduce 
+   printout in production
+   . Monitor.opts
+ - New python options for stearing a default Gauss job with 2008 geometry 
+   setup, for 450GeV
+   . Beam450GeV-VeloOpen-BfieldNeg.py
+ - Read particle table from DDDB rather than from text file
+   . Gauss-2008.py
+   . python/Gauss/Configuration.py
+ - Put initial value in list with "=" rather than "+=" as to be able to just
+   pass the options as argument and override the default one.
+   One can now do:
+    > gaudirun.py $GAUSSOPTS/Gauss-2008.py $GAUSSOPTS/PhysList-QGSP.opts ...
+   to switch to QGSP hadronic phyics
+   . PhysList-{LHEP,QGSP}.opts
+ - New options for turning delta rays on (lower production cuts) and for
+   delta rays on and low kinetic energy cuts (lower tracking cuts)
+   . DRaysOn-{LT,HT}.opts 
+
+! 2008-10-08 - Gloria CORTI for Marco PAPPAGALLO
+ - Add Visualization service to activate colors in Gauss G4-internal
+   visualization
+   . GaussVis.opts
+
+! 2008-09-16 - Gloria CORTI
+ - Remove lhcb-2008*.{py,opts} that are obsolete and no longer working.
+   Use Gauss-2008.py instead.
+   . REMOVED: lhcb-2008.opts      lhcb-2008.py      lhcb-2008-BOff.opts 
+              lhcb-2008-5TeV.opts lhcb-2008-5TeV.py lhcb-2008-5TeV-BOff.py 
+              lhcb-2008-5TeV-BOff.opts lhcb-2008-450GeV-OpenVelo-BOff.opts 
+              lhcb-2008-450GeV-BOff.py lhcb-2008-450GeV-BOff.opts
+
+!======================== Gauss v35r0 2008-09-11 =============================
+! 2008-09-11 - Gloria CORTI
+ - Fix bug (mistying) for Beam energy at 5 TeV, where for collision it was
+   given 10 TeV (as in CM) rather that 5 TeV.
+   . BeamCond-5TeV.opts
+
+! 2008-09-09 - Gloria CORTI
+ - New python options for stearing a default Gauss job with 2008 geometry 
+   setup, for 450GeV, 5TeV, Velo open/close and magnetic field on/off
+   steered by SIMCOND (for velo and magnet). Various combinations are provided
+   (as requested by Wouter for alignment studies).
+   Initial Gauss python configuration.
+   . python/Gauss/Configuration.py
+   . Beam450GeV-VeloOpen-BfieldZero.py 
+   . Beam5TeV-VeloClosed-BfieldNeg.py 
+   . Beam5TeV-VeloClosed-BfieldZero.py 
+   . Beam5TeV-VeloOpen-BfieldNeg.py 
+   . Beam5TeV-VeloOpen-BfieldZero.py 
+   . Gauss-2008.py
+ - New generic options for what need to be set for a job: random seed and
+   output histogram and data files names.
+   . Gauss-Job.py
+ - Take away VELO and Magnet configuration from PilotRun.opts and set zero
+   crossing angle as for magnet off as likely all 450 GeV runs will be in 2008
+   . PilotRun.opts
+ - Pick up dawn in path from LCG_external
+   . requirements
+ - Simplify options and remove options for windows since they do not work
+   . GaussVis.opts
+
+! 2008-09-03 - Gloria CORTI
+ - Fix options for magnetic field to use with Magnet v5r0 (LHCb v25r0)
+   . SimGeometry.opts
+   . MeasuredFieldMap.opts
+ - Fix options for CondDBDispatcherSvc to use with Gaudi v20r1
+   . lhcb-2008.opts
+
+! 2008-07-28 - Gloria CORTI
+ - Add few steering options for alignment production:
+   450 GeV with magnet off, 5 TeV with magnet off and on (leave in this case
+   the spread of the beam as for 450 GeV, same beta*, but z lenght of
+   bunche and crossing angle as in 7 TeV)
+   . lhcb-2008-{450GeV,5TeV}-{BOff}.opts
+
+!======================== Gauss v34r0 2008-07-22 =============================
+! 2008-07-20 - Gloria CORTI
+ - Remove list of external services ( ToolSvc, ParticlePropertySvc, 
+   EventSelector, EventClockSvc ) that are anayway taken as necessary.
+   . Common.opts
+ - Use SIMCOND dbase and latest tags: head-20080702
+   . lhcb-2008.opts
+ - Use macro to fix application version and number in python automatically
+   . requirements
+   . lhcb-2008.py
+
+!======================== Gauss v33r2 2008-07-06 =============================
+! 2008-07-06 - Gloria CORTI
+ - Use Gean4Files for G4 9.1
+   . requirements
+
+!======================== Gauss v32r2 2008-06-29 =============================
+! 2008-06-29 - Gloria CORTI for Magnus LIENG
+ - Fix name of algorithm for BCM monitoring to agree to what in included
+   options from BcmMoniSim
+   . BCMSimulation.opts
+
+! 2008-06-27 - Gloria CORTI
+ - Use Geant4Files for G4 9.0
+   . requirements
+ - Adapt options to changes in name of Geant4 physics for EM physics
+   . PhysList-{LHEP,QGSP}.opts
+ - Increase version number to v32r2
+   . requirements, lhcb-2008.py, Gauss_Ganga.py
+
+!======================== Gauss v31r2 2008-06-16 =============================
+! 2008-06-16 - Gloria CORTI
+ - Build with latest LHCb and geometry. 
+   Use latest DDDB and LHCBCOND tags: head-20080603 (head-20080516 still works)
+   . lhcb-2008.opts
+ - Require top algorithm "Gauss" to be succesful to write event to tape. It 
+   was "Simulation". This implies that a filter can also be put at generator
+   level for global events and is possible since introduction in v30r5 of
+   "Gauss" sequencer.
+
+!======================== Gauss v31r1 2008-06-11 =============================
+! 2008-06-11 - Gloria CORTI
+ - Introduce generic example for generator and simulation phase stand-alone
+   with latest DB tags
+   . lhcb-2008-{GenPhase,SimPhase}.opts
+ - Modify generator and simulation stand alone options to be used as modifier
+   options for standard one
+   . GenStandAlone.opts
+   . GaussSimPhase.opts
+ - Modify EvtGenAlone.opts to be used in combination with GenStandAlone.opts
+   . EvtGenAlone.opts
+
+! 2008-06-10 - Gloria CORTI
+ - Adapt to changes in geometry structure upstream of Velo and downstream of
+   muon system for BCM simulation and BeamScintillators
+   . BCMSimulation.opts
+   . BeamScintillators.opts
+ - Pick latest geometry options
+   . GaussVis.opts
+ - Remove "older" geometry no longer working 
+   . lhcb-200801.{py,opts}
+   . lhcb-200802.{py,opts}
+   . lhcb-200802-{BOff,450GeV-OpenVelo-BOff,SimPhase}.opts
+ - Introduce generic example for BOff and collisions at 450 GeV with Velo
+   open and magnetic field off
+   . lhcb-2008-{BOff,450GeV-OpenVelo-BOff}.opts
+
+! 2008-06-05 - Gloria CORTI from Marco CLEMENCIC
+ - Put comment on separate line, otherwise gaudirun.py does not work, because
+   it ignores the options in following lines in particular 
+   "EventDataSvc.ForceLeaves         = true ;"
+   so that data cannot be written in TES
+
+! 2008-06-02 - Gloria CORTI
+ - New steering options to pick up latest version of geometry
+   ( tag=head-20080516 ).
+   . options/lhcb-2008.{opts,py}
+
+! 2008-05-30 - Gloria CORTI
+ - Use latest version of FieldMap DB (v5r0) with measured field
+ - Use latest version of DecFiles (v14r4) with new event types
+ - Use latest version of MIBData (v2r0) with beam gas in LSS sources and 
+   compatible with both 32-bit and 64-bit
+ - Use ParticleTable with corrected PDG for D(2S), D*(2640) and Lambda_c(2625)
+   . options/Common.opts
+ - Introduce options to run with measured magnetic field map
+   . options/MeasuredFieldMap.opts
+ - Move in item list the "RIchHpdSurfaces" after "RICH2Surfaces" otherwise
+   simulation does NOT work with latest geometry
+   . options/SimGeometry.opts
+
+!======================== Gauss v31r0 2008-05-08 =============================
+! 2008-05-08 - Gloria CORTI
+ - Make Generator and Simulation members of a unique Gauss sequencer, instead
+   of TopAlgorithms. This allow to process with Geant4 only events satisfying
+   a given conditions in generator, eg. cuts on combined events.
+   . Gauss.opts
+ - Use DDDB tag geometry when reading a file
+   . GaussRead.opts
+ - Introduce physics list to declare unknown particles to G4 as listed 
+   below for LHEP
+   . PhysList-QSGP.opts
+ - Fix problem picking up options from wrong area
+   . Gauss_Ganga.py
+
+! 2008-05-07 - Gloria CORTI
+ - Use latest versions of DecFiles v14r3
+ - Fix version of generator data packages (MIBData v1r0, MCatNLOData v1r1)
+ - Use XmlVis v1r5
+ - Remove special executables for extra generators. In addition temporarly
+   switch off extension to Pythia because of circular dependency in loading
+   of overwritten routines as dispatcher of the extentions
+   Temporarly off: LbAlpGen
+                   LbBcVegPy
+                   LbHidValley
+ - Introduce use of the monitoring package for BCM (BcmMoniSim v*)
+ - Do not build LbPythia8 on Window since library not available yet from
+   LCG_Generators
+ - Introduce new steering options for latest geometry tag as available in
+   SQLDDDB version used and having hits in TT (so DC06 TT geometry)
+   . lhcb-200802.opts                       - NEW
+   . lhcb-200802-BOff.opts                  - NEW
+   . lhcb-200802-SimPhase.opts              - NEW
+   . lhcb-200802-450GeV-OpenVelo-BOff.opts  - NEW
+ - Introduce python scripts to run with gaudirun.py for latest geometries
+   . lhcb-200801.py                 - NEW
+   . lhcb-200802.py                 - NEW
+ - Introduce example python script to specify event type and name output
+   files depending on that. It can be used with any of the geomtries.
+   . EvtType.py                     - NEW
+     eg. to use it
+         lxplus> gaudirun.py $GAUSSOPTS/lhcb-200802.py $GAUSSOPTS/EvtType.py
+ - Introduce new options to be added to standard "lhcb-20080x.opts" to
+   generate scollisions in the center of the LHCb cavern (at 11.22m)
+   . CollisionsCenterOfCavern.opts  - NEW
+ - Introduce BCM after TT in geometry to simulate by default, since it is not
+   available for lhcb-200801 geometry, switch it off in that case
+   . SimGeometry.opts
+   . lhcb-200801.opts
+ - Provide options to append to standard "lhcb-20080x.opts" to simulate
+   BCM upstream of the VELO.
+   Since this is not for physics studies they need to be included exclicitely.
+   It adds the geometry of the area, including shielding wall and add BCM
+   sensitive detectors and writes their hits on the sim file.
+   . BCMSimulation.opts
+ - Provide options to append to standard "lhcb-20080x.opts" to simulate
+   possible beam scintillators upstream of the VELO.
+   They need to be included exclicitely.
+   It adds the geometry of the area, including shielding wall and add BCM
+   sensitive detectors and writes their hits on the sim file.
+   . BeamScintillators.opts
+ - Remove no longer supported DC06 geometry related options (cannot generate
+   events with RICH DC06 geometry becasue of incompatibility in the code)
+   . v200601.py                     - REMOVED
+   . v200601.opts                   - REMOVED
+   . v200601-BOff.opts              - REMOVED
+   . v200601-450GeV-xxxx.opts       - REMOVED
+   . v200601-SimPhase.opts          - REMOVED
+
+! 2008-04-28 - Patrick Robbe
+ - Phys-LHEP.opts: add new physics list which declares unknown particles to 
+   Geant4.
+
+! 2008-02-08 - Gloria CORTI
+ - Use latest versions of ParamFiles v7r1 and DecFiles v14r1
+ - Adapt to change in the options for catalog:
+   PoolDbCacheSvc.Catalog = {...}; is now FileCatalog.Catalogs = {...};
+   . Gauss.opts
+ - Introduce new steering options for evolving survey geometry as tagged in
+   SQLDDD
+   . lhcb-200801.opts - NEW
+
+!======================== Gauss v30r5 2007-12-07 =============================
+! 2007-12-07 - Gloria CORTI
+ - Remove making local executable visible. The one in InstallArea already is.
+
+! 2007-12-04 - Gloria CORTI
+ - Switch on Herwig with standard Gauss.exe (ie. without special executable)
+ - Temporarly increase stack size on windows where the default (1Mb) seems
+   to be too small. On linux and for python build it is 2Mb.
+
+! 2007-11-30 - Gloria Corti
+ - Use new settings for Pythia 6.4 including Pythia62.opts from LbPythia
+   . Generator.opts
+ - Use latest available version of DecFiles v13r16
+ - Modify options to allow to run with gaudirun.py, replacing {} with []
+   that also works with standard options but gives crash with main in python
+   . Common.opts
+ - Main steering must be passed with python to be able to set time with units
+   for EventTime (python need to know type of property to convert it from 
+   real to int)
+   + v200601.py
+ - Introduce use of Pythia8 to allow tests
+
+!======================== Gauss v30r4 2007-10-10 =============================
+! 2007-10-10 - Gloria Corti
+ - Use latest available DecFiles v13r14
+ - Remove Gauss.job that is obsolete: Gauss_Ganga.py should instead be
+   used to submit jobs.
+ - New options to be included at the end of steering options to generate
+   in a bunch crossing min bias (pp collisions dsitributed) events in 
+   addition to whatever is generated as signal (for example beam-gas).
+   It should be included AFTER the "signal" event type
+   . MergeWithMinBias.opts
+
+! 2007-10-05 - Gloria Corti
+ - Modify requirements with -no_auto_imports everywhere
+ - Temporarly remove Pythia8 since the external library was compiled with
+   HepMC 2.00.2
+ - Update options for various conditions (VeloOpen, VeloSemiOpen) to adapt
+   to new features in GiGaGeo for picking up information from CondDB.
+   Long list of DetectorElements not necessary in most case (see caveat in 
+   GiGaCnv).
+   . v200601-450GeV-{Open,SemiOpen,Close}Velo-B{On,Off}.opts
+ - NEW utility/example steering options for generating event with magnetic
+   field off and Velo Open
+   . v200601-BOff.opts
+   . v200601-OpenVelo-BOff.opts 
+ - Use new DC06 settings with DDDB
+   . v200601-SimPhase.opts 
+
+! 2007-10-01 - Gloria Corti
+ - Add default cuts for gamma and positrons into special RICH aerogel cuts,
+   otherwise zero is taken.
+   . Simulation.xml
+ - Fix wrong path for particle option
+   . GaussVis.opts
+   . Gauss.opts
+ - Add options for MIB in FixedLumi-5.opts
+ - Add as optional generators AlpGen (LbAlpGen v1r0) and Pythia8 
+   (LbPythia8 v1r0)
+   . requirements
+ - Remove alias to executable with options
+   . requirements
+ - New event types via DecFiles v13r13
+ 
+! 2007-09-11 - Chris Jones
+ - Update example ganga job to remove warnings about missing features (now 
+   available) and to add examples of job merging and GaussSplitter.
+
+!======================== Gauss v30r3 2007-07-04 =============================
+! 2007-07-04 - Gloria Corti
+ - Use v* instead of explicit version number in requirements
+ - Use TimingAuditor for monitor of timing of application instead of option
+   of GaudiSequencer
+   . Monitor.opts
+   . Gauss.opts
+ - Use standard options for Root histogram service and move them to monitoring
+   . Monitor.opts
+   . Common.opts
+
+! 2007-06-20 - Gloria Corti
+ - Adapt to use of DDDB instead of CondDB and XmlDDDB
+   . Common.opts
+   . v200601.opts
+ - Adapt requirements to use DDDB and change version number
+
+!======================== Gauss v30r2 2007-03-26 =============================
+! 2007-03-26 - Gloria Corti
+ - DEVELOPMENT VERSION INCOMPATIBLE WITH DC06 
+     based on LHCb v22r1, Gaudi v19r1, Install Area, new MCGenerators, 
+     Geant4 8.2.p01
+ - Replace MeV with mm in cuts since that is the unit used internally
+   in the code. Since MeV = 1 and mm = 1, there is no effect but the
+   xml is consistent with the code.
+   . Simulation.xml 
+ - Use GaudiMain.cpp from $GAUDICONF and no longer special GaussMain
+   . requirements
+   . GaussMain.cpp (for the moment = to GaudiMain.cpp)
+ - Remove loading of DLLs not necessary with Gaudi v19rX
+   . Common.opts
+   . GaussVis.opts
+   . SimGeometry.opts
+   . Monitor.opts
+   . Simulation.opts
+ - Adapt options to physics lists of Geant4 8.2.p01 as declared in 
+   GaussPhysics v5r0
+   . Simulation.opts
+   . PhysList-LHPP.opts  - NEW
+   . PhysList-QGSP.opts  - NEW
+ - New version of packages adapted to both Gaudi and Geant4 8.2.p01:
+   GiGa v19r0, GiGaCnv v18r0, GaussTools v13r0, GaussPhysics v5r0,
+   GaussTracker v6r0, GaussRICh v7r0, GaussCalo v9r0, GiGaVisUI v4r0
+ - New version of packages to adapt to new MCGenerators distribution:
+   LbHijing v3r0, LbHerwig v5r0. Note the other generator packages are
+   identical to Gauss v25r9 and all difference are handled by GENSER v3r0.
+ - Use new version of ParamFiles v6r0 with new ParticleData
+ - Use new version of Geant4Files v82r0 for new version of Geant4 8.2.p01
+ - Use new XmlDDDB v40r0 and XmlConditions v2r5 to adapt to changes in 
+   LHCb v22r1
+
+!======================== Gauss v25r9 2007-03-13 =============================
+! 2007-03-13 - Gloria Corti
+ - Introduce new algorithm for detailed generator studies (GaussMonitor v4r4).
+   Not used in production! 
+   . MonitorInDetail.opts (problem when running Herwig)
+
+! 2007-03-09 - Gloria CORTI
+ - Allow generation of new event types (Z, W, top, Higgs, beam gas in VELO,
+   min bias and b events with new cuts applied at generator level).
+   Also possible to generate rare events with pileup.
+   Use: 
+   . DecFiles    v3r9 - new event types
+   . Generators  v7r0 - new tools, modified IProductionTool and IGenCutTool
+                        interfaces
+   . LbPythia    v5r0 - new tool, adapt to change in IProductionTool and
+                        IGenCutTool
+   . LbHidValley v2r0 - adapt to change in IGenCutTool
+   . LbHijing    v2r0 - adapt to change in IProductionTool
+   . LbHerwig    v4r0 - adapt to change in IProductionTool and prepare code
+                        for compatibility with Gauss v30
+
+! 2007-03-08 - Gloria Corti
+ - Introduce settings for special events pileup
+   . FixedLumi-5.opts
+
+! 2007-03-02 - Gloria CORTI
+ - Introduce configuration for Hijing at 450 GeV
+   . PilotRun.opts
+
+!======================== Gauss v25r8 2007-02-09 =============================
+! 2007-02-08 - Gloria Corti
+ - Make v25r8 version: DC06 compatible. 
+ - Use version of GENSER v1r141p2 with compilation flag for 32 bits fortran
+   compatibility on slc4.
+ - Use new versions for packages with technical modifications that are 
+   compatible with Gaudi v18r11 and v19r1: factories or similar changes
+   (LbPythia v4r10, LbHerwig v3r4, BcVegPy v1r0p1, LbBcVegPy v1r4, 
+    LbHijing v1r2, ParticleGuns v3r2, GaussKine v1r5, GaussAlgs v2r4,
+    GaussMonitor v4r3, CaloMoniSim v3r1, VeloGauss v2r1, MuonMoniSim v2r2)
+ - Use new version of Hidden Valley with options for production and compatible
+   with both Gaudi v18r11 and v19r1 (LbHidValley v1r2)
+ - Use latest version of DecFiles v13r8 with new event types
+ - Use new version of Generators v6r8 with fixes for bugs observed in 
+   production of signals (see release notes for details) and changes for
+   factories
+ - Introduce options for various configurations of 2007 Engeneering Run
+   (aka Pilot Run) to be used by production instead of v200601.opts
+   . v200601-450GeV-CloseVelo-BOff.opts     - NEW
+   . v200601-450GeV-CloseVelo-BOn.opts      - NEW
+   . v200601-450GeV-OpenVelo-BOff.opts      - NEW
+   . v200601-450GeV-OpenVelo-BOn.opts       - NEW
+   . v200601-450GeV-SemiOpenVelo-BOff.opts  - NEW
+   . v200601-450GeV-SemiOpenVelo-BOn.opts   - NEW
+   . Gauss.opts                             - Modify comments
+   . PilotRun.opts                          - Simplify options for field off
+ - Introduce loading of dll of CaloMoniSim that has been removed from 
+   options in package (only necessary for Gauss v25rX series)
+
+!======================== Gauss v25r7 2006-12-05 =============================
+! 2006-12-05 - Gloria Corti
+ - Set value of luminosity in PilotRun.opts to 1 x 10^27 cm-2 s-1 as presented
+   by T.Nakada in Plenary of LHCb Week in Sept.2007
+ - Add example for switching on PilotRun in Gauss.opts: note that it MUST be
+   included AFTER the EventType options. 
+
+! 2006-12-04 - Gloria Corti
+ - Use latest available version of XmlDDDB v30r14
+ - Use latest version of DecFiles v13r3 with some modified decays.
+ - Use latest version of ParamFiles v5r0 with modifications not affecting
+   Gauss
+ - Use newer version of LbHerwig with fix for using it with MCatNLO
+ - Introduce optional use of new generator LbHidValley from V.Belyaev, to
+   use it:
+     1. > source setup.csh -tag_add=HidValley
+     2. > make CMTEXTRATAGS=HidValley
+     3. modify options as shown in commented example in Gauss.opts
+     4. run the executable GaussHidValley.exe
+   Example in Gauss.opts for event type with Hidden Valley generator.
+ - Remove use of AcerMC no longer in the Gauss project
+ - Set luminous region for pp collision in PilotRun conditions with magnet OFF
+   . PilotRun.opts
+
+!======================== Gauss v25r6 2006-11-13 =============================
+! 2006-11-13 - Gloria Corti
+ - Use units rad now available in GaudiConf in ParticleGuns.opts
+ - Use unit "Lumi" corresponding to 10^32 cm-2 s-1 in FixedLumi-5.opts
+ - Modify SimVeloGeometry.opts so that it is enough to include it to use it
+   and it does not require commenting anything in Simulation.opts
+ - Add in default configuration for PilotRun.opts to have open VELO (also 
+   examples for other VELO positions)
+ - Reset boundaries of Y vs X histograms for TT and IT so that they are 
+   better adjusted to detectors sizes.
+ - In GaussVis.opts switch off some detectors
+
+! 2006-11-10 - Gloria Corti
+ - Use newer versions of generators package with new features (Generators v6r8
+   LbPythia v4r9)
+ - Use newer version of GaussRICH v6r8 with additional features. Default
+   setup is DC06 compatible.
+
+!======================== Gauss v25r5 2006-11-02 =============================
+! 2006-11-02 - Gloria CORTI
+ - Use options for standard DC06 from GaudiConf (LHCb v21r10)
+   . v200601.opts, v200601-SimPhase.opts
+ - Use new version of LbHerwig v3r2 adapted to GENSER_1_4_1
+ - Use new version of GaussMonitor v4r2 with fix for full monitor with
+   Herwig
+ 
+! 2006-10-26 - Gloria Corti
+ - Use new version of XmlDDDB v30r12 and XmlConditions v2r4. The use of the
+   new RICHDet from LHCb requires modified GaussRICH v6r7
+
+! 2006-10-24 - Gloria Corti
+ - Use new version of Generators v6r6 and LbPythia v4r8 to allow production
+   of new event types
+
+! 2006-10-23 - Gloria Corti
+ - Use new version of DecFiles v13r1 with new event types
+
+!======================== Gauss v25r7 2006-12-05 =============================
+! 2006-12-05 - Gloria Corti
+ - Set value of luminosity in PilotRun.opts to 1 x 10^27 cm-2 s-1 as presented
+   by T.Nakada in Plenary of LHCb Week in Sept.2007
+ - Add example for switching on PilotRun in Gauss.opts: note that it MUST be
+   included AFTER the EventType options.
+
+! 2006-12-04 - Gloria Corti
+ - Use latest available version of XmlDDDB v30r14
+ - Use latest version of DecFiles v13r3 with some modified decays.
+ - Use latest version of ParamFiles v5r0 with modifications not affecting
+   Gauss
+ - Use newer version of LbHerwig with fix for using it with MCatNLO
+ - Introduce optional use of new generator LbHidValley from V.Belyaev, to
+   use it:
+     1. > source setup.csh -tag_add=HidValley
+     2. > make CMTEXTRATAGS=HidValley
+     3. modify options as shown in commented example in Gauss.opts
+     4. run the executable GaussHidValley.exe
+   Example in Gauss.opts for event type with Hidden Valley generator.
+ - Remove use of AcerMC no longer in the Gauss project
+ - Set luminous region for pp collision in PilotRun conditions with magnet OFF
+   . PilotRun.opts
+
+!======================== Gauss v25r6 2006-11-13 =============================
+! 2006-11-13 - Gloria Corti
+ - Use units rad now available in GaudiConf in ParticleGuns.opts
+ - Use unit "Lumi" corresponding to 10^32 cm-2 s-1 in FixedLumi-5.opts
+ - Modify SimVeloGeometry.opts so that it is enough to include it to use it
+   and it does not require commenting anything in Simulation.opts
+ - Add in default configuration for PilotRun.opts to have open VELO (also
+   examples for other VELO positions)
+ - Reset boundaries of Y vs X histograms for TT and IT so that they are
+   better adjusted to detectors sizes.
+ - In GaussVis.opts switch off some detectors
+
+! 2006-11-10 - Gloria Corti
+ - Use newer versions of generators package with new features (Generators v6r8
+   LbPythia v4r9)
+ - Use newer version of GaussRICH v6r8 with additional features. Default
+   setup is DC06 compatible.
+
+!======================== Gauss v25r5 2006-11-02 =============================
+! 2006-11-02 - Gloria CORTI
+ - Use options for standard DC06 from GaudiConf (LHCb v21r10)
+   . v200601.opts, v200601-SimPhase.opts
+ - Use new version of LbHerwig v3r2 adapted to GENSER_1_4_1
+ - Use new version of GaussMonitor v4r2 with fix for full monitor with
+   Herwig
+
+! 2006-10-26 - Gloria Corti
+ - Use new version of XmlDDDB v30r12 and XmlConditions v2r4. The use of the
+   new RICHDet from LHCb requires modified GaussRICH v6r7
+
+! 2006-10-24 - Gloria Corti
+ - Use new version of Generators v6r6 and LbPythia v4r8 to allow production
+   of new event types
+
+! 2006-10-23 - Gloria Corti
+ - Use new version of DecFiles v13r1 with new event types
+
+!======================== Gauss v25r4 2006-10-11 =============================
+! 2006-10-11 - Gloria Corti
+ - Use newer version of GaussRICH v6r6 to fix uninitialezed counter showing as
+   randomly bizarre number in log file
+
+! 2006-10-10 - Gloria Corti
+ - Use newer version of Generators v6r5 to allow generation of new event type
+ - Take options files for additional generators from specific packages
+   Remove from this package BcVegPy.opts, Herwig.opts, Hijing.opts and
+   take them from LbBcVegPy v1r3, LbHerwig v3r1, LbHijing v1r1
+   . example in Gauss.opts
+ - For production reduce printout of options leaving only the alphabetically
+   ordered list
+   . v200601.opts, v200601-SimPhase.opts, Common.opts, DebugG4Track.opts
+ - Remove intermediate notes to write to Pesistency when running in generator
+   stand alone as modified in GaudiConf
+   . GenStandAlone.opts
+ - Adapt to changes in options for EventClockSvc (as in DetDescSvc v1r6 in
+   LHCb v21r8)
+   . Gauss.opts
+ - Add commented the options to produce with magnet on in Pilot run
+   configuration
+   . PilotRun.opts
+
+! 2006-10-05 - Gloria CORTI
+ - Use new version of XmlDDDB v30r10, XmlConditions v2r2 (DC06 compatible)
+ - Use new version of DecFiles v12r5
+ - Use new version of Generators v6r4 and LbPythia v4r7 to allow generation
+   of new event types
+ - Use new version of LbHijing to fix problems with Pythia common blocks
+   internally used.
+
+!======================== Gauss v25r3 2006-09-20 =============================
+! 2006-09-20 - Gloria Corti
+ - Use new version of XmlDDDB v30r9, XmlConditions v2r1
+ - Use new version of packages modified for scl4 (Generators v6r2, GiGa v18r3)
+ - Use new version of package to adapt to LHCb v21r7 (GaussRICH v6r5)
+ - Introduce new version of LbHerwig allowing to use it with MCatNLO or 
+   Jimmy (LbHerwig v3r0p1)
+ - Modify options for writing only generator data when running generator in
+   stand-alone mode since double inclusion of options (GenContents.opts) does
+   not work.   
+
+!======================== Gauss v25r2 2006-08-30 =============================
+! 2006-08-30 - Gloria CORTI
+ - Use list of objects to write on tape from $STDOPTS: GenContent.opts and
+   SimContent.opts
+   . GaussTape.opts 
+ - Use new version of ParamFiles v4r4
+
+! 2006-08-28 - Gloria CORTI
+ - Introduce options to be used for generating events in Pilot Run conditions.
+   They are to be included AFTER those of Event type.
+   . PilotRun.opts - NEW
+
+!======================== Gauss v25r1 2006-07-28 =============================
+! 2006-07-28 - Gloria Corti
+ - Use GenContent.opts from $STDOPTS (LHCb v21r3)
+   . GenStandAlone.opts
+ - Example of how to run EvtGen in stand-alone mode
+   . EvtGenAlone.opts - NEW
+ - Introduce example for writing extended MCExtendeHit instead of MCHit for
+   Velo, TT, IT and OT (GaussTracker v5r6)
+   . Simulation.opts  - COMMENTED example at end of file
+
+! 2006-07-27 - Gloria CORTI
+ - Possibility to check EventType in tools used at execution of Generation
+   (Generators v6r1)
+ - Reduce printout when running Herwig production, still available in 
+   debug level (LbHerwig v2r4) 
+ - Possibility of using more than one sensitive detector per volume 
+   (GaussTools v12r4)
+ - Adapt options to Gaudi v18r6 new syntax and properties (stricter rules
+   and removal of #printOptions, GiGa v18r2, GiGaCnv v17r1)
+   . Simulation.opts, Gauss.opts, v200601.opts, GaussRead.opts
+
+!======================== Gauss v25r0 2006-07-05 =============================
+! 2006-07-05 - Gloria CORTI
+ - Add example (commented) on how to use Hijing. Requires DecFiles v12r3
+! 2006-07-04 - Gloria CORTI
+ - Use new versions of packages to adapt to LHCb v21r1 and Gaudi v18r5,
+   i.e. Gaudi::Units
+
+!======================== Gauss v24r9 2006-07-03 =============================
+! 2006-07-03 - Gloria CORTI
+ - Use new version of DecFiles v12r3
+ - Use new version of Generators to print messages at initialization 
+   (Generators v5r3, LbPythia v4r5, LbHerwig v2r2)
+ - Introduce conditional use of new generator Hijing for p-nuclei production
+   for beam gas interactions (e.g. Luminosity studies)
+   To make and use the special executable:
+     > source setup.csh -tag_add = Hijing
+     > make CMTEXTRATAGS = Hijing
+     > ../$CMTCONFIG/GaussHijing.exe ...
+ - Introduce new files to be included for a given event type if a different
+   generator has to be used. These options have to be included AFTER those
+   of eventtype from the DecFiles package, e.g.:
+    #include "$DECFILESROOT/options/30000000.opts"
+    #inlcude "$GAUSSOPTS/Herwig.opts"
+   Example provided in Gauss.opts, where older examples for Herwig have been
+   removed.
+   . options/Gauss.opts
+   . options/Herwig.opts - NEW
+   . options/BcVegPy.opts - NEW
+   . options/Hijing.opts - NEW
+   . options/130000000.opts - REMOVED: replaced by combination of 
+                              30000000.opts followed by Herwig.opts
+   . options/110000000.opts - REMOVED: replaced by combination of 
+                              10000000.opts followed by Herwig.opts
+   . options/14900000.opts  - REMOVED: replaced by combination of 
+                              14143000.opts followed by BcVegPy.opts
+ - Remove obsolete options for Beam gas in Velo with Pythia: still old
+   generator structure.
+   . options/BeamGas-Velo.opts - REMOVED
+
+!======================== Gauss v24r8 2006-06-13 =============================
+! 2006-06-13 - Gloria CORTI
+ - Use XmlConditions v1r7 necessary for use of XmlDDDB v30r8
+
+! 2006-06-08 - Mark TOBIN
+ - Correct SimVeloGeometry.opts file to account for left/right switch in
+   Velo Xml.
+
+! 2006-06-07 - Gloria Corti
+ - Introduce new version of Generators v5r2, LbPythia v4r4 and GaussKine v1r4
+   to correctly handle units in nsec of 4th Lorentz vector in HepMC.
+ - Use latest XmlDDDB v30r8 to allow simulation of Converter with given options
+ - Use latest version of ParamFiles and DecFiles with changes for unknown
+   particles in EvtGen and additional atoms in ParticleTable.txt
+ - Modify options to read DECAY.DEC and no longer DECAY-DC06.DEC that has been
+   removed
+
+! 2006-06-06 - Gloria Corti
+ - Introduce Converter in geometry stream, since it is positioned directly in
+   the Downstream region
+
+!======================== Gauss v24r7 2006-05-30 =============================
+! 2006-05-30 - Gloria Corti
+ - Introduce new options to read in generator events from a file and do the
+   detector simulation
+   . options/v200601-SimPhase.opts
+   . options/GaussSimPhase.opts
+
+! 2006-05-29 - Gloria CORTI
+ - Use options for configuring algorithm to get MCHits for tracker from
+   the GaussTracker v5r4 package.
+   . cmt/requirements
+   . options/Simulation.opts
+ - Move monitors of detectors in dedicated sub-phase of SimMonitor and 
+   switch off checking of EventType by default.
+   . options/Monitor.opts
+   . options/v200601.opts
+ - Introduce example options for generation of generic b events with Herwig
+   . options/110000000.opts
+             
+! 2006-05-22 - Gloria CORTI
+ - Introduce scripts for running valgrind
+   . jobs/valgrind.job
+   . jobs/Gauss.supp
+ - Use XmlDDDB v30r7 fixing some rare problems in geometry of RICH HPDs
+   causing Gauss to crash (G4 perceived overlaps)
+
+! 2006-05-19 - Gloria CORTI
+ - Introduce conditional use of LbBcVegBy (v1r0), new generator for Bc 
+   production, making a special Gauss executable
+   . cmt/requirements 
+   . options/14900000.opts - TEST options
+   To use it do:
+     > source setup.csh -tag_add=BcVegPy
+     > make CMTEXTRATAGS=BcVegPy
+   and run GaussBcVegPy.exe
+ - Use Generators v5r1 and LbPythia v4r3
+
+!======================== Gauss v24r6 2006-05-10 =============================
+! 2006-05-10 - Gloria CORTI
+ - Fix bug in options that was missing to specify to simulate the section
+   of beam pipe in the T area.
+   . SimGeometry.opts
+ - Use GaussCalo v8r3 and XmlDDDB v30r6
+
+! 2006-05-04 - Gloria CORTI
+ - Remove check of event types checker from ParticleGun example options, 
+   since in many cases will not be in DecFiles package.
+   . ParticleGuns.opts
+
+!======================== Gauss v24r5 2006-05-03 =============================
+! 2006-05-03 - Gloria CORTI
+ - Use new version of XmlDDDB v30r5 with different radius of curvature for
+   RICH1 secondary mirrors
+ - Use packages with fixes for MCTruth (GaussAlgs v2r3, GaussKine v1r3,
+   GaussTools v12r2)
+ - Reset optiosn to use DECAY-DC06.DEC since DecFiles v12r1 still needs that
+   and DecFiles head not ready yet
+   . options/Generators.opts
+ - Store also particles that are products of a decay in detecetor 
+   (to have full decay info) 
+   . options/Simulation.opts
+
+! 2006-04-18 - Patrick Robbe
+ - options/Generators.opts: use DECAY.DEC as main EvtGen decay file instead
+   of DECAY-DC06.DEC.
+
+!======================== Gauss v24r4 2006-04-12 =============================
+! 2006-04-12 - Gloria CORTI
+ - Use ParamFiles v4r2 with definition of "Intermediate" particle for showers
+   missing links for new MCTruth
+ - Use new version of XmlDDDB v30r4
+ - Put in production new handling of MCTruth using HepMC to store information
+   Note that we still store trajectories in G4 because it is where we set
+   the conditions but we do not transform them anymore in 
+   MCParticles/MCVertices. The algorithm filling the MCParticles/MCVertices
+   from G4HepMC is now called just after having check the integrity of the
+   G4event and fills the default TES location, hence the converters are not 
+   triggered, although their code is still in GiGaCnv library. 
+   GiGaGetEventAlg is now used only for monitoring purposes since called 
+   later in the sequence. Options to write and check particles in 
+   "TestMCParticle", "TestMCVertices" containers are removed.
+   . Simulation.opts
+   . GaussTape.opts
+   . Monitor.opts
+ - Adapt GaussRead.opts to changes in Monitor.opts
+ - Clean up options
+   . MonitorInDetail.opts
+   . SimGeometry.opts
+ - Switch off detailed monitors for production
+ - All event type options are commented to allow clean include in production:
+   poeple must uncomment one to run
+   . Gauss.opts
+
+!======================== Gauss v24r3 2006-04-07 =============================
+! 2006-04-07 - Gloria CORTI
+ - Use latest version of DecFiles v12r1
+ - Introduce subsequence "DetectorsHits" in simulation sequence where the
+   retrieval of hits is specified. Allows to introduce RichExtended info
+   algorithms in this subsequence without distrurbing simulation monitor.
+   Make separate option file for Rich extended information that can be
+   included other simulation.
+   . Simulation.opts
+   . RichExtendedInfo.opts - NEW
+ - Modify GaussRead.opts to pick latest geometry
+ - Remove options for EvtType that are now available from DecFiles
+   . 30000000.opts, 10000000.opts, 12165100.opts, 13144000.opts,
+     24142000.opts
+
+! 2006-04-06 - Gloria CORTI
+ - Use dynamic link libraries for generators: requires GENSER v1r130p1,
+   Generators v5r0 and LbPythia v4r2
+
+! 2006-04-04 - Gloria CORTI
+ - Use XmlConditions v1r6 for changes in CaloDet.
+ - Adapt to changes in GaudiAlgorithm base class. Requires use of 
+   GiGaCnv v16r2, GaussAlgs v2r1, GaussCalo v8r2
+ - Modify simulation settings for special muon low energy runs according
+   to new paths in "/dd"
+   . MuonLowEnergy.xml - from Emanuele SANTOVETTI
+ - Remove options no longer necessary for Rich simulation since already in
+   $GAUSSRICHROOT/options/Rich.opts or RichExtendedInfo.opts
+   . Simulation.opts
+
+! 2006-04-04 - Florence RANJARD
+ - Use HepMC from lcg/external, requires use of Generators v5r0 and
+   ParticleGuns v3r0 in addition to LHCb v20r3
+
+! 2006-04-03 - Gloria CORTI
+ - Adapt options for simulating geometry to beam pipe integrated in TT,
+   Rich1 and T. Requires XmlDDDB v30r3 or higher.
+   . SimGeometry.opts
+ - Adapt example options of particle gun to units now being MeV in 
+   generator phase like in whole the rest of LHCb
+   . ParticleGun.opts
+
+!======================== Gauss v24r2 2006-03-29 =============================
+! 2006-03-29 - Gloria CORTI
+ - Modify Gauss.job to point to cmtuser working directory
+ - Set verbose off to prevent full dump by default when running debug version
+   . Simulation.opts
+ - Use options of event type from DecFiles v12r0
+   . Gauss.opts 
+
+! 2006-03-27 - Gloria CORTI
+ - Switch on simulation of beam pipe in reagions
+   . use XmlDDDB v30r2
+   . SimGeometry.opts
+ - Introduce use of MeV in Generators (use ParticleGuns v2r1, Generators v4r2,
+   LbPythia v4r1, GaussKine v1r1, GiGaCnv v16r1)
+
+! 2006-03-22 - Gloria Corti
+ - Use new version of GiGaCnv (v16r1) to fix problem of units when passing
+   isotopes
+
+! 2006-03-20 - Gloria CORTI
+ - Use new version of GaussRICH with modification for extended info (v6r3)
+ - Compile against LHCb v20r1
+
+!======================== Gauss v24r1 2006-03-16 =============================
+! 2006-03-16 - Gloria CORTI
+ - Switch off in normal production the extended RICH information
+   . Simulation.opts
+
+! 2006-03-16 - Gloria CORTI from Alessia SATTA
+ - Adapt to new path of muon detector element the special simulation cuts
+   . xml/Simulation.xml
+
+! 2006-03-08 - Gloria CORTI
+ - Use new field map as scaled to agree with measurements (FieldMap v4r7)
+ - Use new version of GaussTracker (v5r1) to fill |P| in MCHit  
+ - Use new version of GaussRICH (v6r2) to adapt to changes in MCRichHit
+ - Introduce example for generating fixed number of interactions
+   . FixedNInteractions.opts  - NEW
+   . Generator.opts
+
+! 2006-02-23 - Gloria CORTI
+ - Use latest DecFiles v11r4 (temporarly in GAUSS project to switch off
+   use of PHOTOS in all decays, since it give problems to reproduce events)
+
+! 2006-02-17 - Gloria CORTI
+ - Use GiGa v18r1 for new setting of field
+   Use modification for Generators (v4r1) allowing to produce b inclusive 
+   Use PackedEvent to be able to use options from 
+   . requirement
+
+! 2006-02-16 - Gloria CORTI
+ - Introduce setting of Event time and step in EventClockSvc to get information
+   for simulated event 
+   . Common.opts
+ - Modify ParticleGuns.opts to fix problem obserbed by S.Easo of wrongly 
+   re-sequencing GenMonitor
+   . ParticleGuns.opts
+ - Modify options for Velo detailed geometry to allow for misalignment, from
+   Mark TOBIN
+   . SimVeloGeometry.opts
+ - Use new options for dictionary from $STDOPTS
+   . Common.opts
+   . GaussPoolIO.opts - REMOVED
+ - Use new version of ParamFiles v4r1 to get ParticleData.txt with changes 
+   of B** masses
+   . requirements
+
+! 2006-02-13 - Gloria CORTI
+ - Switch on Calorimeters, requires GaussCalo v6r1 and CaloMoniSim v2r1
+   . SimGeometry.opts
+   . Monitor.opts
+   . requirements
+
+! 2006-02-13 - Gloria CORTI
+ - Switch on simulation of TT that works.
+   . SimGeometry.opts
+
+! 2006-02-10 - Gloria CORTI
+ - Use GaussRICH v6r1 and VelOGauss v1r2
+   . requirements
+ - Switch on monitoring of Velo and RICH working with the geometry structure
+   (requires VeloGauss v1r2 and GaussRICH v6r1)
+   . Monitor.opts
+ - Remove simulation xml settings for old geometry.
+   . Simulation-v200412.xml - REMOVED
+ - Adapt simulation xml setting to new structure in RICHes, from Sajan EASO
+   . Rich1AerogelRegionDefinition.xml, 
+     RichOverallRegionDefinition.xml,  
+     RichSimulationAttributes.xml
+ - Set paths for RICH surfaces as in new detector structure and switch on 
+   its simulation (requires GaussRICH v6r1)
+   . SimGeometry.opts
+   . Simulation.opts
+ - Switch back simulation of IT, now working.
+   . SimGeometry.opts
+ - Add loading of STDet, OTDet and RichDet
+   . Common.opts
+
+! 2006-02-09 - Gloria CORTI
+ - Use new detector description lhcb-v200601.xml from XmlDDDB v30r0
+   . requirements
+   . Common.opts - set it as default
+   . v200601.opts - New
+   . v200511.opts - Removed
+ - Adapt GetTrackerHits algorithms instances for the Velo, TT, IT, OT and Muon
+   to set the DeElement paths to new structure with regions
+   . Simulation.opts
+ - Switch off temporarly RICH physics until GaussRIHC has necessary changes
+   . Simulation.opts
+ - Adapt list of detectors to be simulated to use new DeElement paths, comment
+   those that either give a crash or warning messages because still looking at
+   pre-v30r0 XmlDDDb.
+   . SimGeometry.opts
+ - Temporarly switch off monitors depending on detector paths not yet migrated
+   to new structure
+   . Monitor.opts
+
+!======================== Gauss v24r0 2006-02-09 ============================
+
+! 2006-02-09 - Gloria CORTI
+ - Switch back requiring the Simulation phase to be successfull to write out
+   the event on file, to account for G4 aborted events
+   . GaussTape.opts
+ - Instead of having initialization, generator, simulation and monitor phase
+   as in previous Gauss versions, there are now separate initializations for
+   the generator and simulation phases. So the initialization phase is now
+   removed as such and the first step of both generator and simulation.
+   The monitor phase is also split and introduced as last part of the generator
+   and simulation phase separately.
+   The sequencing is modified accordingly. The ParticleGun options are modified
+   to remove the Generation algorithm and introduce the ParticleGun instead,
+   the monitor also has to be reset to be in the right sequence.
+   . Generator.opts
+   . ParticleGun.opts
+   . Gauss.opts
+
+! 2006-02-06 - Gloria CORTI
+ - Introduce sequence of algorithms to have extende Rich information
+   . Simulation.opts
+ - New version of GaussTools v12r0 (MagneticFieldSvc now using MathCore)
+ - Adapt to new disctionaries in LCG using RELAX from LCG_Interfaces
+   . GaussPoolIO.opts
+ - Switch back on simulation phase
+   . Gauss.opts
+ - Switch back use of MagneticFieldSvc in GiGaMagField that works with 
+   LHCb v20r0 builf with Gaudi v18r2
+   . SimGeometry.opts
+
+! 2006-01-31 - Gloria CORTI
+ - Introduce use of varius XXXDet packages to resolve sensitive detector ID.
+   . requirements
+ - Introduce use of XmlConditions v1r4 necessary to produce hits in
+   Calorimeters
+   . requirements
+ - Introduce use of Sim packages adapted to new Event Model
+   . requirements
+ - Temporarly use uniform magnetic filed beacuse of problems in retrieving
+   LHCb MagneticFieldSvc, remove loading of CaloEvent dll no longer necessary.
+   . SimGeometry.opts
+ - Adapt steering of simulation to new structure for all detectors,
+   configuring GetTrackerHitsAlg
+   . Simulation.opts
+ - Set data objects to be written out according to new paths. All objects
+   are mandatory since empty containers will be created. 
+   When running in Generator stand-alone will need to overwrite this list
+   including the file GenStandAlone.opts as show in Gauss.opts
+   . GaussTape.opts
+   . GenStandAlone.opts
+ - Generation algorihtm is added to Generator phase to take into account
+   the GenInit algorithm
+   . Generator.opts
+ - Remove algorithm sets in Generator.opts and add ParticleGun in Generator
+   phase
+   . ParticleGun.opts
+ - Turn on all monitoring in simulation for MCTruth and various detectors
+   having adapted them to new code and setup.
+   . Monitor.opts
+   . MonitorInDetails.opts
+ - Load various detectors Dlls
+   . Common.opts
+ - Remove obsolete geometries
+   . v200412.opts, v200506.opts, v200507.opts
+ - Run generator phase in stand-alone for minimum bias as default
+   . Gauss.opts
+ - Modify to follow sequencing in Gauss.opts
+   . GaussRead.opts
+ - By default have User Interface on to provide Geant4 command prompt
+   . GaussVis.opts
+
+! 2006-01-19 - Gloria CORTI
+ - Update ParticleGun.opts to reflect changes in code for its properties 
+
+! 2006-01-18 - Gloria CORTI
+ - Gauss v24r0 built from v22r0, using Geant3 v71r0p1.
+ - Built it one step at the time to allow tests. 
+   Comment all unused options to have a Generator stand-alone phase running.
+   Comment all unsed packages for a stand-alone Generator phase.
+ - Load new package SimComponents used by GaussMonitor
+
+!======================== Gauss v23r0 2006-01-05 ============================
+! 2006-01-05 - Florence RANJARD
+ - Gauss v23r0 is the v22r0 version built on Geant4 v80r0
+   it does not use G4LHCblists but G4hadlists v3r3
+
+!========================= Gauss v22r0 2005-12-16 ============================
+! 2005-12-16 - Gloria CORTI
+ - Introduce examples of separate options for different channels, removing
+   them from Generator.opts 
+   . options/Generator.opts, remove examples
+   . options/30000000.opts, minimum bias with Pythia
+   . options/10000000.opts, generic b events with Pythia
+   . options/13144000.opts, Bs->J/Psi(mumu) Phi
+   . options/12165100.opts, B+ -> D0bar (-> Ks pi+ pi-) K+) 
+   . options/24142000.opts, J/Psi(mum) inclusive  
+   . options/130000000.opts, minimum bias with Herwig
+   . options/Gauss.opts, put minimum bias form GAUSSOPTS
+ - Remove obsolete options for Pythia setting with old structure
+   . options/PythiaSettings.opts, removed
+   . options/Common.opts, removed include
+ - Remove commented way using old simulation structure. Introduce new 
+   way with algorithm for RICHes. Requires GaussRICH v5r2 and GaudiAlg v1r8.
+   . options/Simulation.opts
+ - Introduce use of dedicated options from GaussRICH v5r2 for Rich extended
+	 MC classes.
+   . options/Simulation.opts, commented example of how to produce extended info
+   . options/GaussTape.opts, removed extended class already in dedicated opts  
+   . options/GaussRead.opts, commented example of how to monitor extended info
+ - Use in geoemtry v200507 old magnetic field map
+   . options/v200507.opts
+ - requirements - use new version of DecFiles v11r2
+
+! 2005-12-12 - Florence Ranjard
+ - requirements - add Herwig tag.
+                  > setup -tag_add=Herwig
+                  > gmake CMTEXTRATAGS=Herwig
+                  > gaussherwig
+
+! 2005-12-12 - Gloria CORTI
+ - Introduce example of options to use to produce min bias events with
+   Herwig. They are commented.
+   . options/Generator.opts
+
+! 2005-12-09 - Gloria CORTI
+ - Use new version of generator packages where old structure has been
+   removed (Generators v3r0, LbPythia v3r0). Temporarly remove use of 
+   LbAcerMC not yet migrated to new structure.
+ - Modify PythiaSettings.opts to use LHAPDF (requires GENSER v1r121p0)
+ - Modify Generators.opts to follow change in property name for Pythia
+   commands: BasePythiaCommand -> Commands
+
+! 2005-12-08 - Gloria CORTI
+ - Introduce new geometry lhcb-v200511.xml from XmlDDDB v27r0 and introduce
+   use of RichCondition (from LHCb). It also requires the use of 
+   XmlConditions v1r3 and GaussRICH v5r1 to get refractive index for gases.
+   This is the default Gauss configuration available also as v200511.opts
+   . xml/Rich1AerogelRegionDefinition.xml, RichOverallRegionDefinition.xml,
+         RichSimulationAttributes.xml
+     define simulation attributes and regions to swhitch on delta rays in 
+     Aerogel or whole of RICHes.
+   . xml/Simulation.xml, MuonLowEnergy.xml, set attributes for latest RICH
+     description
+   . xml/Simulation-v200412.xml, simulation attributes for older geometries
+   . options/Common.opts, use lhcb-200511.xml as default geometry
+   . options/v200412.opts, v200506.opts, v200507.opts, set options to be
+     backward compatible when using old geometry
+   . options/v200511.opts, general options for new geometry
+   . options/Simulation.opts, by default activate cuts per region
+ - Introduce execution of algorithm to fill MCCaloHits instead of converters,
+   requires GaussCalo v7r4
+   . options/Simulation.opts
+ - Adapt to new dictionary from new version of Gauss
+   . options/GaussPoolIO.opts
+
+!============================ Gauss v21r0 ================================
+! 2005-11-11 - Gloria CORTI
+ - Introduce NEW subdirectory xml to contain setting of simulation cuts,
+   with default file Simulation.xml and dtd Simulation.dtd copied from
+   XmlDDDB. Set SimulationSvc to use this in options.
+   . xml/Simulation.{xml,dtd} 
+   . options/Simulation.opts
+ - Introduce NEW settings to run Muon low energy background with lower cuts
+   in all detector and muon filters. To swith it on need to include 
+   appropiate options file as put in example (commented) in Simulation.opts
+   . options/Simulation.opts, MuonLowEnergy.opts
+   . xml/MuonLowEnergy.xml
+ - Remove setting of visualization environment variables now in GiGaVisUI
+   (as in Gauss v15r20)
+   . requirements
+   . use GiGaVisUI v3r1 
+ - Use new version of XmlDDDB (v26r2p1) without set RadLenght
+ - Use newest version of DecFiles supporting main decfile with alias
+   definition for new generators code (DECAY-DC06.DEC), set to be used
+   in options for EvtGenDecay tool.
+   . use DecFiles v11r0
+   . Generator.opts
+ - Modifiy options for v200412.opts and v200506.opts to use old magnetic
+   field to keep compatibility. Note that the latest geometry (v200507.opts)
+   will use the new field
+ - Introduce examples for signal production with two different methods:
+   plain or repeated hadronization (commented)
+   . Generator.opts
+ - Set options for Pythia setting for new structure
+   . PythiaSettings.opts
+   . Generator.opts
+
+! 2005-11-07 - Gloria CORTI
+ - Use new versions of Generators v2r1 and LbPyhia v2r1
+
+! 2005-11-07 - Gloria CORTI
+ - Put example on how to pass pythia commands taking those of old setup
+   . Generator.opts
+
+! 2005-10-31 - Gloria CORTI
+ - Introduce possibility to store G4 history in HepMC structure (optional),
+   algorithm to pass Generator info to G4 primary, algorithm to fill MCHits
+   from G4 collections. Set use of these instead of converters, old way
+   available but commented
+   . GaussAlgs v1r7, GaussTools v11r0, GaussTracker v4r2
+   . Simulation.opts
+ - Introduce use of new structure for generation of min bias events with
+   example for generic b
+   . Generator v2r0, LbPythia v2r0, LbAcerMC v1r3
+   . Generator.opts
+   Note that DecFiles v9r1 still supports options for "old" algorithms
+   generator structure. Need to modify options to use it.
+ - Use latest version of Geant4Files (v71r0) compatible with Geant4 7.1
+ - Use new version of FieldMap v4r6. By default will read new field map
+   "field046.cdf". Previous field is also available and can set in options.
+
+! 2005-10-27 - Gloria CORTI
+ - Move checking of status of Geant4 event just after triggering the
+   simulation
+   . Simulation.opts
+
+! 2005-10-26 - Gloria CORTI
+ - Introduce new algorithm to fill MCParticle/MCVertex histograms in
+   SimMonitor sequence (MCTruthMonitor)
+   . Monitor.opts
+ - Introduce GaudiSequencer also for initialization
+   . Gauss.opts
+
+!============================ Gauss v20r2 ================================
+! 2005-08-17 - Gloria CORTI
+ - Use latest version of ParamFiles (v3r13) and GaussCalo (v7r3) to use input
+   histograms in Root for calorimeter
+ - Use latest version of DecFiles (v8r1)
+ - Use new version of GaussMonitor (v2r2)
+ - Set as default latest geometry
+   . Common.opts
+ - Set as default Root as presistency for histograms for all jobs.
+   . Common.opts, Monitor.opts
+
+! 2005-08-04 - Gloria CORTI
+ - Set additional items in GaussTape as optional in options to be added to
+   run generator in stand alone mode, as to be able to write all type of
+   events (it worked only for signal)
+   . GenStandAlone.opts
+
+!============================= Gauss v20r1 ==================================
+! 2005-07-27 - Gloria CORTI
+ - Use latest version of XmlDDDB (v26r1)
+   . requirements
+ - Introduce option to have root histograms prefixed by "h"
+   . Monitor.opts
+ - In production options turn on histograms for detectors (for test production)
+   . options/v200412.opts, v200506.opts, v200507.opts
+ - Introduce use of ParticleGuns 
+   . requirements, use Gen/ParticleGuns v1r0
+   . Common.opts, load dll
+
+!============================= Gauss v20r0 ==================================
+! 2005-07-21 - Florence Ranjard
+ - requirements - use EvtGen v8r5 and LbAcerMC v1r2 fixed by P.Robbe
+
+! 2005-07-15 - Florence RANJARD
+ - requirements - introduce conditional use for
+                    LbAcerMC     (tag=AcerMC),
+                    GDMLG4Writer (tag=GDML)
+                    GiGaVisUI    (tag=Vis)
+
+                  to use Gauss with AcerMC
+                  > source setup.csh -tag_add=AcerMC
+                  > gmake CMTEXTRATAGS=AcerMC
+                  will produce GaussAcerMC.exe
+                  which can run with
+                  > gaussacermc
+
+ 2005-07-12 - Gloria CORTI
+ - Introduce use of new generator packages with more modular structure 
+   (Patrick ROBBE). All general utility algorithms are in Gen/Generators,
+   while Pythia specific code is in Gen/LbPythia. An additional possibility
+   is to use AcerMC, in which case the code is taken from Gen/LbAcerMC
+   . requirements, remove old package GeneratorsModules and introduce
+     use Generators v1r1
+     use LbPythia   v1r1
+     use LbAcerMC   v1r1 (commented)
+   . Common.opts, remove loading of GeneratorsModule DLL and introduce
+     that of Generators and LbPythia  
+ - Introduce new version of DecFiles v8r0
+ - Introduce use of XmlDDDB to allow VELO new geometry and misaligment
+   . use XmlDDDB v26r0
+   . v200506.opts, options to run with new VELO geometry
+
+! 2005-07-12 - Juan PALACIO
+ - Introduce options to allow misalignement of VELO geometry. The options
+   need to be explicitely set. Requires XmlDDDB v26r0 or higher and LHCb
+   v18r7 or higher
+   . SimVeloGeometry.opts, options to allow misalignment
+   . SimGeometry.opts, example (commented) on how to allow Velo misalignment
+
+! 2005-07-08 - Gloria CORTI
+ - Introduce possibility to write GDML file. This is optional and requires
+   uncommenting the necessary package "GDMLG4Writer" in the requirements
+   file. Remove obsolete options from first attemp (GDMLWriter.opts) replaced
+   by options in the package itself.
+   . Simulation.opts, modify example of how to include options to activate
+     writing of GDML file.
+
+! 2005-07-08 - Gloria CORTI
+ - Remove useless option to set MagneticFieldSvc to be used by the FieldMgr
+   (the default is set to do so and the name of the tool used is incorrect)
+   . SimGeometry.opts
+
+! 2005-07-04 - Gloria CORTI
+ - Add use of RootHistCnv. Histograms and Ntuple are set to be saved in
+   ROOT as default. 
+	 . use RootHistCnv
+   . Monitor.opts, add Dll of RootHistCnv and set output type
+ - Segment monitor in a default one with histograms for all detectors
+   (normally execute in Gauss but switched off in production: see options
+    v200412.opts or v200506.opts) and an additional one providing ntuples.
+   . MonitorInDetail.opts, new options
+   . Monitor.opts, remove part put in new file
+   . Gauss.opts, put commented use of MonitorInDetail.opts
+   . GaussRead.opts, put use of MonitorInDetail.opts
+
+! 2005-07-01 - Gloria CORTI
+ - Remove obsolete options to read files - jobread.opts - Should instead
+   use GaussRead.opts
+
+!========================== Gauss v19r5 ==================================
+! 2005-06-24 - Gloria CORTI
+ - Allow production of Beam gas events and production of minbias events with
+   combined beam gas at generator level
+   . use GeneratorModules v15r13
+   . use DecFiles v7r3
+   . BeamGas-Velo.opts
+   . Gauss.opts (example)
+
+! 2005-06-17 - Gloria CORTI
+ - Use new version of GaussMonitor (v2r1) and adapt to change in property
+   in Monitor.opts
+ - Introduce example for setting geometry in GaussRead.opts
+ - Move loading of CaloDetXmlCnv from SimGeometry.opts to Common.opts so 
+   that it is also available in GaussRead.opts
+ - Introduce monitors for Muons
+   . use new package Muon/MuonMoniSim v1r1
+   . add dll and algorithm to list in Monitor.opts
+
+! 2005-06-16 - Gloria CORTI
+ - Remove unnecessary loading of DAQEventDict (no longer necessary because
+   of removed use in CaloEvent) in GaussPoolIO.opts
+
+! 2005-06-15 - Gloria CORTI
+ - Use version of GaussRICH (v5r0) with naming as in latest XmlDDDB
+
+! 2005-06-13 - Gloria CORTI
+ - Introduce two files to steer dependency of geometry (tilted calorimeters
+   require removing Converter from detector elements in Geo.StreamItems)
+   For simulating with "old" geometry give v200412.opts as argument of
+   executable, for simulating with tilted Calorimeters & Muons give
+   v200506.opts. 
+   Note that by default Gauss.opts would use latest geometry but the new
+   options should be used instead in production.
+   . v200412.opts
+     NEW options to stear simulation with RTTC geometry
+   . v200506.opts
+     NEW options to stear simulation with Tilted Calo and Muon  
+   . SimGeometry.opts
+     remove Converter from Geo.StreamItems to make it usable for both
+     supported geometries
+   . Common.opts
+     set as default lhcb-v200506.opts
+ - Use version of XmlDDDB (v25r0) supporting RTTC and Calo+Muon tilted 
+   geometry 
+ - Use version of DecFiles (v7r2) and ParamFiles (v3r12) supporting 
+   production of Higgs with 120 and 140 GeV mass
+ - Use version of GaussTracker (v4r1) with Muon hits bug fixed
+ - Use version of GeneratorModules (v15r12) with changes for AcerMC and various
+   bug fixes
+
+! 2005-05-31 - Gloria CORTI
+ - Example option to generate events at fixed luminosity
+   . FixedLumi-5.opts
+
+!========================== Gauss v19r4 ==================================
+! 2005-04-22 - Gloria Corti
+ - Use new versions of GeneratorModules (v15r1) and GENSER (v2r100p0)
+ - Print outs in Gauss.job
+ - Adapt to changes in ApplicationMgr properties and LbAppInit to set
+   name and version of the application
+   . GaussMain.cpp, requirements
+ - Adapt reading example to GaudiSequencer and modification in used 
+   options
+   . GaussRead.opts
+
+! 2005-04-20 - Gloria Corti
+ - Use new version of GaussRICH (v4r14) and GaussAlgs (v1r6)
+ - Write only events that were succefully processed by the simulation
+   skipping events for which the G4Event was aborted
+   . GaussTape.opts, Simulation.opts
+
+!========================== Gauss v19r3 ==================================
+! 2005-04-12 - Gloria Corti
+ - Use new versions of GeneratorModules (v15r0), GaussTools (v10r10), 
+   GaussRICH (v4r13), GaussTracker (v4r0), GiGaCnv (v15r11), 
+   GaussMonitor (v2r0), DecFiles (v6r6)
+ - Move all sequences explicitely (including initialization) at top of
+   Gauss.opts, introduce use of GaudiSequencer with normalized time
+   printout, load dll for generic GaussMonitor to all Gauss application 
+   . Gauss.opts, Common.opts, 
+ - Adapt options to modification in property of CommandTrackAction
+   . DebugG4Track.opts
+ - Structure options to have first generic/production monitor and then
+   detailed monitor, turn on generator histogram with a second algorithm
+   instance, adapt to new property of GenMonitorAlg
+   . Monitor.opts
+ - Put in GenStandAlone.opts only parts specific to running Gauss only 
+   with the generator phase 
+ - Introduce the include of GenStandAlone (commented) and comments on
+   how to modify the generator phase
+ - Modify PythiaSettings.opts to reproduce LHCb DC04 setting with Pythia
+   6.226 where defaults have changed (V.Vagnoni)
+
+!========================== Gauss v19r2 ==================================
+! 2005-03-09 - Gloria Corti
+ - introduce summary printout in log file with new #printOptions available
+   in Gaudi v16r2
+ - Use new versions of GaussTools (v10r9), GaussRICH (v4r12) 
+
+!========================== Gauss v19r1 ==================================
+! 2005-02-28 - Gloria Corti
+ - Use new versions of GeneratorModules (v14r2), GaussTools (v10r8), 
+   GaussRICH (v4r11), GaussTracker (v3r3)
+ - Introduce monitoring histograms for Velo
+   . use new package VeloAlgorithms (v3r3)
+   . introduce algorithm to execute in Monitor.opts
+ - New example options on how to debug with full Geant4 printout a 
+   specific track (options in DebugG4Track.opts, included in Simulation.opts
+   commented). 
+ - New options to dump LHCb G4 geometry in a files written with GDML
+   (options in GDMLWriter.opts, included in Simulation.opts commented)
+
+! 2005-02-21 - Gloria Corti
+ - cmt/requirements
+   . add DAWN to path for visualization (commented)
+ - Show example of how to obtain detailed rich info 
+   . introduce RichVerbose.opts (commented) in Simulation.opts
+ - Reduce print out in production and title/explanation compatible with 
+   doxygen documentation
+   . introduce pragma print off/on in Common.opts, GaussTape.opts 
+ - Allow to dump G4 geometry tree in ASCII format
+   . introduce command in GaussVis.opts (commented)
+ - Introduce monitor histograms for Silicon Tracker, Outer Tracker, 
+   RICH, Calorimeters
+   . in Monitor.opts
+ - NEW file ( job/Gauss.job ) to control job submission (cshell) on batch,
+   interactively or using gvd as debugger. 
+   The Gauss version to be used MUST be passed as first argument. 
+   It is set to use $GAUSSOPTS/Gauss.opts as options.
+   In case of core dump in batch it will return trace back info.
+     Example of how to use for batch submission
+        > bsub -q 1nd Gauss.job v19r0
+     Example of how to use interactively in debug with gvd
+        > Gauss.job v19r0 $CMTDEB 
+
+!========================== Gauss v19r0 ==================================
+! 2005-02-07 - Florence RANJARD
+ - requirements - use GeneratorModules v14r1 which does not use PYTHIA 
+                  interface but GENSER
+                  use GaussAlgs v1r4 with new statistics
+
+ - options - try to reduce lengthy printout 
+           - remove >M character in some option files
+
+! 2005-02-02 - Gloria Corti
+ - use latest version of detector database (lhcb-200412.xml)
+ - modify GaussRead.opts to print hits multiplicty
+
+! 2005-02-02 - Florence RANJARD
+ - use GaussTracker v3r2 to fix Muon hits out of chambers
+
+! 2005-01-26 - Florence Ranjard
+ - use Geant4Files v52r0 , remove it from Geant4/G4config
+
+! 2005-01-25 - Florence RANJARD
+ - release_notes.html and doxygen documentation are within GaussSys
+
+!===========================================================================

@@ -1,0 +1,41 @@
+// ============================================================================
+/** @file 
+ *  The configuration file for Hcal sensitive detector
+ *  @author Vanya Belyaev Ivan.Belyaev@itep.ru
+ *  @author Patrick ROBBE robbe@lal.in2p3.fr
+ *  @date   2002-12-05
+ */
+// ============================================================================
+
+GiGaGeo.Hcal.StartVolumes = {
+  "/dd/Geometry/DownstreamRegion/Hcal/Cells/lvHcalInnCellUpScTile"  ,
+  "/dd/Geometry/DownstreamRegion/Hcal/Cells/lvHcalInnCellLowScTile"      , 
+  "/dd/Geometry/DownstreamRegion/Hcal/Cells/lvHcalOutCellScTile"
+};
+
+GiGaGeo.Hcal.EndVolume      =  "/dd/Geometry/DownstreamRegion/Hcal/Installation/lvHcal" ;
+GiGaGeo.Hcal.CollectionName =  "HcalHits"                            ;
+GiGaGeo.Hcal.Detector       =  "/dd/Structure/LHCb/DownstreamRegion/Hcal"             ;
+GiGaGeo.Hcal.zMin           =  12300. * mm ;
+GiGaGeo.Hcal.zMax           =  15000. * mm ;
+
+GiGaGeo.Hcal.DetectorPath   =  "/LHCb/Calo"             ;
+
+// Input Root histograms
+GiGaGeo.Hcal.Histograms = { 
+  "GaussCalo/HCALTIME/h1" ,
+  "GaussCalo/HCALTIME/h2" 
+};
+// Input Hbook histograms
+// GiGaGeo.Hcal.Histograms = { 
+//   "GaussCalo/HCALTIME/1" ,
+//   "GaussCalo/HCALTIME/2" 
+// };
+
+// Conversion of Hits
+GetHcalHits.MCHitsLocation = "/Event/MC/Hcal/Hits" ;
+GetHcalHits.CollectionName = "HcalHits" ;
+
+// ============================================================================
+// The END 
+// ============================================================================

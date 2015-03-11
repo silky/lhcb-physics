@@ -1,0 +1,44 @@
+# $Id: requirements,v 1.83 2010-03-22 18:58:41 gcorti Exp $ 
+#============================================================================
+# Created    : 2001-01-22
+# Maintainer : Gloria CORTI
+#============================================================================
+package          GiGa
+version          v21r0p1
+
+#============================================================================
+branches         cmt src doc GiGa
+use GaudiPolicy v* 
+apply_pattern install_more_includes more=GiGa
+
+apply_pattern packageOpts 
+#============================================================================
+# Used packages. Specify the version, * at the end specifies 'any revision'
+#============================================================================
+use              GaudiAlg     v* 
+use              G4readout    v* Geant4
+
+#============================================================================
+# Linker and Component libraries 
+#============================================================================
+library          GiGaLib           Lib/*.cpp
+library          GiGa              component/*.cpp
+
+#============================================================================
+# Additional cpp flags
+#============================================================================
+macro_append     GiGa_pp_cppflags  "   -DGIGA_FASTCAST   " \
+                 Win32             '  /D"GIGA_FASTCAST"  '    
+macro_append     GiGa_pp_cppflags  ""                      \   
+                 Win32Debug        ' /D"GIGA_DEBUG"    '   \
+                 debug             "  -DGIGA_DEBUG     " 
+macro_remove     GiGa_pp_cppflags  ""                      \
+                 Win32Debug        ' /D"GIGA_FASTCAST" '   \
+                 debug             "  -DGIGA_FASTCAST  " 
+
+#============================================================================
+# define linker and component library link options
+#============================================================================
+apply_pattern    component_library library=GiGa 
+apply_pattern    linker_library    library=GiGaLib 
+

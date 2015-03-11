@@ -1,0 +1,138 @@
+!-----------------------------------------------------------------------------
+! Package     : Sim/SimChecks
+! Responsible : Peter Griffith, Luca Pescatore
+! Purpose     : 
+!-----------------------------------------------------------------------------
+
+!========================== SimChecks v1r4 2014-12-18 ========================
+! 2014-12-01 - Peter Griffith
+ - Improved output format of EmValidation. EmValidation now also  gives single 
+   FOM value derived from chi^2 calculations for comparison of EM physics lists
+   with reference data, i.e PL/Gauss version used in current productions. 
+   This can be used for automatic alarm to alert users in LHCbPR's scheduled 
+   checks.    
+
+! 2014-11-26 - Peter Griffith
+ - Cleaned up and improved readability of analysis.py in EmValidation scripts 
+
+! 2014-11-25 - Peter Griffith
+ - Added analysis package and options files for EM physics validator tools
+
+! 2014-11-25 - Luca Pescatore
+ - Put parallelisation as an option. Off by default. 
+   Also default physics lists used changed from FTFP_BERT to FTFP_BERT 
+  and QGSP_BERT
+
+! 2014-11-24 - Luca Pescatore
+ - Bug fix in Target_CreateEvents.py (was due to parallelisation)
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!========================== SimChecks v1r3 2014-10-08 ========================
+
+! 2014-11-19 - Luca Pescatore
+- Partial parallelization of the Targets tool to speed up the events generation
+
+! 2014-11-12 - Luca Pescatore
+- Fixed bug that cause the plotter to not separate data of different particle guns.
+
+! 2014-11-11 - Luca Pescatore
+- Added new python option files for the Targets Tools.
+  These allow to create definite sets of events without need to change any option:
+  1mm Al, 1mm all materials, all thicknesses Al, all thicknesses and materials.
+
+! 2014-10-30 - Luca Pescatore
+ - Improved readability for Target and Radlength tools output
+
+! 2014-10-07 - Luca Pescatore
+ - Scripts for post-job analysis for the RadLength and Target tools have been
+   converted from c++ to python. All scripts are updated to reflect the new 
+   structure. RadLengthAna.py scripts updated to use the last tag of the 
+   geometry 
+
+! 2014-09-29 - Luca Pescatore
+ - Updated RadLength scripts to get the database from the offical
+   location, since it is not released. Also added eta-phi plots as final output.
+
+! 2014-09-06 - Luca Pescatore
+ - Added cpp file to extract radiation length profile plots from the output 
+   files of the gauss jobs.
+
+! 2014-09-04 - Luca Pescatore
+ - Changed default number of events
+
+!========================== SimChecks v1r2 2014-07-03 ========================
+! 2014-05-13 - Luca Pescatore
+ - Added folder with code for post production analysis and option file which
+   launches it automatically after producting events
+
+! 2014-02-14 - Luca Pescatore
+ - Added option files to run radiation length scans. RadLengthAna.py for all
+   detector except VELO, RadLengthAna_VELO.py for VELO only and 
+   Run_RadLengthScan.py to run them automatically in sequance and merge outputs
+
+! 2014-02-10 - Luca Pescatore
+ - Updated all python options for Single and Multiple taget. Untested Ganga 
+   functionalities are removed and scripts are reorganizied to make them easier
+   to use.
+
+!========================== SimChecks v1r1 2014-02-02 ========================
+! 2014-01-20 - Sajan Easo
+ - Added the options files to test the Target studies of Luca Pescatore
+
+!======================== SimChecks v1r0p1 2013-10-10 ========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= SimChecks v1r0 2009-04-01 =========================
+! 2009-04-01 - Silvia Miglioranzi
+ - First version of validation scripts for productions.  
+
+   1) Gauss_SimRefPlots.py: providing in input two Gauss .root and .log files, 
+   this script crates a html page (simpage.html) with the summary of the 
+   comparison.   
+
+   Usage: python Gauss_SimRefPlots.py -r GaussHistos_REF.root  -l  Gauss_REF.log 
+   -s GaussHistos.root -f Gauss.log
+
+   Main steering Options:
+
+   --install : creates a directory containing the comparison results in the 
+   http://lhcb-release-area.web.cern.ch/LHCb-release-area/DOC/gauss/simulation
+   /validation/ area (without this option the webpage and plots will be created
+   in the directory where the script is run).
+   
+   --add-to-index : updates the summary simulation monitoring web page:
+   http://lhcb-release-area.web.cern.ch/LHCb-release-area/DOC/gauss/simulation
+   /validation/index.html adding the results of the comparison.
+
+   --kolmogorov : allows to change the ROOT Kolmogorov Test running options 
+   (the default is " "); the user can choose for istance the option "D" for 
+   debugging.
+
+   2) Gauss_GetProdLogFiles.py: providing in input the PROD IDs of the samples 
+   to compare, this script searches in the http://lhcb-logs.cern.ch/storage/lhcb/MC/ 
+   area for the first GaussHisto.roots and corresponding log files. It downloads them 
+   in the directory where the script is run and execute the Gauss_SimRefPlots.py 
+   to analyze them.
+
+   Usage: python autorun_prodid.py <webpage> <REF_prodid> <CURR_prodid>
+
+   Example: python autorun_prodid.py http://lhcb-logs.cern.ch/storage/lhcb/MC/ 4497 3974
+
+   3) Gauss_ExampleCombine_MPV_betagamma.py : this script loops over the lines of 
+   the html source: http://lhcb-release-area.web.cern.ch/LHCb-release-area/DOC/
+   gauss/simulation/validation/index.html
+   and fills the "dE/dx MPV vs betagamma" histogram for a specific particle type 
+   providing the "starting and stopping titles" (see Example and webpage).
+
+   Usage: python plot_MPV_betagamma.py
+
+   Example: setting in the script the lines:
+
+ 	 mcSetIni = "PGUN: mu+mu- (LHEP+EMopt1+DRays OFF+KineHT)"
+	 mcSetEnd = "PGUN: mu+mu- (LHEP+EMopt1+DRays ON+KineHT)"
+
+   only the pi+pi- (LHEP+EMopt1+DRays OFF+KineHT) info will be plotted.
+

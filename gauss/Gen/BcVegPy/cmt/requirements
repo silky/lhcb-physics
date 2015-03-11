@@ -1,0 +1,27 @@
+# $Id: requirements,v 1.11 2009-11-04 14:08:55 silviam Exp $
+# =============================================================================
+package       BcVegPy
+version       v3r3
+
+# =========== structure =======================================================
+branches      cmt src include doc
+
+# =========== own includes ====================================================
+include_dirs $(BCVEGPYROOT)/include
+
+# =========== dependencies ====================================================
+use      GENSER            v*     Gen
+use      BcVegPyData       v*
+
+# =========== constituents ====================================================
+library BcVegPy   *.F
+
+# =========== standard patterns ===============================================
+apply_pattern linker_library  library=BcVegPy
+apply_pattern linker_stamps   library=BcVegPy
+
+# do not build on windows
+#============================================================================
+apply_pattern disable_package_on platform=target-winxp
+
+

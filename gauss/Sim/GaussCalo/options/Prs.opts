@@ -1,0 +1,39 @@
+// ===========================================================================
+/** @file 
+ *  The configuration file for Prs sensitive detector
+ *  @author Vanya Belyaev    Ivan.Belyaev@itep.ru
+ *  @author Grigori Rybkine  Grigori.Rybkine@cern.ch
+ *  @date   2002-12-05
+ */
+// ============================================================================
+
+GiGaGeo.Prs.StartVolumes = {
+  "/dd/Geometry/DownstreamRegion/Prs/Modules/InnCell"  ,
+  "/dd/Geometry/DownstreamRegion/Prs/Modules/MidCell"  ,
+  "/dd/Geometry/DownstreamRegion/Prs/Modules/OutCell"
+};
+
+GiGaGeo.Prs.EndVolume      =  "/dd/Geometry/DownstreamRegion/Prs/Installation/Prs" ;
+GiGaGeo.Prs.CollectionName =  "PrsHits"                            ;
+GiGaGeo.Prs.Detector       =  "/dd/Structure/LHCb/DownstreamRegion/Prs"             ;
+GiGaGeo.Prs.zMin           =  12300. * mm ;
+GiGaGeo.Prs.zMax           =  15000. * mm ;
+
+GiGaGeo.Prs.DetectorPath   =  "/LHCb/Calo"             ;
+
+GiGaGeo.Prs.IntegrationDelays = { 18.5 * ns , 17.5 * ns , 16.5 * ns } ;
+
+// Input Root histograms
+GiGaGeo.Prs.Histograms = { 
+  "GaussCalo/PRSTIME/h1" , 
+  "GaussCalo/PRSTIME/h2" , 
+  "GaussCalo/PRSTIME/h3" 
+};
+
+// Conversion of Hits
+GetPrsHits.MCHitsLocation = "/Event/MC/Prs/Hits" ;
+GetPrsHits.CollectionName = "PrsHits" ;
+
+// ============================================================================
+// The END 
+// ============================================================================

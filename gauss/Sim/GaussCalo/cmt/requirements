@@ -1,0 +1,38 @@
+# $Id: requirements,v 1.32 2009-03-26 21:38:44 robbep Exp $ 
+#============================================================================
+# Created    : 2005-12-08
+# Maintainer : Patrick ROBBE
+#
+# Documentation on the requirement file can be found at
+# http://cern.ch/lhcb-comp/Support/html/new_structure.pdf
+#============================================================================
+package           GaussCalo
+version           v10r0p1
+
+#============================================================================
+# Structure, i.e. directories to process. 
+#============================================================================
+branches          cmt src doc
+
+apply_pattern packageOpts
+
+#============================================================================
+# Used packages. Specify the version, * at the end specifies 'any revision'
+#============================================================================
+use AIDA          v*     LCG_Interfaces
+use GaussTools    v*     Sim
+use MCEvent       v*     Event 
+use CaloDet       v*     Det 
+use CaloDetXmlCnv v*     Det 
+use LHCbKernel    v*     Kernel
+
+#============================================================================
+# Component library building rule
+#============================================================================
+library          GaussCalo   *.cpp  
+
+#============================================================================
+# define component library link options
+#============================================================================
+apply_pattern    component_library library=GaussCalo
+

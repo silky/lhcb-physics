@@ -1,0 +1,36 @@
+// ============================================================================
+/** @file 
+ *  The configuration file for Ecal sensitive detector
+ *  @author Vanya Belyaev Ivan.Belyaev@itep.ru
+ *  @author Patrick ROBBE robbe@lal.in2p3.fr
+ *  @date   2002-12-05
+ */
+// ============================================================================
+
+GiGaGeo.Ecal.StartVolumes = {
+  "/dd/Geometry/DownstreamRegion/Ecal/Modules/InnCell",
+  "/dd/Geometry/DownstreamRegion/Ecal/Modules/MidCell",
+  "/dd/Geometry/DownstreamRegion/Ecal/Modules/OutCell"
+};
+
+GiGaGeo.Ecal.EndVolume      =  "/dd/Geometry/DownstreamRegion/Ecal/Installation/Ecal" ;
+GiGaGeo.Ecal.CollectionName =  "EcalHits"                            ;
+GiGaGeo.Ecal.Detector       =  "/dd/Structure/LHCb/DownstreamRegion/Ecal"             ;
+GiGaGeo.Ecal.zMin           =  12300. * mm ;
+GiGaGeo.Ecal.zMax           =  15000. * mm ;
+
+GiGaGeo.Ecal.DetectorPath   =  "/LHCb/Calo"             ;
+
+// Input Root histograms
+GiGaGeo.Ecal.Histograms = { 
+  "GaussCalo/ECALTIME/h1" ,
+  "GaussCalo/ECALTIME/h2" 
+};
+
+// Conversion of Hits
+GetEcalHits.MCHitsLocation = "/Event/MC/Ecal/Hits" ;
+GetEcalHits.CollectionName = "EcalHits" ;
+
+// ============================================================================
+// The END 
+// ============================================================================

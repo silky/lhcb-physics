@@ -1,0 +1,84 @@
+! $Id: release.notes,v 1.19 2009-11-04 13:01:16 silviam Exp $ 
+! -----------------------------------------------------------------------------
+! Package     : Calo/CaloMoniSim
+! Responsible : Olivier Deschamps odescham@in2p3.fr
+! Purpose     : 
+! -----------------------------------------------------------------------------
+
+!====================== CaloMoniSim v5r0p1 2015-01-16 =========================
+! 2014-11-21 - Gloria Corti
+ - Fix compilation warning with --pedantic on
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================= CaloMoniSim v5r0 2014-01-30 =-========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!====================== CaloMoniSim v4r0p1 2013-10-10 =========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================= CaloMoniSim v4r0 2009-11-04 ==========================
+! 2009-10-22 - Chris Jones
+ - Minor changes to help deploying packing and Spillover locations in Gauss
+  + Switch to loading data via get<..> methods to aid usage in Gauss with 
+    RootInTES for spillover locations.
+ - Cache DeCalorimeter pointer in initialize()
+
+!======================= CaloMoniSim v3r2 2009-04-06 ==========================
+! 2009-03-26 - Patrick Robbe 
+ - MCCaloMonitor: add possibility to change location of MCHits
+
+!====================== CaloMoniSim v3r1p2 2009-02-09 =========================
+! 2009-01-13 - Olivier Deschamps 
+ - fix bug with histo/area titl'ing 
+
+!====================== CaloMoniSim v3r1p1 2007-12-07 =========================
+! 2007-11-16 - Gloria Corti
+ - Modify options to cope with running main from python (gaudirun.py):
+   units need to be written as 5*MeV and not 5 MeV.
+   . MoniSim.opts
+
+!======================= CaloMoniSim v3r1 2007-02-08 ==========================
+! 2007-01-12 - Gloria Corti
+ - update code to cope with Gaudi v19r0. Use Gaudi macro for factory (also
+   compatible with v18)
+   . MCCaloMonitor.cpp 
+ - Remove loading of dll in options.
+   . MoniSim.opts
+
+!==================== CaloMoniSim v3r0 2006-06-23 =============================
+! 2006-06-23 - Gloria Corti
+ - Introduce use of Gaudi::Units namespace for LHCb v21r1 (Gaudi v18r5) 
+   compatibility
+   . MCCaloMonitor.cpp
+
+!==================== CaloMoniSim v2r1 2006-02-13 =============================
+! 2006-02-13 - Olivier Deschamps 
+ - GaudiHistoAlg migration completed for MCCaloMonitor.{h,cpp}
+ - Adapt /dd/Structure/ path to new enveloppe (DownstreamRegion)
+
+!==================== CaloMoniSim v2r0 2006-01-31 =============================
+! 2006-01-31 - Gloria CORTI
+ - Set "hello" print out in execute in DEBUG level
+
+ 2005-12-16 - Olivier Deschamps 
+ - LHCb v20 migration.
+ - cmt/requirements
+  remove CaloUtils dependancy
+  add explicit dependancy to MCEvent and CaloDet
+
+!========================== CaloMoniSim v1r0 ================================
+! 2004-12-14 - Gloria CORTI
+ - fix environment variable in requirements
+
+! 2004-10-25 - Vanya BELYAEV
+ - new package, the code is copies from Calo/CaloMonitor package, 
+   currently cintains only the algorithm from Carlos, 
+   to be extended in future 
+
+! -----------------------------------------------------------------------------
+! The END 
+! -----------------------------------------------------------------------------

@@ -1,0 +1,52 @@
+#============================================================================
+# Created    : 2011-08-27
+# Maintainer : Alex Grecu <alexandru.grecu@nipne.ro>
+#============================================================================
+package           GenTune
+version           v2r2p1
+
+#============================================================================
+# Structure, i.e. directories to process. 
+#============================================================================
+branches          cmt doc src
+
+#============================================================================
+# Used packages. Specify the version, * at the end specifies 'any revision'
+#    Put as many lines as needed, with all packages, without the '#'
+#============================================================================
+use GaudiAlg          v*     
+use GENSER            v*     Gen
+use GenEvent          v*     Event
+# The following is needed to ensure that the interfaces are put in the 
+# install area before building this package
+use Generators        v*     Gen  
+
+# Packages needed to resolve external dependencies at run time
+use fastjet           v*     LCG_Interfaces -no_auto_imports  #this should be transferred in the GENSER/rivet CMT interface
+use Python            v*     LCG_Interfaces -no_auto_imports
+use HepMC             v*     LCG_Interfaces -no_auto_imports
+use Boost             v*     LCG_Interfaces -no_auto_imports
+use ROOT              v*     LCG_Interfaces -no_auto_imports
+
+#apply_tag ignore_installarea
+use rivet             v*     LCG_GeneratorsInterfaces -auto_imports
+
+#Patch to address bug in Rivet 1.9.0 - to be tested and removed in further versions
+set exec_prefix  "$(rivet_home)"
+
+#============================================================================
+# Component library building rule
+#============================================================================
+library          GenTune     ../src/*.cpp -import=AIDA
+
+#============================================================================
+# define component library link options
+#============================================================================
+apply_pattern    component_library library=GenTune
+
+# Allow to run the QMTests e.g. `cmt do TestPackage`
+apply_pattern QMTest
+
+# Allow the generation of QMTest summary
+apply_pattern QMTestSummarize
+

@@ -1,0 +1,11 @@
+*
+* fit parameter
+* name	fix?	start	step	(min)	(max)	
+  tau	0	1	0.1
+  tau_Blind 98  0  1
+*
+* other parameters:
+*
+ generatedTime 1.5
+ N             100
+*

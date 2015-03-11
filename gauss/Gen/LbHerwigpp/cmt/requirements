@@ -1,0 +1,32 @@
+#============================================================================
+# Created    : 2010-03-25
+# Maintainer : Philip Ilten
+#============================================================================
+package       LbHerwigpp
+version       v3r0p1
+
+# Structure, i.e. directories to process.
+#============================================================================
+branches      LbHerwigpp doc cmt src
+
+# Local include directory (not exported to project).
+#============================================================================
+include_dirs  $(LBHERWIGPPROOT)
+
+# Used packages.
+#============================================================================
+use           herwigpp         v*    LCG_GeneratorsInterfaces
+use           thepeg           v*    LCG_GeneratorsInterfaces
+use           Generators       v*    Gen
+
+
+# Component library building rules.
+#============================================================================
+library       LbHerwigpp           component/*.cpp
+library	      LbHerwigppRandom     Lib/*.cpp
+
+# Define component and linker library link options.
+#============================================================================
+apply_pattern component_library library=LbHerwigpp
+
+

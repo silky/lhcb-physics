@@ -1,0 +1,14 @@
+// ============================================================================
+/** @file 
+ *  The configuration file for Calorimeter Sensitive plane detector
+ *  @author Vanya BELYAEV Ivan.Belyaev@itep.ru
+ *  @date   2003--7-08
+ */
+// ============================================================================
+
+GiGaGeo.CaloSP.DetectorPath   =  "/LHCb/Calo"  ;
+GiGaGeo.CaloSP.CollectionName =  "CaloSPHits"  ;
+
+// ============================================================================
+// The END 
+// ============================================================================

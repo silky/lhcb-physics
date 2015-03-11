@@ -1,0 +1,21 @@
+// $Id: GaussTrackInformation.icpp,v 1.2 2002-12-07 21:19:13 ibelyaev Exp $ 
+// ============================================================================
+// CVS tag $Name: not supported by cvs2svn $ 
+// ============================================================================
+// $Log: not supported by cvs2svn $
+// ============================================================================
+#ifndef     GaussTools_GaussTrackInformation_ICPP
+#define     GaussTools_GaussTrackInformation_ICPP 1 
+// ============================================================================
+
+/** implementation of inline methods from class GaussTrackInformation 
+ *  
+ *  @author Vanya Belyaev 
+ */
+
+// ============================================================================
+#endif  //  GaussTools_GaussTrackInformation_ICPP
+// ============================================================================
+
+
+

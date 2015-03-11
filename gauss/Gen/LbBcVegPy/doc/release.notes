@@ -1,0 +1,160 @@
+! $Id: release.notes,v 1.16 2009-10-02 13:08:08 jhe Exp $
+! Package     : Gen/LbBcVegPy
+! Responsible : Patrick ROBBE
+!=============================================================================
+
+!======================== LbBcVegPy v5r1p1 2014-12-16 ========================
+! 2014-12-01 - Gloria Corti
+ - Fixes for compilation warnings with --pedantic'
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!========================= LbBcVegPy v5r1 2013-10-10 =========================
+! 2013-10-01 - Patrick Robbe
+ - remove setting of cut tool in BcVegPy Pythia8 option 
+
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= LbBcVegPy v5r0 2013-03-21 =========================
+! 2013-03-21 - Patrick Robbe
+ - Move generator level cuts to the Gen/GenCuts package
+   (BcDaughtersInLHCb and BcDaughtersInLHCbAndMassCut)
+
+!========================= LbBcVegPy v4r5 2013-03-07 =========================
+! 2013-02-20 - Marc-Olivier Bettler
+ - new files to allow to cut on lepton combination for Bc daughters
+
+!========================= LbBcVegPy v4r4 2013-02-04 =========================
+! 2012-12-04 - Patrick Robbe
+ - Added the option options/BcVegPyPythia8.py to configure BcVegPy
+   in Pythia8
+
+!======================== LbBcVegPy v4r3p1 2012-10-19 ========================
+! 2012-10-01 - Jibo He
+ - Removed ecm from BcVegPy.py(.opts) to avoid confusion
+
+!========================= LbBcVegPy v4r3 2012-07-23 =========================
+! 2012-07-23 - Gloria Corti
+ - Remove include of old ParticlePropertySvc that is not needed
+
+!========================= LbBcVegPy v4r2 2011-11-11 =========================
+! 2011-10-20 - Patrick Robbe
+ . src/Lib/Funtrans.cpp
+ . src/Lib/Intinif.cpp
+ . src/Lib/Genefull.cpp
+ . src/Lib/Outpdf.cpp
+ . src/Lib/Colflow.cpp
+ . src/Lib/Intinip.cpp
+ . src/Lib/Octmatrix.cpp
+ . src/Lib/Counter.cpp
+ . src/Lib/Confine.cpp 
+ . src/Lib/Grade.cpp
+ . src/Lib/Coloct.cpp
+ . src/Lib/Upcom.cpp
+ . src/Lib/Mixevnt.cpp
+ . src/Lib/Vegasinf.cpp
+ . src/Lib/Wavezero.cpp
+ . src/Lib/Usertran.cpp
+ . src/Lib/Qqbar.cpp
+ . src/Lib/Rconst.cpp
+ . src/Lib/Subopen.cpp
+ . src/Lib/Totcross.cpp
+ . src/Lib/Loggrade.cpp
+ . src/Lib/Hepeup.cpp
+ . src/Lib/Vegcross.cpp:
+   Fix coverity warnings
+
+!========================= LbBcVegPy v4r1 2011-10-17 =========================
+! 2011-09-28 - Patrick Robbe
+ - BcDaughtersInLHCb: move to MCInterfaces package
+
+!========================= LbBcVegPy v4r0 2011-07-15 =========================
+! 2011-07-15 - Gloria Corti
+ - Apply pattern not to build on windows, so that conditional use can be
+   removed from GaussSys and Gauss
+
+! 2011-06-22 - Patrick Robbe
+ - src/component/BcDaugthersInLHCb.* : move to MCInterfaces package
+
+! 2011-06-17 - Patrick Robbe
+ - options/BcVegPy.opts/.py: activate generation of weighted events
+
+!===================== LbBcVegPy v3r1 2011-01-31 =====================
+! 2011-01-20 - Patrick Robbe
+ - options/BcBegPy.py: add options in python format
+
+!===================== LbBcVegPy v3r0 2009-10-02 =====================
+! 2009-10-02 - Jibo He
+ - Correct the Initialize/Finalize (mis)balance of BcDaughtersInLHCb.
+   . src/component/BcDaughtersInLHCb.cpp
+
+! 2009-09-29 - Jibo He
+ - Specify Cteq6LL and leading order running alpha_s in BcVegPy.opts.
+
+! 2009-09-28 - Jibo He
+ - Update to use PDFs in LHAPDF (ioutpdf=0) by default.
+   . src/BcVegPyProduction.cpp
+
+! 2009-07-23 - Jibo He
+ - Update the Bc mass to 6276 MeV, change the c and b quark's masses
+   accordingly.
+   . src/BcVegPyProduction.cpp
+ - Add one variable IUSECURDIR accordingly (as BcVegPy) in
+   . src/Lib/gloggrade.F
+   . src/Lib/Loggrade.cpp 
+   . LbBcVegPy/Loggrade.h
+ - This version should use BcVegPy data v2r0 or above. 
+
+
+!===================== LbBcVegPy v2r1 2009-05-26 =====================
+! 2009-05-26 - Gloria CORTI
+ - Put command for control as "+=" instead of "=" to allow to set energy
+   in primary Gauss options.
+
+!===================== LbBcVegPy v2r0 2008-09-01 =====================
+! 2008-08-31 - Gloria CORTI
+ - Retrieve DecayTool at initialization rather that at construction, 
+   otherwise ERROR instantiating BcDaughtersInLHCb from LbBcVegPy when
+   building LbBcVegPyConf. Introduced both initialize and finalize 
+   methods. 
+
+! 2008-07-25 - Patrick Robbe
+ - BcDaughtersInLHCb: use units from Gaudi 
+
+!===================== LbBcVegPy v1r5 2007-05-10 =====================
+! 2007-05-08 - Patrick Robbe for Jibo He
+ - Add new cut tool (BcDaughtersInLHCb) to cut on daughters of Bc
+ - Modify options to now use Special method to generate Bc events
+   and to generate pile-up.
+
+!===================== LbBcVegPy v1r4 2007-02-08 =====================
+! 2007-02-08 - Gloria Corti
+ - include files are private, so use include_dirs. This makes it 
+   usable both with/without install area
+
+! 2007-01-08 - Florence Ranjard
+ - update BcVegPyProduction.cpp to use new FACTORY.
+
+!====================== LbBcGen v1r3 2006-10-06 ======================
+! 2006-10-06 - Gloria CORTI
+ - Move here options to produce events with BcVegPy
+
+!====================== LbBcGen v1r2 2006-07-04 ======================
+! 2006-07-04 - Gloria CORTI
+ - Follow general LHCb convention for name of componenet libraries
+   loading and declaration file.
+   . factories declared in LbBcVegPy_load.cpp (modified)
+   . remove LbBcVegPy_entries.cpp and add LbBcVegPy_dll.cpp
+ 
+!====================== LbBcGen v1r1 2006-05-31 ======================
+! 2006-05-02 - Patrick Robbe
+  - requirements: remove -fno-second-underscore flag and add second
+    underscore where necessary.
+
+! 2006-03-13 - Jibo He
+  -New Package: this package contains all functions related to the use
+   of BcGen (BCVEGPY 2.0) in LHCb, functions to access BCVEGPY fortran 
+   common block and to set the parameters required by BcGen.
+! ====================================================================

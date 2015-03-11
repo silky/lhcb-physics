@@ -1,0 +1,36 @@
+!----------------------------------------------------------------------------
+! Package     : BcmMoniSim
+! Author      : Magnus Lieng (Dortmund)
+! Responsible : = Gauss managers =
+! Purpose     : Histograming for the BCM stations
+!----------------------------------------------------------------------------
+
+!======================= BcmMoniSim v2r0p1 2015-01-16 =======================
+! 2014-11-26 - Gloria Corti
+ - fixes for warning when compiling with --pedantic
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================== BcmMoniSim v2r0 2014-01-30 ========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!======================= BcmMoniSim v1r2p1 2013-10-10 =======================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================== BcmMoniSim v1r2 2009-04-08 ========================
+! 2009-04-03 - Gloria CORTI
+ - Allow for multiple location of hits to handle spill-over in Gauss.
+
+!======================== BcmMoniSim v1r1 2008-06-10 ========================
+! 2008-06-10 - Gloria CORTI
+ - Adapt options to new path in detector element upstream of VELO for
+   geometry head-20080516
+
+!======================== BcmMoniSim v1r0 2008-02-15 ========================
+! 2008-02-15 - Magnus Lieng
+ - Created a new package BcmMoniSim.
+
+!============================================================================

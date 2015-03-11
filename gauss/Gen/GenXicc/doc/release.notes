@@ -1,0 +1,92 @@
+! Package     : Gen/GenXicc
+! Responsible : F. Zhang
+
+!======================== GenXicc v2r1p1 2014-12-16 ==========================
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!========================= GenXicc v2r1 2014-06-23 ===========================
+! 2014-02-11 - Liang Zhong
+ - Modify parameter.F to enable to configure the mass of Xicc baryon
+   in GenXiccProduction.cpp
+
+!======================== GenXicc v2r0p1 2013-10-10 ==========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= GenXicc v2r0 2012-11-29 ===========================
+! 2012-10-23 Feng ZHANG
+ - (1) FULLPATHNAME for the grid files modified and new path for different
+   energy point added
+   (2) FIVE source files changed
+   evntinit.F  outerpdf.F  parameter.F  upopenfile.F  vagas.F
+   (3) obsolete some initial values in "setxiccdefaultparameters". 
+   All parameters controlled by LBGENXICC now in need.
+
+!========================= GenXicc v1r1 2012-04-02 ===========================
+! 2012-03-29 - G.Graziani
+ - extend changes to colorflow.F to all QQq baryon states (support for Xi_bc, 
+   Xi_bb, Omega_bc, Omega_bb)
+ - add LHCb-like generator level cut on eta (default is no cut)
+ - add user-controllable parameters (via GenXiccProduction options) for eta 
+   cut (pscutmin, pscutmax) and maximum weight (xmaxwgt)
+ - split initial parameter settings in two parts that should be called before
+   and after user settings in GenXiccProduction
+ - put constants to be shared among routines in include/genxicc_constants.h
+
+
+!========================= GenXicc v1r0 2012-03-09 ===========================
+! 2012-03-09 - F. Zhang
+ - New package:
+### $-----$-----$-----$-----$-----$-----$-----$-----$-----$-----$-----$
+### Introduction: New Package 'GenXicc'
+### To interface with LHCb software easily, GenXicc was established:  
+###
+### 1) This directory contains all of the source files of GENXICC2.0 
+###
+### 2) The GENXICC2.0 is a generator program for the hardronic prod-
+###   uction of the Double-Heavy-Baryons
+###
+### 3) The generator is written in a PYTHIA-compatible format based  
+###   on FORTRAN77/90 
+###
+### 4) Thank you for the Authors of the generator: C. H. Chang, J. X. 
+###   -Wang and X. G. Wu
+###
+### 5) More detailed informations ablout the generator could be found
+###   in:
+###   --- C. H. Chang, J. X. Wang and X. G. Wu, Comp. Phys. Comm. 177 
+###       (2007) 467-478  
+###   --- C. H. Chang, J. X. Wang and X. G. Wu, Comp. Phys. Comm. 181
+###       (2010) 1144-1149
+###
+###
+###                                           By F. Zhang 2011-04-01
+###
+### $-----$-----$-----$-----$-----$-----$-----$-----$-----$-----$-----$
+ 
+!   
+C   The Struture of the directory:
+C   NAME                           CONTENT
+C   "cmt"                           requirements
+C   "CVS"                           ---
+C   "doc"                           README
+C   "include"                       ---
+C   "slc_amd64_gcc34"               ---
+C   "src"                           all of source files 
+                                   {                               parameter.F
+                                    ccamp1.F      gcamp1.F         phase_point.F  
+				            s_foursets.F                   uplogo.F
+				            ccamp2.F      gcamp2.F         py6409.F       
+				            s_free.F                       upopenfile.F
+                                    charmsub.F    mixfun.F         s_bound.F      
+                                    s_samp.F      uperror.F        vegas.F
+                                    colorflow.F   outerpdf.F       s_common.F     
+                                    totfun.F      upevnt.F         vegaslogo.F
+                                    evntinit.F    phase_gen.F      sepfun.F       
+                                    upclosegradefile.F  upinit.F}
+!   ===================================================================
+
+
+       
+

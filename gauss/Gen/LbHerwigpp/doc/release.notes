@@ -1,0 +1,54 @@
+!-----------------------------------------------------------------------------
+! Package     : Gauss_HEAD/Gen/LbHerwigpp
+! Responsible : Philip Ilten
+! Purpose     : Adaptor package for Herwig++
+!-----------------------------------------------------------------------------
+
+!======================= LbHerwigpp v3r0p1 2014-12-17 ========================
+! 2014-11-28 - Gloria Corti
+ - Try to fix warnings when compiling with --pedantic
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================== LbHerwigpp v3r0 2014-01-30 =========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!======================= LbHerwigpp v2r0p1 2013-10-10 ========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================== LbHerwigpp v2r0 2012-10-19 =========================
+! 2012-10-19 - Gloria Corti
+ - Fix bug in naming of ParticlePropertySvc that was stillpointing to Gaudi
+
+! 2012-09-18 - Gloria Corti
+ - Use herwigpp interface set up to also work on bash and adapt to macro set 
+   in there, removing include and ld_library path from requirements of this
+   package
+ - Use environment variable HERWIGPPHOME for location of heriwg repository for
+   loading, instead of HERWIGPPROOT that is now set by cmt to point to the 
+   interface package
+
+! 2012-05-30 - Patrick Robbe
+ - HerwigProduction.cpp: adapt to new particle property service
+
+!======================== LbHerwigpp v1r0 2012-05-14 ========================
+! 2012-05-14 - Gloria Corti
+ - First release of Herwigpp in LHCb
+
+! 2012-05-10 - Gloria Corti
+ - Remove macros setting native version of Herwig++ and ThePeg as they must
+   be set in GENSER in order to be distributed remotely.
+ - Change order of the use of package to have linking in the correct order
+ - Prepend both Herwig++ and ThePeg in the LD_LIBRARY_PATH and remove all 
+   linking of Herwig++ until this is corrected in the LCG_GeneratorsInterfaces
+   packages.
+ - Fix run time problem with finding of ParticlePropertySvc that in Gaudi
+   v23 is in the Gaudi:: namespace.
+
+! 2010-07-08 - Philip Ilten
+ - Initial version of the Herwig++ interface. Much work required.
+
+!=============================================================================

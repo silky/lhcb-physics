@@ -1,0 +1,453 @@
+!-----------------------------------------------------------------------------
+! Package     : Sim/GaussMonitor
+! Responsible : Gloria CORTI, Silvia MIGLIORANZI
+! Purpose     : Hold monitoring algorithms for Gauss
+!-----------------------------------------------------------------------------
+
+!======================= GaussMonitor v8r2 2014-12-18 ========================
+! 2014-12-01 Peter Griffith
+ - Cleaned up BremVeloCheck code, removed std::cout's.
+
+! 2014-12-01 - Gloria Corti
+ - Fix compilatin warning with --pedantic
+ 
+! 2014-11-21 - Marco Clemencic
+ - Fixed CNake configuration.
+
+! 2014-11-20 - Peter Griffith
+- Committed two new tools for the study of EM physics in the Velo;
+  BremVeloCheck (tool) and EMGaussMoni (algorithm)
+
+
+! 2014-11-20 - Gloria Corti
+ - Introduce dependency to VeloDet for code to be committed for dE/dx and 
+   Brem in thin silicon layers
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================= GaussMonitor v8r1 2014-07-03 ========================
+! 2014-06-11 - James Mccarthy
+ - Added options file to run timing monitor code in options/MonitorTiming.py
+
+! 2014-04-01 - James Mccarthy
+ - Added scripts for monitoring timing in subdetectors and processes in Gauss 
+   (MonitorTiming.cpp MonitorTiming.h)
+
+!======================= GaussMonitor v8r0 2014-02-02 ========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!====================== GaussMonitor v7r0p1 2013-10-10 =======================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================= GaussMonitor v7r0 2013-06-27 ========================
+! 2013-06-26 - Patrick Robbe
+ - Remove obsolete GeneratorFullMonitor algorithm from Gauss
+
+!====================== GaussMonitor v6r12 2013-03-21 ========================
+! 2013-03-21 - Gloria Corti
+ - Increase boundaries of histograms for primary vertex in generator monitor
+   to take into account that they can be offset from 0 in x and y
+
+!====================== GaussMonitor v6r11 2013-02-05 ========================
+! 2013-01-28 - Aurelien Martens
+ - update hProcess number of bins and upper limit to cope with Pythia8 processIDs
+
+!====================== GaussMonitor v6r10 2012-10-19 ========================
+! 2012-07-14 - Christian Elsasser
+ - Change in GeneratorFullMonitor s.t. intermediate particles in the hard
+   process are filled into the Ntuple
+
+!====================== GaussMonitor v6r9 2012-05-14 =========================
+! 2011-11-18 - Aurelien Martens
+ - update on counting of excited states
+
+!====================== GaussMonitor v6r8 2011-07-24 =========================
+! 2011-06-18 - Patrick Robbe
+ - src/ProductionAsymmetry.cpp, src/GenMonitorAlg.cpp, 
+   src/GeneratorAnalysis.cpp, src/ProductionAnalysis.cpp:
+    fix for HepMC2.06 compilation: change mag() function to rho()
+
+!====================== GaussMonitor v6r7 2011-05-31 =========================
+! 2011-5-27 - Mark Whitehead
+ - src/GeneratorFullMonitor.cpp, src/GeneratorFullMonitor.h: Gloria added some
+   code to include run number and event number in GaussMonitor.root
+  
+!====================== GaussMonitor v6r6 2010-03-22 =========================
+! 2010-02-24 - Patrick Robbe
+ - src/GenMonitorAlg.cpp, src/GeneratorAnalysis.cpp: protect against particle
+   without production vertex (Pythia8).
+
+!====================== GaussMonitor v6r5 2009-12-17 =========================
+! 2009-12-17 - Gloria CORTI
+ - Introduce 2d histograms of x/y vs z primary vertex
+   . GenMonitorAlg.{h,cpp}
+
+!====================== GaussMonitor v6r4 2009-11-04 =========================
+! 2009-10-19 - Silvia Miglioranzi
+ - Fixed warning in compilation on slc5: "comparisons like X<=Y<=Z do not have 
+   their mathematical meaning" in:
+   - GeneratorAnalysis.cpp
+
+! 2009-03-26 - Stefania Vecchi on behalf of Olga Levitskaya
+ - added MonitorStepAction: produces histograms on the step size and number of
+   muons in Muon Filters (useful to test the multiple scattering simulation)
+
+!====================== GaussMonitor v6r3 2009-04-06 =========================
+! 2009-03-26 - Patrick Robbe
+ - MCTruthMonitor: add possibility to change location of MCParticles and 
+   MCVertices by job option
+
+!====================== GaussMonitor v6r2 2009-01-14 =========================
+! 2008-12-08 - Vanya BELYAEV
+ - fix for the new particle properties 
+
+!====================== GaussMonitor v6r1 2008-12-08 =========================
+! 2008-11-11 - Patrick Robbe
+ - src/GeneratorFullMonitor.h/.cpp: use GaudiAlgTuple base class to be
+   able to run on 64 bit machines
+
+!===================== GaussMonitor v6r0p1 2008-10-10 ========================
+! 2008-10-08 - Gloria CORTI
+ - Change printout level to debug during event processing
+   . GenMonitorAlg.cpp
+
+!====================== GaussMonitor v6r0 2008-08-25 =========================
+! 2008-07-26 - Patrick Robbe
+ - Move to HEPMC2
+
+!====================== GaussMonitor v5r3 2008-07-18 =========================
+! 2008-07-14 - Patrick Robbe
+ - Correct GeneratorAnalysis histograms to remove b quarks from analysis
+ - GeneratorFullMonitor: add pThat variable
+
+!====================== GaussMonitor v5r2 2008-06-27 =========================
+! 2008-06-24 - Vanya BELYAEV
+ - new algorithms to perform the checks for particle lifetiems both on HepMC
+	 and MC levels 
+   New files :
+   (1) src/CheckLifeTime.h, src/CheckLifeTime.cpp
+       the base class   
+   (2) src/CheckLifeTimeHepMC.cpp
+       the concrete algorithm for checking lifetiem of HepMC particles 
+   (3) src/CheckLifeTimeMC.cpp
+       the concrete algorithm for checking lifetiem of MC particles 
+   (4) src/LifeTime.h
+       the common helper utilities 
+  The algorithms has property "Particles"
+  The typical usesage: 
+   SimMonitor.Members += [ "GaussMonitor::CheckLifeTimeMC/MCLifeTime" ];
+   GenMonitor.Members += [ "GaussMonitor::CheckLifeTimeHepMC/HepMCLifeTime" ];
+  The typical printout:
+MCLifeTime                 INFO  >0.5 sigma deviation in lifetime for 'B0'        Actual is 0.489439+-0.049298(0.45982) Nominal is 0.46048 [mm] 
+MCLifeTime                 INFO  >0.5 sigma deviation in lifetime for 'B+'        Actual is 0.528686+-0.054560(0.47250) Nominal is 0.50095 [mm] 
+MCLifeTime                 INFO  <0.5 sigma deviation in lifetime for 'B_s0'      Actual is 0.471664+-0.100333(0.45978) Nominal is 0.43799 [mm] 
+MCLifeTime              WARNING  >1   sigma deviation in lifetime for 'Lambda_b0' Actual is 0.282185+-0.059657(0.23105) Nominal is 0.36844 [mm] 
+MCLifeTime              WARNING  >1   sigma deviation in lifetime for 'D0'        Actual is 0.143134+-0.011404(0.13151) Nominal is 0.12340 [mm] 
+MCLifeTime                 INFO  >0.5 sigma deviation in lifetime for 'D+'        Actual is 0.295561+-0.035003(0.26194) Nominal is 0.31521 [mm] 
+MCLifeTime                 INFO  >0.5 sigma deviation in lifetime for 'D_s+'      Actual is 0.133379+-0.026760(0.16712) Nominal is 0.14704 [mm] 
+MCLifeTime              WARNING  >1   sigma deviation in lifetime for 'Lambda_c+' Actual is 0.077262+-0.013329(0.05655) Nominal is 0.05979 [mm] 
+
+ histos:
+MCLifeTime              SUCCESS List of booked 1D histograms in directory         "MC/MCLifeTime" :-
+ | ID                        |   Title                                       |    #    |     Mean   |    RMS     |  Skewness  |  Kurtosis  |
+ | LifeTime B+               | "LifeTime B+"                                 |    75   |    0.52869 | 0.47251    |     1.3752 |     1.8131 |
+ | LifeTime D+               | "LifeTime D+"                                 |    56   |    0.29556 | 0.26194    |     1.2438 |     1.1996 |
+ | LifeTime Lambda_b0        | "LifeTime Lambda_b0"                          |    15   |    0.28219 | 0.23105    |    0.76436 |   -0.24491 |
+ | LifeTime Lambda_c+        | "LifeTime Lambda_c+"                          |    18   |   0.077262 | 0.056554   |    0.82634 |    0.22073 |
+ | LifeTime B_s0             | "LifeTime B_s0"                               |    21   |    0.47166 | 0.45979    |     1.3353 |    0.94287 |
+ | LifeTime B_c+             | "LifeTime B_c+"                               |    0    |          0 | 0          |        nan |        nan |
+ | LifeTime D_s+             | "LifeTime D_s+"                               |    39   |    0.13338 | 0.16712    |      3.592 |     15.729 |
+ | LifeTime D0               | "LifeTime D0"                                 |   133   |    0.14313 | 0.13152    |     1.4295 |     1.5341 |
+ | LifeTime B0               | "LifeTime B0"                                 |    87   |    0.48944 | 0.45983    |     1.2403 |     1.0644 |
+
+ counters:
+MCLifeTime              SUCCESS Number of counters : 9
+ |    Counter     |     #     |    sum     | mean/eff^* | rms/err^*  |     min     |     max     |
+ | "LifeTime B+"  |        75 |   39.65142 |    0.52869 |    0.47251 |    0.021626 |      2.3047 |
+ | "LifeTime B0"  |        87 |   42.58121 |    0.48944 |    0.45983 |   0.0016786 |      1.9720 |
+ | "LifeTime B_c+"|         0 |          0 |     0.0000 |     0.0000 | 1.7977e+308 |-1.7977e+308 |
+ | "LifeTime B_s0"|        21 |   9.904944 |    0.47166 |    0.45979 |    0.031394 |      1.6468 |
+ | "LifeTime D+"  |        56 |   16.55143 |    0.29556 |    0.26194 |   0.0073296 |      1.1662 |
+ | "LifeTime D0"  |       133 |   19.03681 |    0.14313 |    0.13152 |  0.00044534 |     0.59080 |
+ | "LifeTime D_s+"|        39 |   5.201792 |    0.13338 |    0.16712 |   0.0051624 |      1.0061 |
+ | "LifeTime Lambd|        15 |   4.232776 |    0.28219 |    0.23105 |   0.0054285 |     0.82772 |
+ | "LifeTime Lambd|        18 |   1.390719 |   0.077262 |   0.056554 |  0.00010981 |     0.22518 |
+
+!====================== GaussMonitor v5r1 2008-05-07 =========================
+! 2008-05-07 - Gloria CORTI
+ - Additional histograms of z coordinates of primay vertex with wider
+   boundaries
+   . src/GenMonitorAlg.{h,cpp}
+
+! 2008-04-10 - Gloria CORTI
+ - Introduce histograms or entry in ntuple to monitor time of primary vertex
+   . src/GenMonitorAlg.{h,cpp}
+   . src/MCTruthFullMonitor.{h,cpp}
+
+!====================== GaussMonitor v5r0 2007-06-26 =========================
+! 2007-06-26 - Gloria Corti
+ - Adapt to change in LHCb v22r6 with move of interfaces of MC tools in 
+	 MCInterfaces. This change is incompatible for use in DC06.
+
+!=================== GaussMonitor v4r5 2007-05-11 ===========================
+! 2007-05-08 - Gloria CORTI
+ - Use lifetime function from GaussGenUtil and adapt histogram boundaries
+   . GenMonitorAlg.{h,cpp}
+ - Remove dependency from EvtGen no longer necessary
+   . requirements
+ - Introduce code from Robert LAMBERT for production asymmetries studies
+   . GaussMonitor_load.cpp
+
+! 2007-05-08 - Robert LAMBERT
+ - The two algorithms Production Analysis and Production Asymmetry have been
+   written to allow the user to look at individual particles in the generated
+   event or particles of a given PID type.
+   Both algorithms are based on the Generator Analysis algorithm and produce
+   output histograms in a form where the name of the histogram is an indication
+   of its contents.
+   Specifically they may allow the user to examine the produced events 
+   specific to his/her channel of interest and hence provide insight into the
+   expected outcomes of his/her algorithm.
+   These are MCTruth algorithms, dependent on the definition of HepMCEvent
+   and should not be used in data, or included in other algorithms which are 
+   not meant to depend on MCTruth.
+   The default options have been selected to already plot some interesting
+   histograms for B0 particles.
+ - Algorithms:
+   . ProductionAnalysis.{cpp,h}
+     Produces histograms of the production of a particle with _one_ PID.
+   . ProductionAsymmetry.{cpp,h}
+     Produces histograms of particles of given PID types and calculates the 
+     difference in the number of produced antiparticles vs particles
+ - Common Options
+   . MinEta, type double, default 2.0
+     Plot only particles above this Pseudo-Rapidity value.
+     Default is LHCb min acceptance. Same as for Generator Analysis
+   . MaxEta, type double, default 4.9
+     Plot only particles below this Pseudo-Rapidity value.
+     Default is LHCb max acceptance. Same as for Generator Analysis.
+   . Input, type string, default LHCb::HepMCEventLocation::Default
+     Take HEPMC events from this location. 
+     Default is LHCb Default location. Same as for Generator Analysis.
+   . ApplyTo, type string, default ""
+     Take HEPMC events produced by this generator. 
+     Default is all generators. Same as for Generator Analysis
+   . Signal,  type string, default "B0 "
+     Title to add to all plots, Same as for Generator Analysis
+     Should terminate with a space character, this has nothing to do with 
+     the PID and can be any string you like
+ - ProductionAnalysis specific options: single PID to plot.
+   . SignalPID, type integer, default 511
+     Plot only this PID, default is B0.
+ - ProductionAsymmetry specific options: many PID types to plot.
+   . SignalPIDs, type vector of integers, default [ 511 ]
+     Plot histograms and comparisons for PIDs of the type specified, 
+     default is B0 and B0-bar
+ - Output
+   . Both plot histograms of: PseudoRapidity, Energy, momentum (|p|), pt
+   . Production Analysis:  Histograms named according to data plotted, 
+                           Histograms of total number of particles produced 
+                           in bin
+   . Production Asymmetry: Histograms named according to 
+                            - histogram type
+                            - PID plotted
+                            - data plotted
+                           Histograms of total number of particles produced 
+                           in bin
+                           Individual particle histograms begin with I
+                            - I511PsR is the PsR plot for B0
+                           Total of Type histograms begin with a T
+                            - T531pt is the pt plot for all Bs_0 and Bs_0-bar
+                           The difference histograms begin with dp
+                            - dp11E is the E plot for all electrons
+                            - bin contains #particles - #antiparticles
+ - Examples, refer to ProductionAnalysis.opts
+
+! 2007-04-13 - Gloria Corti
+ - Put protection in case of running with Herwig where proton beams are
+   present in HepMC event record without status = 3: so not skipped and 
+   without a production vertex. 
+   . GeneratorAnalysis.cpp - Check that production vertex exists before
+                             looking at mother ID
+   . GaussGenUtil.cpp      - Check that production vertex exists in
+                             calculation of lifetime
+
+!=================== GaussMonitor v4r4 2007-03-13 ===========================
+! 2007-03-13 - Gloria Corti
+ - Remove un-necessary include of EvtConst.hh
+   . GeneratorAnalysis.cpp
+ - Set return value of lifetime to -1.0 when not possible to calculate it
+   . GaussGenUtil.cpp
+ - Put boundary of lifetime histogram to include bin at -1.0
+   . GeneratorAnalysis.cpp
+
+! 2007-03-08 - Patrick Robbe
+ - GaussGenUtil.cpp: fix lifetime computation
+ - GeneratorAnalysis.cpp: change histogram number 101 (conflict with another
+   histogram with the same number), adapt lifetime range to mm. 
+
+! 2007-03-07 - Gloria CORTI
+ - Introduce algorithm with detailed histograms for generators studies and
+   validation from Paul SZCZYPKA. Some clean up with respect to its code.
+   . GeneratorAnalysis.{h,cpp} - NEW
+ - Introduce function extracted from GeneratorAnalysis to provide lifetime
+   (c*tau) in GaussGenUtil namespace
+   . GaussGenUtil.{h,cpp} 
+ - Add hard interaction information to ntuple (from Paul SZCZYPKA)
+   . GeneratorFullMonitor.{h,cpp}
+ - Add declaration of new algorithm GeneratorAnalysis. Necessary for the
+   package to be compatible with both Gaudi v18 (DC06) and v19.
+   . GaussMonitor_load.cpp 
+
+!=================== GaussMonitor v4r3 2007-02-08 ===========================
+! 2007-01-12 - Gloria Corti
+ - adapt code to Gaudi v19r0, use Gaudi macro for factory (also compatible
+   with Gaud v18):
+   . MCDecayCounter.cpp
+
+!=================== GaussMonitor v4r2 2006-11-01 ============================
+! 2006-10-31 - Patrick Robbe
+ - GenMonitorAlg.cpp: protect against off-shell particles with negative
+   invariant mass.
+
+!=================== GaussMonitor v4r1 2006-09-19 ============================
+! 2006-09-05 - Gloria CORTI
+ - Fill histograms with units, since there was mismatch (in container MeV,
+   in label of histogram GeV)
+   . GenMonitorAlg.cpp
+
+!=================== GaussMonitor v4r0 2006-06-15 ============================
+! 2006-06-15 - Gloria Corti
+ - Port to Gaudi v18r5: introduce Gaudi::Units
+   . MCTruthMonitor.cpp 
+
+!=================== GaussMonitor v3r2 2006-04-12 ============================
+! 2006-04-12 - Gloria CORTI
+ - To fit in hsiograms boundaries, scale down MCVertexType >= 100
+   . MCTruthMonitor.cpp
+
+!=================== GaussMonitor v3r1 2006-03-27 ============================
+! 2006-03-23 - Juan PALACIOS
+ - Change use of std::vector<LHCb::MCParticle*> to 
+   LHCb::MCParticle::ConstVector in MCDecayCounter to match 
+   new IMCDecayFinder interface.
+
+!=================== GaussMonitor v3r0 2006-01-27 ============================
+! 2006-01-27 - Gloria CORTI
+ - Fix bug resulting in not filling stable Pt histogram
+
+! 2005-12-16 - Gloria CORTI
+ - Adapt to new event model change of method names, LHCb namespace, replacing
+   HardInfo with GenCollision
+   . src/GeneratorFullMonitor.cpp
+   . src/GenMonitorAlg.cpp
+   . src/MCDecayCounter.cpp
+   . src/MCTruthFullMonitor.cpp
+   . src/MCTruthMonitor.cpp
+ - Make algorithm inherit from GaudiAlgorithm and adapt to it
+   . src/GeneratorFullMonitor.{h,cpp}
+   . src/MCTruthFullMonitor.{h,cpp}
+ - Remove use of obsolete GenMCLink class
+   . src/MCTruthMonitor.cpp
+ - Pick IMCDecayFinder from Kernel 
+   . src/MCTruthMonitor.h   
+ - Use new macro for algorithm factories
+   . src/GeneratorFullMonitor.cpp
+   . src/GenMonitorAlg.cpp
+   . src/MCTruthFullMonitor.cpp
+   . src/MCTruthMonitor.h   
+ - Rename input property Input->HepMCEvents for HepMCEvents TES location
+   and Collisions for GenCollisions replaces HardInfo no longer valid
+   . src/GeneratorFullMonitor.{h,cpp}  
+ - use AIDA with -import
+   . cmt/requirements
+
+!===================== GaussMonitor v2r3 ===================================
+! 2005-10-30 - Gloria Corti
+ - cmt/requirements
+   . add necessary use of AIDA 
+
+! 2005-10-02 - Gloria CORTI
+ - src/MCTruthMonitor.{h,cpp}
+   . new algorithm to fill a few reference histograms for MC Truth
+     (MCParticles and MCVertices)
+
+!===================== GaussMonitor v2r2 ===================================
+! 2005-08-17 - Gloria CORTI
+ - src/GenMonitorAlg.{h,cpp}
+	 . use book and fill for histograms, instead of plot
+ - src/MCDecayCounter.{h,cpp}
+   . adapt to GaudiAlgorithm and clean up
+
+! 2005-07-01 - Gloria CORTI
+ - src/GenMonitorAlg.cpp
+   . Add new histogram on event process type
+
+!======================= GaussMonitor v2r1 ===================================
+! 2005-06-24 - Gloria CORTI
+ - src/GeneratorFullMonitor.{h,cpp}
+   . Add possibility to look for HardInfo in a different path in TES.
+     Controlled by setting property "HardInfo", by default set to
+     HardInfoLocation::Default.
+
+! 2005-06-23 - Gloria CORTI
+ - src/GenMonitorAlg.{h,cpp}
+   . Add possibility to monitor only particles in events produced
+     with a certain generator (identified by name in
+     HepMCEvent container). Controlled by setting name of generator in
+     property "ApplyTo". The default is set to an empty string, in which
+     case the smearing is applied to all events in container
+ 
+! 2005-06-21 - Gloria CORTI
+ - src/GenMonitorAlg.cpp
+   . force ID of histograms
+
+! 2005-06-17 - Gloria CORTI
+ - src/GenMonitorAlg.{h,cpp}
+   . adapt to GaudiHistoAlg and add some histograms for Primary vertices 
+     and pileup counters. This implies that property "FillHistos" is replaced
+     by "HistoProduce" (from GaudiHistoAlg), set to false in this algorithm. 
+
+!======================= GaussMonitor v2r0 ===================================
+! 2005-04-10 - Gloria Corti
+ - src/GenMonitorAlg.{h,cpp}
+   . move it from Gen/GeneratorModules, adapt to GaudiAlgorithm, add few
+     more histograms and counters for charged stable particles
+
+!======================= GaussMonitor v1r2 2004-08-02 ========================
+! 2004-08-02 - Gloria CORTI
+ - requirements, adapt to LCG interfaces
+
+! 2004-05-14 - Patrick Robbe
+ - src/GeneratorFullMonitor.cpp
+   . store in ntuple all particles which are converted from HepMC to
+     G4PrimaryParticle in GiGaHepMCCnv (Use the same logic and the same
+     tests on the type and status of particle to store).
+
+!======================= GaussMonitor v1r1 2004-04-29 ========================
+! 2004-04-29 - Gloria CORTI
+ - src/GeneratorFullMonitor.{h,cpp}
+   . introduce location where to read data from as option (Input). Default
+     set to HepMCEventLocation::Default
+ - src/MCTruthFullMonitor.cpp
+   . some clean up
+ - src/src/MCDecayCounter.{h,cpp}
+   . new algorithm that provided an asci decay descriptor (via option
+     ) will count the number of decays of this type. If printout level
+     in DEBUG it also print the signal info as found in "/Event/MC/Signal"
+     for HepMC and the pointer to MCParticle and what found by the 
+     MCDecayFinder in the whole "/Event/MC/Particles".
+ - cmt/requirements
+   . use MCTools
+
+!========================= GaussMonitor v1r0 2004-04-07 =======================
+! 2004-04-07 - Gloria CORTI
+ - New package to hold generic monitors for Gauss. This first import
+   contains one algorihtm that fill ntuple with basic quantities for
+   MCParticles (MCTruthFullMonitor) and for HepMC (GeneratorFullMonitor by
+   Patrick ROBBE)
+!==============================================================================
+

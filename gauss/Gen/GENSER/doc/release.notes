@@ -1,0 +1,547 @@
+!-----------------------------------------------------------------------------
+! Package     : Gen/GENSER
+! Responsible : Gloria CORTI, Patrick ROBBE
+! Purpose     : interface package to GENSER
+!-----------------------------------------------------------------------------
+
+! 2014-11-20 - Gloria Corti
+ - Use of lhapdf 6 is now as a version of lhapdf and not a separate package
+ - Use newer versions of herig++ and thepeg as they are the only one in 
+   LCG_70
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+! 2014-09-30 - Gloria Corti
+ - Replace use of lhapdf with phapdf6
+
+!========================== GENSER v15r0 2014-09-29 ==========================
+! 2014-09-01 - John Back
+ - Changed -lhepmcinterface to -lpythia8tohepmc for LbPythia8 for pythia8.18x.
+
+! 2014-08-22 - Gloria Corti
+ - Set latest versions of all generators as available in both LCG68 and LCG69.
+   Those that change with respect to GENSER v14r0 are:
+    . lhapdf    "5.8.8"  --> "5.9.1"
+    . herwigpp  "2.6.1b" --> "2.7.0a"
+    . thepeg    "1.8.1"  --> "1.9.0a"
+    . tauolapp  "1.1.1a" --> "1.1.4"
+    . pythia8   "175"    --> "186"
+    . pythia6   "427.2"  --> "428.2"
+    . rivet     "1.8.3"  --> "1.9.0"
+   Note that photos++ changed in v14r0, so it is also different from Sim08
+
+!========================= GENSER v14r0p1 2014-08-21 =========================
+! 2014-08-21 - Gloria Corti
+ - Require dummy release for building distribution with LCG 68
+
+!========================== GENSER v14r0 2014-07-28 ==========================
+! 2014-07-14 - Gloria Corti
+ - Change version of photos++ to latest 3.56 version. 
+   Note that 3.54 (3.52) stops (may give undefined results) on gcc 4.8. 
+   See details at https://its.cern.ch/jira/browse/LHCBGAUSS-280
+   
+!========================= GENSER v13r0p1 2013-12-03 =========================
+! 2013-12-03 - Gloria Corti
+ - Change the version of LHAPDFSet to v* as it should be fixed in Gauss itself
+
+!========================== GENSER v13r0 2013-10-10 ==========================
+! 2013-10-03 - Gloria Corti
+ - Put v1r* in version of LHAPDFSet to be used
+
+! 2013-09-24 - Marco Clemencic
+ - Added missing piece to CMake configuration.
+
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+! 2013-08-29 - Gloria Corti
+ - Use herwig++ 2.6.1b for Gauss v46 as needed by MCGenerators_lcgcmt65 and 
+   higher. Will only be used by Gauss >= v46r5 and not for Sim08
+
+!========================== GENSER v12r7 2013-08-29 ==========================
+! 2013-08-29 - Gloria Corti
+ - Need to revert to herwig++ 2.6.1a for Gauss v45 since 2.6.1b does not exists
+   in MCGenerators_lcgcmt64c
+
+! 2013-08-07 - Gloria Corti
+ - Adapt to change in interface package name for powhegbox instead of 
+   powheg-box that causes problems on bash
+
+! 2013-08-06 - Gloria Corti
+ - Introduce use of new LHAPDFSets data package where the PDF used by LHCb now
+   reside
+
+!========================= GENSER v12r6g1 2013-07-24 =========================
+! 2013-07-24 - Gloria Corti
+ - Identical to v12r6 but with 'g1' tag to allow to pick up the generators
+   distributions from the MCGenerators_lcgcmt65a area as needed by LHCB v36r1
+   and Gaudi v23r9
+
+!========================== GENSER v12r6 2013-07-24 ==========================
+! 2013-07-24 - Gloria Corti
+ - Introduce new macro for powheg-box native version and set it to r2092
+
+!========================== GENSER v12r5 2013-06-27 ==========================
+! 2013-06-27 - Gloria Corti
+ - Newer version of rivet (from 1.8.2 to 1.8.3) as not used in production
+
+! 2013-06-24 - Patrick Robbe
+ - requirements: remove definition of LHAPATH
+
+! 2013-06-13 - Gloria Corti
+ - Change version of herwigpp from 2.6.1a to 2.6.1b as not yet used in 
+   production
+
+! 2013-06-02 - Patrick Robbe
+ - Use LHAPDF version 5.8.9 instead of 5.8.8
+ - change back on June 5
+
+!========================= GENSER v12r4p1 2013-04-04 =========================
+! 2013-04-04 - Gloria Corti
+ - Make a patch release with no difference with respect to v12r4 to allow 
+   picking up the generators distributions from the MCGenerators_lcgcmt64d
+   area as needed by LHCB v35r5 and Gaudi v23r7
+
+!========================== GENSER v12r4 2013-03-15 ==========================
+! 2013-03-15 - Gloria Corti
+ - Use latest version of tauolapp 1.1.1a, ok by John Back, to allow to use
+   distribution from lcgcmt_VERSION instead of hepmc_VERSION
+
+!========================== GENSER v12r3 2013-03-07 ==========================
+! 2013-03-07 - Gloria Corti
+ - Use latest version of rivet 1.8.2, as verified by A.Grecu
+
+! 2013-03-04 - Gloria Corti
+ - Use latest version of Pythia8 175, as suggested by T.Sijostrand
+
+!========================== GENSER v12r2 2013-02-14 ==========================
+! 2013-02-14 - Gloria Corti
+ - Merge changes to remove hijing code from v10r2b branch. See below.
+
+! 2013-02-14 - Gloria Corti (merged r152263)
+ - Now physically remove the line commented in the requirement and the rlu.F 
+   and ran.F code from src/hijing since the tests are successful
+
+! 2013-02-11 - Gloria Corti (merged r151897, r151988)
+ - Comment out making the library for hijing, since the code is now in 
+   LbHijing itself
+
+!========================== GENSER v12r1 2013-02-07 ==========================
+! 2013-02-07 - Gloria Corti
+ - Put back the version of hijing as in MC10 1.383bs.2 and change the rlu.F 
+   function in src/hijing to adapt back to it. 
+   Remove all linking appended to those of GENSER from here to remove tying
+   all generators to hijing as in link library symbols
+
+! 2013-01-24 - Patrick Robbe
+ - use photos++ 3.52
+
+! 2013-01-21 - Patrick Robbe
+ - Remove FORTRAN files for PHOTOS in Gauss
+
+! 2013-01-17 - Gloria Corti
+ - Newer version of pythia6 427.2
+
+!========================== GENSER v12r0 2012-11-29 ==========================
+! 2012-11-16 - Gloria Corti
+ - Use private interface packages for photos++ and tauola++ to replace '++'
+   with 'pp' needed on bash to correctly resolve the paths.
+
+! 2012-11-15 - Gloria Corti
+ - Port by hand changes in v9r2b branches for new versions and new generators
+   . Modify macro to pick native version of alpgen 2.1.4
+   . Add macro to pick up rivet for the first time
+   . Modify macro to pick up pythia8 latest release 170
+     Note from pythia8 release note for 165: 
+     "Bug fix, that 'ParticleDecays:mixB = off' did not switch off B0-B0bar 
+      and Bs0-Bs0bar mixing".
+   . Use interface packages for herwig++ and thepeg privately defined and not
+     from LCG_interfaces to replace '++' with 'pp', needed on bash, and to 
+     redefine linking statements.
+ - Merge change r143057 from v9r3b by Patrick Robbe (2012-07-23)
+   . Add UPVETO function (mainly for ALPGEN)
+ - Remove macros for obsolete generators no longer in use
+   . herwig
+   . jimmy
+ - Remove all linking for photos (fortran)
+ - Modify macros to use latest version of the generators
+   . herwig++ and thepeg native versions 2.6.1a and 1.8.1
+   . rivet native version 1.8.1 (build with fastjet 2.4.4 as in LCGCMT_64a)
+ - Move from EvtGen definition of PYTHIA8DATA
+ - Move from EvtGen macro definitions for tauola++ and photos++
+ - The use of private interfaces to replace those of LCG requires LCG_Settings 
+   that has to be in sync with LCGCMT. The private interfaces will be forwarded
+   to LCG to be included in their release once validated for remote usage
+
+! 2012-05-04 - John Back
+ - Remove old photos (v2) from cmt/requirements file.
+
+! 2012-05-04 - Gloria Corti
+ - Take the latest version of pythia8 163
+
+! 2012-03-28 - Zenwhei Yang
+ - Add two lines for GenChicc in upinit.F, upevnt.F and GaussUserProcesses.inc
+
+! 2012-01-26 - Gloria Corti
+ - Take the latest version of pythia8 160
+ - Remove temporary patch to link photos++ and tauola++ with missing links
+
+!========================= GENSER v11r0 on a branch ==========================
+!========================= GENSER v10r2 on a branch ==========================
+!========================= GENSER v10r1 on a branch ==========================
+!========================= GENSER v10r0 on a branch ==========================
+!========================= GENSER v9r3 on a branch ===========================
+
+!========================= GENSER v9r2p1 2011-10-14 ==========================
+! 2011-10-14 - Gloria Corti
+ - Remove definitions of macros but for version for AlpGen as an interface 
+   package now exist in LCG_GeneratorsInterfaces
+ - Redifine LHAPATH from macros defined in LCG_GeneratorsInterfaces package
+   for lhapdf, so that correct dependency from HepMC is taken
+
+!========================== GENSER v9r2 2011-09-20 ===========================
+! 2011-09-16 - Gloria Corti
+ - Latest version of LHAPDF does not have soft link for lower cases library.
+   For now use 5.8.5
+
+! 2011-09-15 - Gloria Corti
+ - Move to latest versions of 
+   Pythia6 6.424.2 -> 6.425.2
+   LHAPDF  5.7.1   -> 5.8.6
+   Pythia8 150     -> 153
+
+! 2011-09-05 - Hubert Degaudenzi
+ - added workaround for tauola++ and photos++ libraries which have missing links
+   on their respective fortran libraries.
+
+! 2011-08-14 - Gloria Corti
+ - Move to version 150 of pythia8 as the only one available for hepmc 2.06.05
+   (also available for 2.03)
+
+!========================== GENSER v9r1 2011-07-15 ===========================
+! 2011-07-15 - Gloria Corti
+ - Apply pattern not to build on windows, so that conditional use can be
+   removed from GaussSys
+
+! 2011-06-09 - Vanya Belyaev
+ - improve the reading of LHA/LHE events 
+
+! 2011-05-30 - Vanya Belyaev
+ - src/pythia6/GaussUserProcess.inc
+   src/pythia6/upevnt.F
+   src/pythia6/upinit.F 
+    add user process for Onia-pairs production 
+ - cmt/requirements
+    version increment to v9r1 
+ 
+!========================== GENSER v9r0 2011-04-12 ===========================
+! 2011-02-11 - Patrick Robbe
+ - requirements: move use hijing in GENSER to force preloading of the
+   HIJING data blocks
+
+! 2011-01-31 - Gloria CORTI
+ - Put back changes in requirements and hijing directory (see entry of 
+   2010-09-14 and 2010-09-17) to commission the use of Hijing 1.36.a.2
+   from the LCG release area
+
+!========================== GENSER v8r0 2010-12-13 ===========================
+! 2010-12-12 - Gloria Corti
+ - Rename back RLU_HIJING to RLU as we kept the older version of Hijing
+
+! 2010-12-10 - Gloria Corti
+ - Put back previous version of LHAPDF 5.7.1 for MC10, as we did not have
+   the time to do the necessary tests.
+ - Set version to v8r0 to indicate series for MC10.
+
+! 2010-12-07 - Gloria CORTI
+ - Use latest version of LHAPDF 5.8.4 
+
+! 2010-12-01 - Gloria CORTI
+ - Use latest version of Pythia6 424.2 to check it for possibly adopting it
+   for MC10
+ - Use latest version of Pythia8: recommendation from P.Skands is to use at
+   least 412 as it has bug fixes and that 415 was only a minor update. 
+   Take 415 as it is the latest.
+ - Go back to use hijing 1.383bs.2 for next release of Gauss as it does not
+   work out of the box. Will need to review the interface algorithm.
+
+! 2010-10-07 - Patrick Robbe
+ - Adapt to Pythia 6.423:
+   * remove src/pythia6/pyevnw.F src/pythia6/pyptfs.F which are not needed
+     anymore
+   * update src/pythia6/pyrand.F src/pythia6/pyscat.F src/pythia6/pysigh.F
+
+! 2010-09-17 - Gloria CORTI
+ - requirements: increase version of pythia6 to 423.2 to allow to check it
+   against 421.2
+ - Noticed that the new version of hijing is calling "rlu_hijing" instead or
+   "rlu". Modified name of function in file in src/hijing/rlu.F. Function 
+   "ran" instead does not seem to be called, so do not touch it.
+
+! 2010-09-14 - Gloria CORTI
+ - requirements: use hijing 1.36.a.2 newly installed in LCG MCGenerators. 
+   This version is orginally from Alice.  
+   Routines and common blocks from pythia and jetset are renamed:
+   "_hijing" added to the names. This way hijing hopefully can be used
+   together with pythia.
+   NMXHEP for HEPEVT is 10000, PHEP and VHEP in double precision.
+
+!========================== GENSER v7r0 2010-07-09 ===========================
+! 2010-06-21 - Patrick Robbe
+ - requirements: use Photos 215.4 to have HEPEVT common block size set to
+   10000.
+
+!========================== GENSER v6r2 2010-03-22 ===========================
+! 2010-03-09 - Patrick Robbe
+ - pythia6/xsectionPsiStar.F: fix bug in return value of the function which
+   was undefined
+
+!========================== GENSER v6r1 2009-12-04 ===========================
+! 2009-11-30 - Gloria CORTI
+ - In the LHAPDF LCG_Generators distribution the data files directory path has 
+   changed with an additional 'lhapdf' introduced. The old one now has a 
+   soft link to the new area.
+   Change the LHAPATH to point directly to the new area, to facilitate 
+   distribution via tarbal.
+
+!========================== GENSER v6r0 2009-11-04 ===========================
+! 2009-10-22 - Hubert Degaudenzi 
+ - changed the target-slc5 switching into target-gcc4 for the gfortran flags 
+
+! 2009-10-22 - Patrick Robbe
+ - Add "-fsecond-underscore" for slc5 gFortran compilation
+
+! 2009-10-08 - Gloria Corti
+ - Change versions of external packages to pick up those with slc5 libraries
+ - Remove fflags "-ff90" and linking "-lg2c" on slc5
+
+!========================== GENSER v5r2 2009-10-05 ===========================
+! 2009-10-05 - Gloria CORTI
+  - Fix consistency of HepMC used for Pythia8, by using version 107 instead
+    of 107.1
+
+! 2009-09-28 - Patrick Robbe
+ - Change UPINIT call to BCVEGPY (change of arguments)
+
+!========================== GENSER v5r1 2009-04-06 ===========================
+! 2009-03-06 - Patrick Robbe
+ - Add hijing subdirectoy to contain HIJING functions overwriten in Gauss
+
+! 2009-03-04 - Patrick Robbe
+ - Rename xsection.F to xsectionPsiStart.F because of a name conflict
+   with BcVegPy
+
+!========================== GENSER v5r0 2008-12-08 ===========================
+! 2008-25-11 - Patrick Robbe
+ - Add xsection.F (Nick Brook) which computes cross section for psi(3770)
+   production.
+ - Add production of psi(3770) (Colo singlet, Nick Brook)
+
+! 2008-11-11 - Patrick Robbe
+ - Add new routines to overwrite in Pythia, to generate extra charmonium states:
+   pyscat.F, pysghf.F pysigh.F
+ - pyevwt.F: add new process numbers for extra charmonium states
+ - pyinit.F: add description of the extra charmonium processes
+
+!========================== GENSER v4r3 2008-10-10 ===========================
+! 2008-09-23 - Patrick Robbe
+ - pyevwt.F: reweight events only if quarkonium
+ - pyrand.F: call pyevwt even if minimum bias processes activated
+
+! 2008-09-20 - Patrick Robbe
+ - Add temporary fixes in pyevnw.F and pyptfs.F which will be 
+   incorporated in pythia 6.4.19
+
+!========================== GENSER v4r2 2008-09-01 ===========================
+! 2008-08-31 - Gloria CORTI
+ - Use latest available version of Pythia 6 (418.2) from LCG MCGenerators
+   build.
+ - Do not put in library the pyevwt.F to re-weight events (see below).
+
+!========================== GENSER v4r1 2008-06-09 ===========================
+! 2008-06-09 - Gloria CORTI
+ - Add routine pyevwt.F over-writing the dummy routine in pythia_dummy library
+   and allowing re-weigth of cross sections for c-cbar mesons production. The
+   code was provided by Marianne BARGIOTTI.
+ - Use latest available versions of lhapdf 5.3.1, for which a build on
+   .cern.ch for tests exist for win32.
+
+! 2008-05-23 - Patrick Robbe
+ - add photos subdirectory to build a photosforgauss library containing
+   FORTRAN overriden functions
+
+!========================== GENSER v4r0 2008-04-28 ===========================
+! 2008-04-28 - Gloria CORTI
+ - cmt/requirements: move to use latest version of pythia8 compiled with 
+   HepMC 1.26 in LCG as from our request (107.1) 
+
+! 2008-04-14 - Gloria CORTI, Hubert DEGAUDENZI, Patrick ROBBE
+ - cmt/requirements: take latest version of pythia6 (416.2) and change linking
+   statement to link always with block data in pydata.o as avalaible from
+   LCG. This fixes core dump at run time for not having loaded correctly
+   the block data and correcly forces loading of overwritten pythai6 routines
+
+! 2008-03-18 - Gloria CORTI
+ - cmt/requirements: force linking of routines in pythia6_dummy
+
+! 2008-03-16 - Patrick Robbe
+ - src/pythia6: new repository to contain Pythia Gauss specific Fortran
+   functions
+ - cmt/requirements: compilation of pythia6forgauss library for routines
+   used in Gauss
+
+!========================== GENSER v3r3 2007-12-07 ===========================
+! 2007-11-08 - Gloria Corti for Karl Harrison
+ - Introduce linking for pythia6 and GENSER for WIN32
+
+! 2007-11-08 - Gloria Corti
+ - Change native version of pythia8 to pick up interface to hepmc compiled
+   with hepmc 1.26.2
+
+!========================== GENSER v3r2 2007-08-31 ===========================
+! 2007-08-31 - Gloria Corti
+ - Move use of Pythia8 to LbPythia package
+ - Re-insert lhapdf_dummy in linking macro otherwise some unresolved external
+   symbols when making executable
+
+! 2007-08-01 - Gloria Corti
+ - Modify LHAPATH to be set without using relative path in the name
+
+! 2007-07-31 - Patrick Robbe
+ - Add macros for Pythia8 usage
+ - Use latest LHAPDF 5.3.0 (needed for Pythia8)
+ - Remove lhapdf_dummy from link
+
+! 2007-07-11 - Gloria Corti
+ - Add macros for alpgen. To be removed when the interface package will be
+   available in LCGCMT/LCG_GeneratorsInterfaces.
+   Take the latest available version 2.1.2
+
+!========================== GENSER v3r1 2007-07-02 ==========================
+! 2007-07-02 - Gloria Corti
+ - Remove lhapdf_linkopts now corrected in LCG_GeneratorsInterfaces
+ - Take more recent versions for Pythia (411.2) and Jimmy (4.31.2)
+
+!========================== GENSER v3r0 2007-03-27 ==========================
+! 2007-03-27 - Gloria Corti
+ - requirements - Use latest version of Pythia 6.410.2 from LCG installation
+
+! 2007-03-23 - Gloria Corti
+ - requirements - Introduce here the setting of native versions for all
+                  generators used
+                  Redefine macro lhapdf_linkopts to add lhapdf_dummy missing
+                  from LCGCMT_49 generators interface
+                  Set LHAPATH variable also missing in LCGCMT_49 generators 
+                  interface
+                  Remove cernlib.f since now all LHCb generators package
+                  define the necessary subroutines
+                  Remove packages linkopts from GENSER_linkopts otherwise
+                  present twice (already used via interface packages)
+
+!======================= GENSER v2r49p0 2007-01-17 ===========================
+! 2007-01-17 - Florence Ranjard
+ - requirements - use the interface packages from LCGCMT/LCG_GeneratorsInterfaces
+                  fix the native versions beforehand
+
+!===================== GENSER v1r140p0 2006-09-19 ============================
+! 2006-09-19 - Gloria Corti
+ - requirements - use GENSER_1_4_0
+                  remove lhaglue from /src but use the one fron lhapdf 5_2_2
+                  copy lhapdf/5_2_2/src/Sqcdnum.f src/cernlib.f
+                  compile src/cernlib.f ans make a library called libcern.so
+                  which is appended to GENSER_linkopts
+                  This file contains several cernlib routines (i.e. ddilog)
+                  change the lhapdf path name from LHAPDFPATH to LHAPATH to 
+                  cope with lhapdf 5_2_2
+
+!===================== GENSER v1r130p1 2006-04-06 ============================
+! 2006-04-05 - Patrick Robbe
+ - requirements - use "-O2" for LHAPDF because now GENSER 1.3.0 uses
+                  -O2 instead of -O.
+
+! 2006-04-04 - Patrick Robbe
+ - requirements - use dynamic libraries for Pythia, LHAPDF and PHOTOS
+                  build dynamic dummylhapdf library with lhaglue.F but
+                  uses "-O" compilation for it.
+                  re-order link order for dynamic libraries.
+                  add this bin directory to the LD_LIBRARY_PATH.
+
+!===================== GENSER v1r130p0 ===============================
+! 2006-03-27 - Florence RANJARD
+ - requirements - use GaudiPolicy to get the fflags
+                  use GENSER_1_3_0
+
+!====================== GENSER v1r121p2 ================================
+! 2006-02-06 - Florence RANJARD
+ - requirements - link with liblhapdfdummy.a instead of lhaglue.o
+                  put lhapdf_linkopts before pythia_linkopts
+ 
+!====================== GENSER v1r121p1 =================================
+! 2006-02-01 - Florence Ranjard
+ - src - move lhaglue.f to lhaglue.F to include lhapdfc.h
+         lhapdfc.h set the LHAPDFC common block and set the length of LHAPATH
+         and LHAPATHNAME
+         enlarge LHAPATH from 132 to 482 characters
+
+!======================= GENSER v1r121p0 ================================
+! 2005-12-06 - Florence RANJARD
+ - requirements - use GENSER_1_2_1 to use Pythia 6_325.2, Photos 215.2
+                  and lhapdf 4_2
+                  set LHAPDFPATH environment variable
+                  compile lhaglue.f
+                  set lhapdf_linkopts
+                  remove cernlib
+                  modify GENSER_linkopts accordingly
+
+ - src/lhaglue.f - a copy of the lhapdf routine with the following modifications:
+                   > get the PDFsets path from the LHAPDFPATH environment variable
+                   > set LHAPARM(17) = 'LHAPDF'
+
+!======================== GENSER v1r120p0 ================================
+! 2005-11-04 - Gloria CORTI
+ - requirements - use GENSER_1_2_0 to use Pythia 6_324.2 and Photos 215.2
+
+!======================== GENSER v1r110p1 ================================
+! 2005-08-22 - Florence RANJARD
+ - requirements - remove setting of include_dirs nolonger necessary
+
+! 2005-08-17 - Gloria CORTI
+ - requirements - use GENSER_1_1_0 and use static libraries.
+
+!========================= GENSER v3r100p0 ================================
+! 2005-07-20 - Patrick Robbe
+ - requirements - use cernlib with -no_auto_imports and replace packlib
+   library with mathlib library directly in pdflib link options.
+
+!========================= GENSER v2r100p0 ================================
+! 2005-04-22 - Florence RANJARD
+ - requirements - use Pythia static library
+
+!========================= GENSER v2r030p1 ================================
+! 2005-02-25 - Patrick Robbe
+ - requirements - add photos include
+
+!========================= GENSER v2r030p0 ================================
+! 2005-02-07 - Florence RANJARD
+ - requirements - do not use debug version
+
+! 2005-02-01 - Florence RANJARD
+ - requirements - set pythia_native_version and _linkopts
+                  set photos_native_version and _linkopts
+                  set pdf_native_version and _linkopts
+
+!========================== GENSER v1r030p0 ================================
+! 2004-11-22 - Florence RANJARD
+ - requirements - use GENSER_0_3_0
+
+!========================== GENSER v1r020p0 =================================
+! 2004-09-13 - Florence RANJARD
+ - requirements - use GENSER_0_2_0
+
+!========================== GENSER v1r012p0 =================================
+! 2004-08-31 - Florence RANJARD
+ - requirements - use GENSER_0_1_2
+                  add the GENSER path to LD_LIBRARY_PATH
+
+!============================================================================ 

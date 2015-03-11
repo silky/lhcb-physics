@@ -1,0 +1,63 @@
+!-----------------------------------------------------------------------------
+! Package     : Gen/LbPowheg
+! Responsible	: Bartek Rachwal, Marcin Kucharczyk
+! Purpose     : Implementation of the powheg-box in Gauss
+!-----------------------------------------------------------------------------
+
+!========================== LbPowheg v2r0 2015-03-06 =========================
+! 2015-03-06 - Gloria Corti
+ - Increase major version number since some of the changes below rely on 
+   powheg-box-v2.
+
+! 2015-01-20 - Marcin Kucharczyk
+- change m_topdecaymode to be string variable (this easy allow to set
+   topdecaymode = 02000 for muonic decays)
+ - new decay modes options for WZ and ZZ (vdecaymodeWZ, vdecaymodeZZ) 
+   that come from Powheg-BOX-V2
+ - new ProductionTool: PowhegProductioncc
+ - set number of events (pwhg_numevts = numevts*factor) to be produced within 
+   powheg mode on the level that allow process correct number of events at 
+   pythia mode (numevts) due to acceptance cuts
+
+!========================= LbPowheg v1r0p4 2014-12-16 ========================
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!========================= LbPowheg v1r0p3 2014-01-23 ========================
+! 2013-12-18 - Marcin Kucharczyk
+ - Add Powheg.py file
+
+!========================= LbPowheg v1r0p2 2013-10-10 ========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= LbPowheg v1r0p1 2013-08-08 ========================
+! 2013-08-08 - Gloria Corti
+ - Use powhegbox instead of powheg-box interface that cannot be used on bash
+
+! 2013-07-31 - Gloria Corti
+ - Fix setting of POWHEGEXE to match change in interface that did not resolve 
+   correctly in tcsh
+
+!========================== LbPowheg v1r0 2013-07-24 =========================
+! 2013-07-16 - Patrick Robbe
+ - Remove code which is already in Gen/LbPythia
+ - Use strings instead of chars to avoid compilation warnings
+
+! 2013-07-15 - Gloria Corti
+ - Fix CTEQPDF environment variable to remove explicit version number of lhapdf
+ - Use powheg=box interface package as it has been committed and adapt 
+   POWHEGEXE environment variable accordingly
+ - Remove directive for windows as no longer supported
+
+! 2013-07-09 - Marcin Kucharczyk
+ - Remove cteq6m from Lib and get it from LCG lhapdf
+
+! 2013-07-08 - Marcin Kucharczyk
+ - Add processes for heavy quarks (bb, tt)
+ - Add separate options to run each process
+
+! 2013-05-24 - Marcin Kucharczyk
+ - First import of the package
+
+!=============================================================================

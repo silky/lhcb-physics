@@ -1,0 +1,28 @@
+!-----------------------------------------------------------------------------
+! Package     : Sim/LbGDML
+! Responsible : Heinrich Schindler, Gloria Corti
+! Purpose     : Interface to read/write GDML geometry
+!-----------------------------------------------------------------------------
+
+!======================== LbGDML v1r0p2 2014-12-18 ===========================
+! 2014-11-26 - Gloria Corti
+ - Fix warnings when compiling with --pedantic
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================== LbGDML v1r0p1 2013-10-10 ===========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= LbGDML v1r0 2012-10-19 ============================
+
+! 2012-10-19 - Gloria Corti
+ - Based on code from GDMLG4Writer package. Code has been ported to GDML 
+   as now distributed by G4. It requires Geant4 v95r2p4 or higher, since the
+   import of this features in the LHCb build has been only introduce from
+   this version onwards.
+ - New code from Matt Reid and Heinrich Schindler to read a GDML file and 
+   combine it with the LHCb geometry. 
+
+!=============================================================================

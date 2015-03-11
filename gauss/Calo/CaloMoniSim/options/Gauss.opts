@@ -1,0 +1,19 @@
+// $Id: Gauss.opts,v 1.2 2007-02-08 19:20:14 gcorti Exp $ 
+
+/** @file 
+ *  prototype file for MC Calo Hit monitoring in Gauss
+ *  @author Carlos Gonzales Bano Carlos.Gonzalez.Bano@cern.ch
+ *  @author Vanya BELYAEV Ivan.Belyaev@itep.ru
+ *  @date 2004-01-28
+ */
+
+ApplicationMgr.DLLs += { "CaloMoniSim" } ;  // only necessary for Gauss < v30
+
+GaussMonitor.Members += 
+  { "MCCaloMonitor/SpdMonitor"  ,
+    "MCCaloMonitor/PrsMonitor"  , 
+    "MCCaloMonitor/EcalMonitor" ,
+    "MCCaloMonitor/HcalMonitor" } ;
+
+#include "$CALOMONISIMOPTS/MoniSim.opts"
+

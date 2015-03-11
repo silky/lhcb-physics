@@ -1,0 +1,25 @@
+#============================================================================
+# Created    : 2004-02-20
+# Maintainer : Gloria Corti
+#============================================================================
+package           GaussAlgs
+version           v8r0p1
+
+# Structure, i.e. directories to process. 
+#============================================================================
+branches          cmt doc src
+                
+# Used packages. Specify the version, * at the end specifies 'any revision'
+#============================================================================
+use               Boost       v* LCG_Interfaces
+use               LHCbKernel  v* Kernel
+use               GaussTools  v* Sim
+
+# Component library building rule
+#============================================================================
+library           GaussAlgs    ../src/*.cpp
+
+# define component library link options
+#============================================================================
+apply_pattern     component_library library=GaussAlgs
+

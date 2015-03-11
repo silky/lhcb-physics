@@ -1,0 +1,20 @@
+# Package of Non-Standard EvtGen Models
+
+package     EvtGenExtras
+version     v3r11
+ 
+branches    cmt doc EvtGenModels src
+
+use         EvtGen  v* Gen
+use         GSL     v* LCG_Interfaces
+use			Mint	v* Gen
+
+include_dirs  $(EVTGENEXTRASROOT)
+
+library     EvtGenExtras *.cpp
+
+apply_pattern linker_library  library=EvtGenExtras
+apply_pattern linker_stamps   library=EvtGenExtras
+
+apply_pattern disable_package_on platform=target-winxp
+

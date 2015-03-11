@@ -1,0 +1,297 @@
+!-----------------------------------------------------------------------------
+! Package          : Sim/GaussTracker
+! Responsible	     : Gloria Corti
+! Purpose          : collection of sensitive detectors, G4 actions, etc for
+!                    tracker like detectors (Velo, OT, IT, Muon)
+!-----------------------------------------------------------------------------
+
+!====================== GaussTracker v7r0p1 2015-01-16 =======================
+! 2014-12-01 - Gloria Corti
+ - fix compilation warnings with --pedantic'
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================= GaussTracker v7r0 2014-02-02 ========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!====================== GaussTracker v6r2p2 2013-10-10 =======================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!====================== GaussTracker v6r2p1 2009-07-15 =======================
+! 2009-06-10 - Gloria CORTI
+ - Fix compilation warning of initialization list order mismatch with 
+   respect to constructor declaration order
+   . GiGaSensDetTracker.cpp
+
+!======================= GaussTracker v6r2 2009-04-06 ========================
+! 2009-03-26 - Patrick Robbe
+ - GetTrackerHitsAlg: add possibility to change location of MCParticles by
+   job option
+
+!======================= GaussTracker v6r1 2008-05-06 ========================
+! 2008-05-06 - Gloria CORTI
+ - Introduce as option possibility to not require dE/dx in the sensitive
+   detector to store the hit. This allow to store hits even for geantinos
+   or when switching off the energy loss. The options is called "RequireEDep"
+   and is a bool (Default = true). In addition require that dE/dx > 0 rather 
+   than != 0. 
+   Example: to switch off requiring dE/dx for TT the option is
+            GiGaGeo.TTSDet.RequireEDep = false;
+   . src/GiGaSensDetTracker.{h,cpp}
+
+! 2008-04-10 - Gloria CORTI
+ - Change name of property from singular ("Detector") to plural ("Detectors")
+   to reflect the change from a string to an array of string (see entry of
+   2008-02-14). Add explanation to properties.
+   . src/GetTrackerHitsAlg.cpp
+   . options/TrackersHits.opts       
+
+! 2008-02-14 - Magnus LIENG
+ - Changed option "Detector" to accept an array of strings. The algorithm can
+   now deal with detectors splitt over several detector locations like the
+   BCM that are in UpstreamRegion and BeforeMagnetRegion)
+   . src/GetTrackerHitsAlg.{h,cpp}
+   . options/TrackersHits.opts       
+
+!======================= GaussTracker v6r0p1 2007-10-02 ======================
+! 2007-10-02 - Gloria Corti for Karl Harrison
+ - Fix problem of compilation on Win32 reverving space only when number of
+   hits greater than zero
+   . GetTrackerHitsAlg.cpp
+
+!======================== GaussTracker v6r0 2007-03-18 =======================
+! 2007-03-18 - Gloria Corti
+ - Clean up, removing commented lines of code
+   . GiGaSensDetTracker.{h,cpp}
+
+! 2007-01-12 - Gloria Corti
+ - Update code to cope with Gaudi v19r0. Replace GiGaFactory with Tool factory
+   and use Gaudi macros for factory declarations. Remove GiGaMACROs.h no 
+   longer existing. 
+   . GaussTracker_load.cpp
+   . GetTrackerHitsAlg.cpp
+   . GiGaSensDetTracker.{h,cpp}
+ - Make standard constructor and destructor public
+   . GiGaSensDetTracker.h
+
+! 2007-01-12 - Florence RANJARD
+ - Introduce pattern packageOpts
+
+!======================= GaussTracker v5r6 2006-07-28 ========================
+! 2006-07-28 - Gloria CORTI
+ - Introduce options to produce and write MCExtendedHits instead of MCHits
+   for VeLo, TT, IT and OT
+   . options/TrackersExtendedInfo.opts - NEW
+
+! 2006-07-27 - Gloria CORTI
+ - Remove declaration of include directory
+   . requirements
+ - Introduce storage of all momentum components during G4 processing, 
+   follow LHCb convention of m_ for data members and clean up comments
+   . src/TrackerHit.{h,cpp} 
+   . src/GiGaSensDetTracker.{h,cpp}
+ - Introduce possibility to store LHCb::MCExtendeHit with full momentum 
+   information at entry point instead of LHCb::MCHit.
+   The possibility is controlled via "ExtendedInfo" property. By default
+   (=false) standard MCHit are stored. The container is always of MCHits.
+   Requires Event/MCEvent v1r4 (LHCb v21r3).
+   . src/GetTrackerHitsAlg.{h,cpp}
+
+!======================= GaussTracker v5r5 2006-06-19 ========================
+! 2006-06-19 - Gloria CORTI
+ - Take momentum and time of flight from G4 PreStep instead of G4track given
+   that G4track info coincide with end of step information. For this reason
+   momentum at hits was in some cases zero since the track has an interaction
+   and disappeared in that step. Bug trace reported by Matt Needham
+   . src/GiGasensDetTracker.cpp
+
+!======================= GaussTracker v5r4 2006-05-29 ========================
+! 2006-05-29 - Gloria CORTI
+ - Introduce file with options for configuration of GetTrackerHitsAlg for 
+   Velo, PuVeto, TT, IT, OT and Muon. Options moved from Simulation.opts in
+   Gauss package.
+   . options/TrackersHits.opts   
+
+!======================= GaussTracker v5r3 2006-04-12 ========================
+! 2006-04-12 - Gloria CORTI
+ - Move message at initialization specifying configuration for a given
+   detector in debug mode. Note necessary for production
+   . src/GetTrackerHitsAlg.cpp
+
+!======================= GaussTracker v5r2 2006-04-04 ========================
+! 2006-04-04 - Gloria CORTI
+ - Adapt to change in return type of method "put" in GaudiAlgorithm
+   . src/GetTrackerHitsAlg.cpp
+
+!======================= GaussTracker v5r1 2006-03-09 ========================
+ 2006-03-08 - Gloria CORTI
+ - Introduce filling of new variable in MCHit (absolute momentum)
+   . src/TrackerHit.{h,cpp}
+   . src/GiGaSensDetTracker.cpp
+   . src/GetTrackerHitsAlg.cpp
+ - Use  midPoint() method of MCHit instead of calculating it locally to
+   search for detectorID
+   . src/GetTrackerHitsAlg.cpp
+
+! 2006-02-21 - Alessia Satta
+ - define middle=(entry+exit)/2 as hit position to search for detectorID , 
+   previous it was entry which causes some rounding problems  
+
+!======================= GaussTracker v5r0 2006-01-27 ========================
+! 2006-01-27 - Gloria CORTI
+ - Introduce use of DetectorElement base class to retrieve sensitive detector
+   from x,y,z and set it in MCHit. The properties "MCHitsLocation", 
+   "CollectionName" and "Detector" must be set in the options.
+   . src/GetTrackerHitsAlg.{h,cpp} 
+
+! 2005-12-16 - Gloria CORTI
+ - Remove Velo specific classes since in new event model they use generic
+   MCHit:
+    . src/VeloHit.{h,cpp}
+    . src/GiGaVeloHitCnv.{h,cpp}
+    . src/GiGaSensDetVelo.{h,cpp}
+ - Remove Muon specific classes since in new event model they use generic
+   MCHit:
+    . src/MuonHit.{h,cpp}
+    . src/GiGaVeloHitCnv.{h,cpp}
+    . src/GiGaSensDetVelo.{h,cpp}
+ - Remove converters for MCHits that is obsolete and was replaced by
+   GetTrackerHitsAlg.cpp 
+   . src/GiGaTrackerHitCnv.{h,cpp}
+ - Remove declaration of classes no longer present
+   . src/GaussTracker_load.cpp
+ - Adapt to new event model
+   . src/GetTrackerHitsAlg.cpp
+ - Remove no longer necessary dependence from VeloEvent and MuonEvent
+   . cmt/requirements
+
+!=========================== GaussTracker v4r2 ================================
+! 2005-10-30 - Gloria CORTI
+ - src/GetTrackerHitsAlg.cpp
+   . replace getOrCreate method with put(), since the first cannot be
+     used to preempt triggering of converters with identical location in TES.
+
+! 2005-10-25 - Gloria CORTI
+ - src/GetTrackerHitsAlg.{h,cpp}
+   . new algorithm to fill MCHits in a given location in TES (settable via
+     property "MCHitsLocation" starting from TrcakerHits in a G4 collection
+     (settable via property "CollectionName")
+ - src/GiGaSensDetTracker.{h,cpp}
+   . follow LHCb convention of having data members starting with m_
+
+!=========================== GaussTracker v4r1 ================================
+! 2005-06-03 - Gloria CORTI
+ - src/GiGaSensDetMuon.cpp
+   . do not use method MoveUpHistory(1) to navigate geometry history tree
+     because it causes corruption of state of navigation in case next step
+     is in same volume. Use instead GetVolume(s) with s = number of step up
+     in geometry tree. Leave protections just in case. (Bug# 6850)
+
+!=========================== GaussTracker v4r0 ================================
+! 2005-04-11 - Gloria Corti
+ - src/GiGaSensDetMuon.{h,cpp}
+   . set boundaries of chambers in regions as options not hard coded
+
+! 2005-04-01 - Gloria Corti
+ - src/GiGaMuonHitCnv.cpp
+   . adapt to changes in MCMuonHit (see Event/MuonEvent v4r0)
+
+! 2005-03-31 - Gloria Corti
+ - src/GiGaTrackerHitCnv.cpp, GiGaVeloHitCnv.cpp
+   . adapt to changes to MCHit (see Event/Event v4r7)
+
+!=========================== GaussTracker v3r3 ================================
+! 2005-02-21 - Gloria Corti
+ - src/GiGaSensDetMuon.cpp
+   . modify Error message to have less redandat prinout at end of job
+
+!=========================== GaussTracker v3r2 ================================
+! 2005-02-11 - Gloria Corti
+ - src/GiGaSensDetMuon.cpp
+   . introduce check on depth level in history tree, to put a protection for
+     crashes in Boole.
+
+! 2005-02-07 - Florence Ranjard
+ - src/GiGaSensDetMuon.cpp : rejetc hits which are in "Universe"
+
+! 2005-01-27 - Gloria Corti
+ - cmt/requirements
+   . increase version number
+ - src/GiGaSensDetMuon.{h,cpp}
+   . introduce protection for illegal chamber number in the different regions
+     (R1: 1-12, R2: 1-24, R3: 1-48, R4: 1-192). If a hit has numbers greater
+     than allowed value do not store it in collection
+
+!=========================== GaussTracker v3r1 ================================
+! 2003-12-03 - Witek Pokorski
+ - sensitive detectors - added protection agains hits with the same entry 
+                         and exit points (which sometimes occur due to tracking
+                         cuts)
+ 
+!=========================== GaussTracker v3r0 ================================
+! 2003-10-17 - Witek Pokorski
+ - GiGaSensDetVelo, GiGaSensDetMuon - got rid of 'GetMother' method
+
+! 2003-10-14 - Witek Pokorski
+ - GiGaSensDetVelo - now uses copy numbers to determine the sensor number 
+                     (to be used with the Xml velo description containing 
+	              the copy numbers - XmlDDDB version > v18r2)
+
+!=========================== GaussTracker v2r7 ================================
+! 2003-10-10 - Witek Pokorski
+ - GiGaSensDetMuon - added storing of GapID and ChanelID (S. De Capua)
+ - GiGaSensDeVelo - fixed sensor numbers for the new Xml
+
+!=========================== GaussTracker v2r6 2003-07-31 =====================
+! 2003-07-31 - Witek Pokorski
+ - GiGaMuonHitCnv - fixed bug (incorrect number of pars)
+
+!=========================== GaussTracker v2r5 2003-07-15 =====================
+! 2003-07-15 - Witek Pokorski
+ - GiGaMuonhitCnv - changed back to separate MxR3 and MxR4
+
+!=========================== GaussTracker v2r4 2003-07-07 =====================
+! 2003-07-07 - Florence RANJARD
+ - fix for gcc3.2 (S.Ponce)
+
+!========================== GaussTracker v2r3 2003-06-18 =======================
+! 2003-05-29 - VanyaBELYAEV
+ - src/GiGaMuonHitCnv.cpp  
+   src/GiGaTrackerHitCnv.cpp  
+   src/GiGaVeloHitCnv.cpp       fix "GiGaFlush" problem. Indeed remove the 
+                                explicit dependence on order of conversion 
+   cmt/requirments              increase the version 
+
+
+!=========================== GaussTracker v2r2 2002-04-29 ======================
+! 2003-04-29 - Witek Pokorski 
+ - requirements - put v* to avoid changing version in the future\
+
+! 2003-04-08 - Witek Pokorski
+ - cosmetic changes in the sensitive detectors code, a few lines commented out
+
+!=========================== GaussTracker v2r1 2002-02-17 =======================
+! 2003-02-17 - Florence Ranjard
+ - requirements - does not specify the bug fix version of various packages
+
+! 2003-02-17 - Witek Pokorski
+ - added protection against hits with zero deposited energy in Tracker and Velo
+ - change of the version number
+	
+ 2003-01-23 Vanya Belyaev 
+  - few fixes for Win2K platform 
+ 
+!=========================== GaussTracker v2r0 2002-12-17 ========================
+! 2002-12-17 - Witek Pokorski
+ - use new GaussTools (new Geant4) 
+ - technical change to GiGaTrackerHitCnv - uses GiGaHitsByName, to be further tested
+   and then also used in other hit converters
+!=========================== GaussTracker v1r0 2002-12-11 ========================
+! 2002-12-11 - Witek Pokorski
+  - New package: contains all tracker-like specific implementations of sensitive
+                  detectors and converters 
+
+!==============================================================================

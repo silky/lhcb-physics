@@ -1,0 +1,32 @@
+# =============================================================================
+package GiGaVisUI
+version v6r0p2
+
+# =============== package structure ===========================================
+branches         cmt src doc
+
+# =============== explicit dependencies ======================================
+use GiGa         v*        Sim
+use G4UIbasic    v*        Geant4
+use G4useVisUI   v*        Geant4
+use VisSvc       v*        Vis 
+
+# ============== component library ============================================
+library          GiGaVisUI   *.cpp                  
+
+# ============== standard patterns ===========================================
+apply_pattern    component_library library=GiGaVisUI
+
+# =============== visualization  ==============================================
+set  G4DAWNFILE_DEST_DIR       "../job/"
+set  G4DAWNFILE_PS_VIEWER      "gv"
+set  G4DAWN_MULTI_WINDOW       "1"
+set  G4DAWNFILE_MULTI_WINDOW   "1"
+
+# do not build on windows
+#============================================================================
+apply_pattern disable_package_on platform=target-winxp
+
+# ============================================================================
+# The END 
+# ============================================================================

@@ -1,0 +1,34 @@
+#============================================================================
+# Created    : 2005-05-05
+# Maintainer : Alessio Sarti
+#
+# Documentation on the requirement file can be found at
+# http://cern.ch/lhcb-comp/Support/html/new_structure.pdf
+#============================================================================
+package MuonMoniSim 
+version v3r0p1
+
+#============================================================================
+# This template is an example for a standard Algorithm package
+#
+# Structure, i.e. directories to process. 
+#============================================================================
+branches src cmt doc
+
+#============================================================================
+# Used packages. 
+#============================================================================
+use MuonDet     v*    Det
+use MCEvent	v*    Event
+use GaudiAlg    v*
+#============================================================================
+# Component library building rule
+#============================================================================
+library MuonMoniSim  ../src/*.cpp -import=AIDA
+
+#============================================================================
+# define component library link options
+#============================================================================
+apply_pattern    component_library library=MuonMoniSim
+
+

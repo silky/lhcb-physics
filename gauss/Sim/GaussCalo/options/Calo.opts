@@ -1,0 +1,35 @@
+// ============================================================================
+/** @file 
+ *  The configuration file for Calorimeter objects
+ * 
+ *  @author Vanya Belyaev  Ivcan.Belyaev@itep.ru
+ *  @date   2002-12-05
+ *  modified 2005-07-26 by G.Corti to use Root input histograms
+ */
+// ============================================================================
+
+//Depending on input pesistency type need to include
+//#include "$STDOPTS/Hbook.opts"
+//#include "$STDOPTS/RootHistCnv.opts"
+
+/// Input Histograms
+HistogramDataSvc.Input += {
+  "GaussCalo DATAFILE='$PARAMFILESROOT/data/gausscalo.root' TYP='ROOT'"
+//   "GaussCalo DATAFILE='$PARAMFILESROOT/data/gausscalo.hbook' TYP='HBOOK'"
+};
+
+/// configuration of Spd  sensitive detector 
+#include "$GAUSSCALOOPTS/Spd.opts"
+/// configuration of Prs  sensitive detector 
+#include "$GAUSSCALOOPTS/Prs.opts"
+/// configuration of Ecal sensitive detector 
+#include "$GAUSSCALOOPTS/Ecal.opts"
+/// configuration of Hcal sensitive detector 
+#include "$GAUSSCALOOPTS/Hcal.opts"
+
+/// configuration Sensitive plane detector 
+#include "$GAUSSCALOOPTS/CaloSP.opts"
+
+// ============================================================================
+// The END 
+// ============================================================================

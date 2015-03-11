@@ -1,0 +1,13 @@
+C $Id: gpydatr.F,v 1.1.1.2 2009-08-05 09:43:37 ngueissa Exp $
+      INTEGER*4 FUNCTION PYDATR_ADDRESS() 
+      IMPLICIT NONE
+
+      INTEGER MRPY
+      DOUBLE PRECISION RRPY
+      COMMON/PYDATR/MRPY(6),RRPY(100)
+      EXTERNAL PYDATA ! All that is required to force loading of BLOCK DATA
+      INTEGER*4 GETADDR
+
+      PYDATR_ADDRESS = GETADDR(MRPY)
+      RETURN
+      END

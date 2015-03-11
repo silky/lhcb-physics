@@ -1,0 +1,224 @@
+!-----------------------------------------------------------------------------
+! Package     : Sim/GaussKine
+! Responsible : Gloria CORTI
+! Purpose     : Code to exchange kinematic information with Geant4
+!-----------------------------------------------------------------------------
+
+! 2015-02-11 - Heinrich Schindler
+ - Add algorithm MaskParticles to set the status of high energy and rapidity
+   particles to "DocumentationParticle". This is used in simulations of the  
+   Herschel stations to prevent intact protons from hitting the BRAN absorbers.
+
+!======================== GaussKine v6r4p1 2014-12-18 ========================
+! 2014-11-26 - Gloria Corti
+ - Fix warning when compiling with --pedantic
+
+! 2014-11-19 - Marco Clemencic
+ - Fixed CMake configuration.
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!========================= GaussKine v6r4 2014-10-07 =========================
+! 2014-08-25 - Philip Ilten
+ - GenerationToSimulation.{h,cpp}: cleaned code and added functionality to
+   specify additional particle types to keep
+
+!======================== GaussKine v6r3p1 2013-10-10 ========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= GaussKine v6r3 2013-07-24 =========================
+! 2013-07-15 - Patrick Robbe
+ - Reorder according to barcodes the HepMC particles before sending
+   them to G4, this should help reproducing the events
+ - Transfer to Geant4 top quarks
+ - Give vertex code "StringFragmentation" to daughters of b and c quarks
+
+! 2013-07-10 - Patrick Robbe
+ - GenerationToSimulation.cpp: save b and c quarks in MCParticles
+
+! 2013-07-03 - Patrick Robbe
+ - GenerationToSimulation.cpp: select switch off of G4 printout for 
+   unknown PDG Ids from the algorithm message service output level
+
+!========================= GaussKine v6r2 2013-06-27 =========================
+! 2013-05-31 - Patrick Robbe
+ - GenerationToSimulation.cpp: switch off G4 printout of unknown PDG ID
+
+!========================= GaussKine v6r1 2012-10-19 =========================
+! 2012-09-08 - Patrick Robbe
+ - GenerationToSimulation.cpp: transfer correctly particles for Higgs events
+
+!========================= GaussKine v6r0 2012-07-23 =========================
+! 2012-07-23 - Gloria Corti
+ - Adapt to LHCb::ParticlePropertySvc instead of the one in Gaudi
+   . src/SimulationToMCTruth.{h,cpp}
+   . src/GenerationToSimulation.cpp
+
+!========================= GaussKine v5r0 2012-05-14 =========================
+! 2012-05-10 - Gloria Corti
+ - Fix run time problem with finding of ParticlePropertySvc that in Gaudi
+   v23 is in the Gaudi:: namespace.
+
+!========================= GaussKine v4r1 2011-11-11 ========================= 
+! 2011-10-20 - Patrick Robbe
+ - SimulationToMCTruth
+ - GenerationToSimulation
+   fix coverity warnings
+
+!========================= GaussKine v4r0 2010-05-09 ========================= 
+! 2010-05-03 - Gloria CORTI
+ - Remove obsolete algorithms that were used in DC06 to pass the generator
+   event to G4 and to retrieve the G4 truth and put it in MCParticle/MCVertex.
+   . GeneratorToG4.{h,cpp}
+   . G4HepMCToMCTruth.{h,cpp}
+ - Remove also the explicit loading of the factories, no longer needed
+   by Gaudi and also a leftover of DC06
+   . GaussKine_dll.cpp 
+
+!========================= GaussKine v3r5 2010-02-05 ========================= 
+! 2010-01-26 - Silvia Miglioranzi
+ - Fix error in compilation for Sim/GaussKine due to incompatibility with
+   LHCb v29r0: the method "LHCb::Math::Equal_To" have been
+   replaced by "LHCb::Math::knuth_equal_to_double".
+
+!========================= GaussKine v3r4 2009-11-25 ========================= 
+! 2009-03-26 - Patrick Robbe
+ - GenerationToSimulation and SimulationToMCTruth: add possibility to
+   change location of MCHeader by option
+
+! 2009-03-04 - Patrick Robbe
+ - GenerationToSimulation.cpp: fixes for "skipGeant4" option to allow
+   transfering directly from HepMC to MCParticles/MCVertices
+
+!========================= GaussKine v3r3 2009-01-14 ========================= 
+! 2008-12-12 - Patrick Robbe
+ - GenerationToSimulation: processing of particles coming from 
+   SUSY particles
+
+! 2008-12-11 - Patrick Robbe
+ - GenerationToSimulation: use signal_process_vertex to define the
+   primary vertex in case of absence of beam particles, and protect
+   against passing twice the same particles for complicated tree
+   structures (susy events)
+
+!========================= GaussKine v3r2 2008-12-08 ========================= 
+! 2008-11-28 - Patrick Robbe
+ - GenerationToSimulation: update G4 particles from ppSvc (moved
+   from GiGa)
+
+! 2008-11-05 - Patrick Robbe
+ - SimulationToMCTruth: removes extra status from the list of particles
+   to convert.
+
+! 2008-11-04 - Patrick Robbe
+ - SimulationToMCTruth: gives correct vertex type to MCVertex
+
+! 2008-10-29 - Patrick Robbe
+ - SimulationToMCTruth: remove particles which are left with 
+   null production vertex after Geant4, because of interactions
+   (mainly Lambda interactions) which destroyed the particle
+
+! 2008-10-23 - Patrick Robbe
+ - In SimulationToMCTruth: check if pdg code from Geant4 is unknown
+   and don't create a vertex for a particle reaching Geant4 'world'
+   volume
+
+! 2008-10-20 - Patrick Robbe
+ - Add new algorithms to send and retrieve MCTruth to/from G4
+   . GenerationToSimulation: generator HepMC -> Geant4 
+   . SimulationToMCTruth: Geant4 -> MCParticles/MCVertices
+
+!========================= GaussKine v3r1 2008-10-08 ========================= 
+! 2008-10-08 - Gloria CORTI
+ - Move printout to debug level
+   . G4HepMCToMCTruth.cpp
+
+! 2008-09-23 - Patrick Robbe
+ - GeneratorToG4.cpp: fix optical photon polarization part
+
+!========================= GaussKine v3r0 2008-08-25 ========================= 
+! 2008-07-25 - Patrick Robbe
+ - Move to HEPMC2
+
+!========================= GaussKine v2r1 2008-06-27 ========================= 
+! 2008-06-12 - Patrick Robbe
+ - Add the modifications for optical photon particle gun in GeneratorToG4
+
+!========================= GaussKine v2r0 2008-05-07 ========================= 
+ 2008-05-07 - Gloria CORTI
+ - Remove GaussKine_load.cpp obsolete for Gaudi v19
+
+! 2008-04-26 - Patrick Robbe
+ - GeneratorToG4.cpp: specify mass of shortlived particles
+
+!========================= GaussKine v1r7 2007-10-05 ========================= 
+! 2007-10-03 - Gloria Corti
+ - Adapt to change in contructor of ParticleID from int being explicit
+   (as in LHCbKernel v7r7 in LHCb v22r9)
+   . G4HepMCToMCTruth.cpp
+
+!========================= GaussKine v1r6 2007-08-17 ========================= 
+! 2007-08-17 - Gloria Corti
+ - Introduce protection as to pass an empty event to G4 when the 
+   LHCb::HepMCEvents container is empty. This will reset the internal
+   G4Event. 
+   . GeneratorToG4.cpp
+ - Introduce protection as not to retrieve MCTruth info for empty events
+   since it cannot be cleared if G4 does not call User Event Action 
+   . G4HepMCToMCTruth.cpp
+
+!========================== GaussKine v1r5 2007-02-08 ========================
+! 2007-01-12 - Gloria Corti
+ - Use Gaudi macro for factories so to be comaptible with both Gaudi v18
+   and v19:
+   . G4HepMCToMCTruth.cpp
+   . GeneratorToG4
+
+!========================== GaussKine v1r4 2006-06-07 ========================
+! 2006-06-07 - Patrick Robbe
+ - GeneratorToG4: HepMC event units for time are ns, so do the boost
+   correctly with mm for position and ns for time.
+
+!========================== GaussKine v1r3 2006-05-02 ========================
+! 2006-05-02 - Gloria CORTI
+ - Use MCTruthManager::SplitBarCode to choose if to collapse a particle,
+   this should set behaviour as in DC04 for Brem electrons (before number 
+   checked was 10 times that set)
+   . G4HepMCToMCTruth.cpp 
+
+!========================== GaussKine v1r2 2006-04-12 ========================
+! 2006-04-12 - Gloria CORTI
+ - Introduce filling of table with correspondece between MCParticle and 
+   barcodes in HepMC (i.e. G4TrackID) held by GiGaKineSvc to allow algorithms
+   filling MCHits later in the sequence to set SmartRef.
+ - Retrieve priamries from G4 and update list help in MCHeader for primaries.
+   Attach primary particles having the same production position as one of
+   the primary vertices, since in HepMC they have different vertices even if
+   the position is the same.
+ - Set vertex type according to creator process associated to the corresponding
+   HepMC vertex, if a particle oscillated reset its decay vertex to be
+   of type OscillatedAndDecay.
+ - While primary HepMC particles are always in the same order that is not
+   true for the children of a given particle, so sort them before making 
+   the MCParticle so that those are always in the same order. 
+   . src/G4HepMCToMCTruth.{h,cpp}
+
+!========================== GaussKine v1r1 2006-03-27 ========================
+! 2006-03-27 - Patrick Robbe
+ - GeneratorToG4: switch MeV units in HepMC particles
+
+!========================== GaussKine v1r0 2006-02-07 ========================
+! 2006-02-06 - Chris Jones
+ - Add work arounds for non const accessors in MCEvent.
+   Uses const_cast = Preferable to adding non-const accessors though
+
+! 2006-01-26 - Gloria CORTI
+ - First version of the package, with code imported from GaussAlgs and
+   modified to adapt to new Event Model
+   . G4HepMCToMCTruth.{h,cpp}
+   . GeneratorToG4.{h,cpp}
+
+!=============================================================================
+

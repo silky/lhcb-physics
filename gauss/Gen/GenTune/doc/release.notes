@@ -1,0 +1,112 @@
+!-----------------------------------------------------------------------------
+! Package     : Gen/GenTune
+! Responsible : Alex Grecu
+! Purpose     : Optimize various MC generators and obtain/test LHCb tunes 
+!               using Professor/Rivet system. 
+!-----------------------------------------------------------------------------
+
+!========================== GenTune v2r2p1 2014-12-19 ========================
+! 2014-12-01 - Gloria Corti
+ - Fixes for compilation warnings with --pedantic
+
+!=========================== GenTune v2r2 2014-08-21 =========================
+! 2014-07-28 - Alex Grecu
+ - modified qmtest to ignore -Wunused-local-typedefs warnings for BOOST 1.53 
+   when compiling with gcc48. Separate qmtests are needed for gcc46 and gcc48 
+   so one of the tests will remain in UNTESTED state.
+
+!=========================== GenTune v2r1 2014-07-28 =========================
+! 2014-06-16 - Alex Grecu
+ - released a new version of scripts/lhcbLFT2StdMap.py
+
+! 2014-06-15 - Alex Grecu
+ - corrected typo in Python files in options, options/example
+ - added exec_prefix variable in environment as work-around Rivet 1.9.0 helper
+   script bug
+
+!========================== GenTune v2r0p2 2013-10-10 ========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!========================= GenTune v2r0p1 2013-07-17 =======================
+! 2013-07-17 - Alex Grecu
+ - added scripts/listAnalysisInfo.py to list Rivet plugin info files given 
+   partial analysis names; also very nice example of using the Rivet/Python
+   interface
+ - corrected qmtests and optimized number of generated events for speed
+ - negative invariant mass particles are detected and reported only at DEBUG 
+   level
+ - cross-section values provided by user in option files need units and are 
+   automatically converted to picobarns (default unit in HepMC)
+ - RivetAnalysisHandler promptly detects and reports number of collision in 
+   event if 'fix1' beam options not used. Only first collision will be sent 
+   to analysis plugins.
+ - various other mods improvide code aesthetic.
+
+!========================= GenTune v2r0 2013-06-27 =========================
+! 2013-06-13 - Alex Grecu
+ - added scripts/lhcbLFT2StdMap.py script to help plugin developers with 
+   dumping the LHCb particle lifetimes to a std::map<int, double> indexed 
+   by the particle PDG id 
+ - corrected options/LHCb_MB_MC-Generics.py for the change of the 'Output' 
+   Gauss property 
+ - introduced a set of beam option files in options/beamOpts which are made
+   compatible with the Python interface changes in Gauss v45 and later. The 
+   options are mainly needed to setup the beam energy and fix the number of 
+   primary interactions
+ - modified cmt/requirements to include the dependence on the fastjet 3.*
+   library needed by the main Rivet library
+ - generated new reference files for the qmtests on x86_64-slc[5-6]-gcc4[3|6]
+   architecture
+ - corrected the mechanism of providing and forcing external value of the 
+   event production cross-section in RivetAnalysisHandler algorithm; Python 
+   interface changed to reflect the logic in code: xSectionNeeded eliminated,
+   replaced by forceXSection (default: False) which allows user to overwrite
+   the production cross-section even when provided by the MC generator
+ - introduced a check in RivetAnalysisHandler to prevent the algorithm from 
+   running if job setup is incompatible with all the plugins in the provided
+   list
+
+!========================= GenTune v1r2 2013-05-16 =========================
+! 2013-05-15 - Paul Szczypka
+ - Corrected same Gauss property name in tests/options/MC_Generics.py
+
+! 2013-05-04 - Patrick Spradlin
+ - Corrected a Guass property name referenced by example steering options
+   options/example/MC_LHCb_GENERIC.py,
+     -Gauss().Output = "NONE"
+     +Gauss().OutputType = "NONE"
+
+!========================= GenTune v1r1 2013-03-05 =========================
+! 2013-03-05 - Alex Grecu
+ - correct particle status id mapping algorithm to PYTHIA/HepMC 2.05 codes
+ - improve internal statistical counters and print-out rules
+ - introduce properties/options to control print-out suppression rules
+ - the example now produces some 2D histograms for neutral pions (unstable) and photons (stable).
+ - regenerated references for QMTests and eliminate i686 ref as arhitecture no longer supported
+
+!========================= GenTune v1r0p1 2012-11-26 =========================
+! 2012-10-22 - Alex Grecu
+ - disable "unused parameter" warnings from Rivet library
+
+!========================== GenTune v1r0 2012-10-22 ==========================
+! 2012-09-26 - Alex Grecu
+ - included QMTests with references for i686- and x86-64- slc5-gcc43 platforms
+
+! 2012-09-25 - Alex Grecu
+ - few minor patches to eliminate compilation warnings
+ - a fully working plugin example in options/
+
+! 2012-09-24 - Gloria Corti
+ - introduce use of Gen/Generators to ensure header of interfaces from this
+   package are made available before the build of GenTune
+
+! 2012-08-17 - Alex Grecu
+ - beta release under temporary name Gen/GenAnalysis
+
+! 2012-06-20 - Gloria Corti
+ - cmt configuration cleaned; package renamed
+
+! 2012-07-12 - Alex Grecu
+ - alpha release; only official Rivet plugins work; user plugins may crash!
+!============================================================================

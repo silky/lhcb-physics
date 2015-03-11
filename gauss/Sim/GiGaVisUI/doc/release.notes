@@ -1,0 +1,112 @@
+!-----------------------------------------------------------------------------
+! Package     : Sim/GiGaVisUI
+! Responsible	: Vanya Belyaev and Witold Pokorski original aythors
+!               Marco Pappagallo (Gloria Corti)
+! Purpose     : GiGa vi1sualisation and UI 
+!-----------------------------------------------------------------------------
+
+!======================== GiGaVisUI v6r0p2 2015-01-16 ========================
+! 2014-11-26 - Gloria Corti
+ - Fix warning when compiling with --pedantic
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================== GiGaVisUI v6r0p1 2014-08-21 ========================
+! 2014-07-14 - Gloria Corti
+ - Put dependency from G4UIbasic since it was removed from G4UIGAG that was
+   picked up via GiGaVisUI
+
+!======================= GiGaVisUI v6r0 2014-02-02 ===========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!====================== GiGaVisUI v5r2p1 2013-10-10 ==========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================= GiGaVisUI v5r2 2011-07-25 ===========================
+! 2011-07-25 - Gloria Corti
+ - Apply pattern not to build on windows, so that conditional use can be
+   removed from GaussSys
+
+!======================= GiGaVisUI v5r1 2008-12-08 ===========================
+! 2008-12-08 - Gloria CORTI from Marco PAPPAGALLO
+ - Fix for error message:
+    GiGa.GiGaMgr.GiGaSetV...  ERROR GiGaSetVisAttributes::  process('World'):
+    invalid ILVolume  StatusCode=FAILURE
+   The LV called "World" is the root geometry in G4, and is not taken from
+   the XML DDDB. For this reason no visualization attribute can be found for
+   it when scanning the G4LogicalVolumeStore to set their visualization 
+   attributes. For this reason the step of accessing the information from 
+   XmlVis is skipped for LV "World".
+   . GiGaSetVisAttributes.cpp
+
+!======================= GiGaVisUI v5r0 2008-06-26 ===========================
+! 2008-06-17 - Gloria CORTI
+ - Remove G4GAGTree as graphic system as it is no longer available in 
+   Geant4 v90r2 (see g4 release notes:
+   http://geant4.web.cern.ch/geant4/support/ReleaseNotes4.9.0.html)
+
+!======================= GiGaVisUI v4r0 2007-03-16 ===========================
+! 2007-01-12 - Gloria Corti
+ - Remove making public includes directory that does not exist
+   . requirements
+ - Replace GiGaFactory with ToolFactory and use Gaudi macros, also make
+   contructor public
+   . GiGaSetVisAttributes.{h,cpp}
+   . GiGaUISession.cpp.{h,cpp}
+   . GiGaVisManager.{h,cpp}
+   . GiGaVisUI_load.cpp
+
+!========================= GiGaVisUI v3r1 2005-10-07 ======================
+! 2005-10-07 - Florence Ranjard
+ - requirements - move setting of DAWN related environment variables 
+                  from Gauss to GiGaVisUI
+
+!========================= GiGaVisUI v3r0 2003-12-10 =====================
+! 2003-12-10 - Florence RANJARD
+ - requirements - remove explicit version numbers
+
+!========================= GiGaVisUI v2r2 2003-09-25 ======================
+! 2003-09-25 - Florence RANJARD
+ - requirements - use G4useVisUI instead of G4VisUI
+ - GiGaVisManager.cpp - remove HepRep
+
+!========================== GiGaVisUI v2r1 2003-07-10 ======================
+! 2003-07-10 - Florence Ranjard
+ - fix for gcc32 (S.Ponce)
+
+!========================= GiGaVisUI v2r0 2003-05-01 ========================
+! 2003-05-01 - Witek Pokorski
+ - requirements - move to GiGa v14r0
+
+!========================= GiGaVisUI v1r3 2003-03-14 ========================
+! 2003-03-10 - Vanya Belyaev
+  - src/GiGaUISession.cpp    fix a bug for Win32 platform 
+
+!========================== GiGaVisUI v1r2 2003-02-17 =======================
+
+! 2003-02-17 - Florence Ranjard
+ - GIGaUIsession.cpp - remove G4UI_NONE, G4UI_TERMINAL, G4UI_GAG
+                       in case of tcsh session create G4UItcsh
+ - GiGaVisManager.cpp - remove G4VIS_NONE
+ 
+! 2003-02-17 - Witek Pokorski
+ - changed version numer for the next Gauss release	
+
+! 2003-02-11 - Ivan BELYAEV
+ - src/GiGaVisManager.cpp  initialize the static accessor to G4VVisManager 
+                           interface
+ 
+ - cmt/requirements        increase the version 
+
+!========================== GiGaVisUI v1r1 2003-02-07 ========================
+! 2003-02-07 - Florence RANJARD
+ - requirements - use GiGa v13r* anf G4VisUI v*
+
+!=========================== GiGaVisUI v1r0 2002-12-11 ========================
+! 2002-12-11 - Witek Pokorski
+  - New package: contains all GiGa visualisation and UI 
+
+!==============================================================================

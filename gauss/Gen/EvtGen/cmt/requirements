@@ -1,0 +1,41 @@
+#============================================================================
+# Created    : 2007-10-31
+# Maintainer : Michal Kreps, Tom Latham, John Back
+#============================================================================
+package     EvtGen
+version     v14r1
+ 
+# Structure, i.e. directories to process. 
+#============================================================================
+branches    cmt src doc EvtGen EvtGenModels EvtGenBase
+
+# Used packages.
+#============================================================================
+use         GaudiPolicy  v*
+use         CLHEP        v*  LCG_Interfaces
+use         GENSER       v*  Gen
+use         HepMC        v*  LCG_Interfaces
+use         photospp     v*  LCG_GeneratorsInterfaces
+use         tauolapp     v*  LCG_GeneratorsInterfaces
+use         pythia8      v*  LCG_GeneratorsInterfaces
+
+include_dirs  $(EVTGENROOT) 
+
+# Linker library building rule
+#============================================================================
+library       EvtGen *.cpp *.F
+
+macro_append EvtGen_pp_fflags "" WIN32 "/DWIN32"
+macro_append EvtGen_cppflags "-DEVTSTANDALONE"
+
+# define library link options
+#============================================================================
+apply_pattern linker_library  library=EvtGen
+apply_pattern linker_stamps   library=EvtGen
+
+
+# do not build on windows
+#============================================================================
+apply_pattern disable_package_on platform=target-winxp
+
+

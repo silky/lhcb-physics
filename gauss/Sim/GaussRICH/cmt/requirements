@@ -1,0 +1,65 @@
+#============================================================================
+# Created    : 2002-12-12
+# Maintainer : Sajan Easo
+#============================================================================
+package GaussRICH
+version v14r2p2
+
+# Structure, i.e. directories to process. 
+#============================================================================
+branches          cmt src doc options
+
+# Used packages. 
+#============================================================================
+use GaussTools    v*   Sim
+use AIDA          v*   LCG_Interfaces
+use MCEvent       v*   Event
+use RichKernel    v*   Rich
+use RichDet       v*   Det
+use Relations     v*   Kernel
+
+# CRJ : Needed for Linker algs. To be removed when they are.
+use  LinkerEvent  v*   Event
+
+# Component library building rule
+#============================================================================
+library          GaussRICHLib ../src/Misc/*.cpp \
+                              ../src/PhysPhotDet/*.cpp \
+                              ../src/srcG4/*.cc   \
+                              ../src/SensDet/*.cpp  
+                           
+                                                     
+
+library          GaussRICH    ../src/*.cpp             \
+                              ../src/PhysProcess/*.cpp \
+                              ../src/RichAnalysis/*.cpp \
+                              ../src/RichAction/*.cpp \
+                              ../src/Assoc/*.cpp
+
+# Includes used not only internally but exported for GaussCherenkov use
+#============================================================================
+apply_pattern install_more_includes more=GaussRICH
+        
+# define component library link options
+#============================================================================
+apply_pattern    component_library library=GaussRICH
+apply_pattern    linker_library    library=GaussRICHLib
+
+# define options directory
+#============================================================================
+apply_pattern packageOpts
+
+# special linking for genConf (see GaudiTools)
+#============================================================================
+private
+apply_pattern use_genconf_helper_lib pkg=GaussTools
+
+private 
+include_dirs     $(GAUSSRICHROOT) \
+                 $(GAUSSRICHROOT)/src/SensDet \
+                 $(GAUSSRICHROOT)/src/PhysProcess \
+                 $(GAUSSRICHROOT)/src/RichAction \
+                 $(GAUSSRICHROOT)/src/Misc \
+                 $(GAUSSRICHROOT)/src/PhysPhotDet \
+                 $(GAUSSRICHROOT)/src/RichAnalysis \
+                 $(GAUSSRICHROOT)/src/srcG4

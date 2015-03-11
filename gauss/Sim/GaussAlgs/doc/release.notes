@@ -1,0 +1,292 @@
+! -----------------------------------------------------------------------------
+! Package     : Sim/GaussAlgs
+! Purpose     : General Gauss algorithms
+! Responsible : G.Corti
+! -----------------------------------------------------------------------------
+
+!======================= GaussAlgs v8r0p1 2015-01-16 ==========================
+! 2014-11-26 - Gloria Corti
+ - Fix warnings when compiling with --pedantic
+
+! 2014-11-19 - Marco Clemencic
+ - Updated CMake configuration
+
+!======================== GaussAlgs v8r0 2014-02-02 ===========================
+! 2013-12-20 - Marco Clemencic
+ - Removed obsolete file (not working with Gaudi >= v25).
+
+!======================= GaussAlgs v7r0p1 2013-10-23 ==========================
+! 2013-09-23 - Marco Clemencic
+ - Added CMake configuration file.
+
+!======================== GaussAlgs v7r0 2013-06-27 ===========================
+! 2013-05-08 - Paul Szczypka
+ - commented out SL hitsTracker line such that it isn't run by default.
+
+! 2013-05-02 - Paul Szczypka
+ - Added SL hit information.
+
+! 2013-05-01 - Patrick Robbe
+ - GenInit.cpp: set to 0 the event type of the GenHeader when creating it.
+   It will be filled to the correct value then in Generators/Generation.
+
+!======================== GaussAlgs v6r1 2012-10-19 ===========================
+! 2012-09-27 - Sajan Easo
+ -Added UT detector paths in GiGaGetHitsAlg
+
+! 2012-09-26 - Sajan Easo
+ -Added FT detector paths in GiGaGetHitsAlg
+
+! 2012-08-30 - Paul Szczypka
+ - Remove confusing info() relating to spillover slots, restrict to main slot
+ - Seting of beam parameters now uses private createBeam var as switch
+   . src/GenInit.cpp
+
+!======================== GaussAlgs v6r0 2012-07-23 ===========================
+! 2012-07-23 - Gloria Corti
+ - Adapt to LHCb::ParticlePropertySvc instead of the one from Gaudi
+   . src/PrintEventAlg.{h,cpp}
+
+!======================== GaussAlgs v5r0 2012-05-14 ===========================
+! 2012-05-10 - Gloria Corti
+ - Fix run time problem with finding of ParticlePropertySvc that in Gaudi
+   v23 is in the Gaudi:: namespace.
+
+! 2012-03-22 - Marco Cattaneo
+ - GenInit.cpp, SimInit.cpp: do not add the random seeds to the Gen/MCHeader,
+   following removal of ProcessHeader::m_randomSeeds
+ - Replace endreq by endmsg
+
+!======================== GaussAlgs v4r2 2011-11-24 ===========================
+! 2011-11-24 - Gloria Corti
+ - GenInit.cpp: add printout of a few calculated quantities from the beam
+   parameters
+   
+! 2011-11-23 - Patrick Robbe 
+ - GenInit.cpp: print out the beam parameter values in the initialisation
+
+!======================== GaussAlgs v4r1 2011-08-25 ===========================
+! 2011-08-25 - Gloria Corti
+ - Fix problem causing GenInit to crash for spill-over events by introducing
+   'createBeam' option to make the static class to pass at initialization.
+   This needs to be set to true for the main event and left to false for the
+   spill-over. The delete is also done based on the property. Spill-over do 
+   do put a new object in the TES but refer to the main event.
+   . GenInit.{h,cpp} 
+
+!======================== GaussAlgs v4r0 2011-07-24 ===========================
+! 2011-05-29 - Patrick Robbe
+ - GenInit.h/.cpp: store beam information retrieved from option in the
+   event model class BeamParameters
+
+!======================== GaussAlgs v3r4 2009-04-06 ===========================
+! 2009-03-26 - Patrick Robbe
+ - GenInit.h/.cpp and SimInit.h/.cpp: 
+     . add possibility to specify location of GenHeader by job option
+
+!======================= GaussAlgs v3r3p1 2008-08-04 ==========================
+! 2009-01-26 - Chris Jones
+ - Suppress info() message for RICH extended information.
+
+!======================== GaussAlgs v3r3 2008-08-04 ===========================
+! 2008-08-04 - Gloria CORTI
+ - Fix compilation errors due to move of include IGenericTool from LHCbKernel
+   (LHCB v25r0) to GaudiAlg (Gaudi v20r2)
+   . GenInit.cpp
+   . SimInit.cpp
+
+!======================== GaussAlgs v3r2 2008-05-07 ===========================
+! 2008-05-07 - Gloria CORTI
+ - Change printout of number of hits from info() to debug() to reduce 
+   log file during production
+   . GiGaGetHitsAlg.cpp
+
+ 2008-04-10 - Gloria CORTI
+ - Remove obsolete GaussAlgs_load.cpp
+
+!======================== GaussAlgs v3r1 2007-12-07 ===========================
+! 2007-11-21 - Gloria Corti
+ - In case of failure of Giga->retrieveEvent return failure of algorithm,
+   since inside an exception of some type has likely been thrown
+   . GiGaFlushAlgorithm.cpp
+   . GiGaCheckEventStatus.cpp
+
+! 2007-11-19 - Gloria Corti
+ - Check status code from Giga->retrieveEvent, in case of an exception 
+   caught by GiGa that could have serious failure on G4 event internally.
+   In case of failure set filterPassed false so that the event is not processed
+   further in the simulation phase and not written out.
+   . GiGaFlushAlgorithm.cpp
+   . GiGaCheckEventStatus.cpp
+
+!======================== GaussAlgs v3r0 2007-07-03 ===========================
+! 2007-07-03 - Gloria Corti
+ - Fill in MCHeader the CondDB tags used for the job (requires LHCb v22r6)
+   Not compatible with Gauss v25 series
+   . SimInit.cpp 
+
+!===================== GaussAlgs v2r4 2007-02-08 =========================
+ 2007-02-08 - Gloria Corti
+ - Re-introduce include of GaudiKernel/MsgStream.h otherwise it does not
+   compile with Gaudi v18
+   . GiGaFlushAlgorithm.cpp
+
+! 2007-01-12 - Gloria Corti
+ - update code to cope with Gaudi v19r0 (compatible with v18 as well):
+   use Gaudi macro for factories, constructors are public (remove friend
+   factory), some clean up:
+   . PrintEventAlg.{h,cpp} 
+   . GiGaGetEventAlg.{h,cpp}
+   . GiGaFlushAlgorithm.{h,cpp}
+   . GiGaCheckEventStatus.cpp
+
+!===================== GaussAlgs v2r3 2006-05-02  =========================
+! 2006-05-02 - Gloria CORTI
+ - Fill vector of random numbers in MCHeader
+   . src/SimInit.cpp
+
+!===================== GaussAlgs v2r2 2006-04-12  =========================
+! 2006-04-12 - Gloria CORTI
+ - Clean up code and adapt better to debugging new event model MCTruth
+   structure
+   . src/PrintEventAlg.cpp
+
+!===================== GaussAlgs v2r1 2006-04-04  =========================
+! 2006-04-04 - Gloria CORTI
+ - Introduce use of Boost no longer taken from GaudiAlgs
+
+!===================== GaussAlgs v2r0 2006-02-16  =========================
+! 2006-02-16 - Gloria CORTI
+ - src/GenInit.{h,cpp}
+   src/SimInit.{h,cpp}
+   . Adapt to changes in LbAppInit and remove use of IRndmTool
+   . set vector of seed in {Gen,MC}Header
+ - src/SimInit.{h,cpp}
+   . Introduce use of DetectorDataSvc to access eventTime and fill
+     corresponding entry in MCHeader
+ - src/GiGaGetHitsAlg.cpp
+   . change verbose printint of Rich extened info
+
+! 2006-01-27 - Gloria CORTI
+ - src/GenInit.cpp, SimInit.cpp
+   . change output level in execute to verbose
+ - src/GiGaGetHitsAlg.{h,cpp}
+   . change to read separately as from new event model TT and IT hits
+     and change name to property for PuVeto
+
+! 2006-01-18 - Gloria CORTI
+ - src/GenInit.{h,cpp}, SimInit.{h,cpp} 
+   . New algorithms derived from LbAppInit to initialize respectively 
+     Generator and Simulation phases of Gauss. 
+     They also create and partially fill the corresponding GenHeader and
+     MCHeader.
+
+! 2006-01-16 - Gloria CORTI
+ - src/GiGaGetEventAlg.cpp
+   src/GiGaGetHitsAlg.cpp
+   src/PrintEventAlg.cpp
+   . Adapt to new Event Model in LHCB v20r0 by introducing LHCb namespace
+   . Use new macro for algorithm factory declaration (GAUDI v18r0)
+ - src/GiGaGetHitsAlg.{h,cpp}
+   . Remove special treatment for Velo, PuVeto and Muon hits: now can use
+     generic method with correct detector as argument.
+     Adapt to split of containers for TT and IT.
+ - src/PrintEventAlg.h
+   . Remove use of MsgStream, use instead predefined methods 
+
+! 2006-01-16 - Gloria CORTI
+ - src/GeneratorToG4.{h,cpp} 
+   src/G4HepMCToMCTruth.{h,cpp}
+   . MOVED to NEW package GaussKine that contains code for transformation
+     from LHCb Event model kinematic classes to Geant4 and vice versa
+ - src/GaussAlgs_load.cpp
+   . remove algorithms GeneratorToG4 and G4HepMCToMCTruth
+
+!===================== GaussAlgs v1r8 2005-12-16  =========================
+! 2005-12-16 - Gloria CORTI
+ - src/GiGaGetHitsAlg.cpp
+   . set empty location as default for properties of MC Rich extra classes
+     since they are not present in normal production
+
+!============================ GaussAlgs v1r7 ==============================
+! 2005-10-30 - Gloria CORTI
+ - src/G4HepMCToMCTruth.{h,cpp}
+   . new algorithm to fill MCParticles/MCVertices from HepMC as filled 
+     during G4 tracking (initial version from Witek Pokorski, small
+     modifications to follow new GaudiAlg conventions)
+ - src/GaussAlgs_load.cpp
+   . add declaration of G4HepMCToMCTruth algorithm
+
+! 2005-10-25 - Gloria CORTI
+ - src/GiGaGetHitsAlg.{h,cpp}
+   . add possible additional location for MCHits printing controlled by 
+     ExtraHits property (def="")
+ - src/GeneratorToG4.{h,cpp}
+   . new algorithm to fill G4Primary event with HepMC content from generator.
+     Used instead of combination of "GiGaInputStream/Kine" and 
+     "GiGaHepMCCnv" to provide generator events to Geant4.
+     The algorithmic choice to pass particles is the same as in converter.
+ - src/GaussAlgs_load.cpp
+   . add declaration of GeneratorToG4 algorithm
+
+!============================ GaussAlgs v1r6 ==============================
+! 2005-04-22 - Gloria Corti
+ - src/GaussInitialisation.{h,cpp}
+   src/GaussAlgs_load.cpp
+   . remove obsolete file from library, replaced by LbAppInit in LHCbKernel
+
+! 2005-04-20 - Gloria Corti
+ - src/GiGaCheckEventStatus.{h,cpp}
+   . new algorithm that check if G4Event has been aborted and setFilterPassed
+     to false if that is the case. Allows to skip aborted events in successive
+     filtering stages 
+ - src/GiGaGetHitsAlg.cpp
+   . add protection to skip access to data if address in list is "".
+
+!============================ GaussAlgs v1r5 ==============================
+! 2005-03-07 - Gloria Corti
+ - src/GiGaGetHitsAlg.cpp
+   . adapt to modification in MCRichHit
+
+!==================== GaussAlgs v1r4 2005-02-02 ===========================
+! 2005-02-02 - Gloria Corti
+ - src/GiGaGetEventAlg.cpp
+   . introduce statistical count of particles and vertices multiplicity
+ - src/GiGaGetHitsAlg.{h,cpp}
+   . adapt to GaudiAlgorithm
+   . introduce statistical counts of hits separately for each detector
+   . have more details in verbose mode for hits
+
+!===================== GaussAlgs v1r3 2004-11-22 =============================
+! 2004-11-22 - Gloria CORTI
+ - src/GiGaFlushAlgorithm.cpp
+	 . use explicit retrieveEvent() method and put dump of G4 Event in 
+     verbose mode
+
+!===================== GaussAlgs v1r2 2004-11-16 =============================
+! 2004-11-16 - Gloria CORTI
+ - src/GaussInitialization.{h,cpp}
+   . introduce code provided by Marco Cattaneo to set three seeds in random
+     number generator to be able to use more then 24 bits
+     It is also possible to throw a certain number of random numbers before
+     beginning the generation (control by option SkipFactor, default=0).
+     It is possible to use previous behaviour by setting only one seed (i.e.
+     using 24 bits) via options (SingleSeed, default=false)
+
+!===================== GaussAlgs v1r1 2004-04-29 =============================
+! 2004-04-29 - Gloria CORTI
+ - src/GiGaGetHitsAlg.{h,cpp}
+   . introduce new feature to print only sum of muon hits instead of one 
+     line for each container. The behaviour can cbe controlled via an option
+     if necessary to print all container contents (MuonSummaryOnly, def=true)
+
+!===================== GaussAlgs v1r0 ========================================
+! 2004-02-19 - Vanya BELYAEV
+ - new package with 4 algorithms from Sim/GaussTools :
+      GiGaFlushAlgorithm
+      GetGiGaHitsAlg 
+      PrintEventAlg  
+      GaussInitialisation 
+
+!==============================================================================
+

@@ -1,0 +1,38 @@
+# $Id: requirements,v 1.81 2009-10-15 12:19:45 silviam Exp $ 
+#============================================================================
+# Created    : 2006-07-27
+# Maintainer : Gloria CORTI
+#============================================================================
+package          GiGaCnv 
+version          v21r0p1
+
+#============================================================================
+# Structure. 
+#============================================================================
+branches         cmt src doc GiGaCnv 
+
+#============================================================================
+# Used packages
+#============================================================================
+use              GenEvent     v*     Event
+use              MCEvent      v*     Event
+use              DetDesc      v*     Det        
+   
+use              GiGa         v*     Sim 
+use              ClhepTools   v*     Tools
+
+# ============== standard includes ============================================
+apply_pattern install_more_includes more=GiGaCnv
+
+#============================================================================
+# Linker and Component library building rule
+#============================================================================
+library          GiGaCnvLib            Lib/*.cpp
+library          GiGaCnv               component/*.cpp 	        
+
+#============================================================================
+# define linker and component library link options
+#============================================================================
+apply_pattern    component_library library=GiGaCnv 
+apply_pattern    linker_library    library=GiGaCnvLib 
+
